@@ -123,39 +123,6 @@ HOSTNAME=$(hostname)
 export INIT_HOME=${USER_HOME}/init
 
 ########################
-# Package Install
-########################
-
-info ">>> Installing packages"
-
-if [ -n "$(command -v eopkg)" ]; then
-  debug ">>> Running Solus OS"
-  export OS="solus"
-  export PKG="eopkg"
-  ./packages/solus.sh
-elif [ -n "$(command -v apt)" ]; then
-  debug ">>> Running Debian Base OS"
-  export OS="debian"
-  export PKG="apt"
-  ./packages/deb.sh
-elif [ -n "$(command -v pacman)" ]; then
-  debug ">>> Running Arch Based OS"
-  export OS="arch"
-  export PKG="pacman"
-  ./packages/arch.sh
-elif [ -n "$(command -v dnf)" ]; then
-  debug ">>> Running Fedora Based OS"
-  export OS="fedora"
-  export PKG="dnf"
-  ./packages/fedora.sh
-fi
-
-info ">>> Installing Snaps"
-
-# Uses exports above to figure out how to install snapcraft if necessary
-./packages/snap.sh
-
-########################
 # Setup SSH Keys
 ########################
 
@@ -212,6 +179,39 @@ else
     git clone ${setup_git}
     info ">>> Solus Setup Files Cloned"
 fi
+
+########################
+# Package Install
+########################
+
+info ">>> Installing packages"
+
+if [ -n "$(command -v eopkg)" ]; then
+  debug ">>> Running Solus OS"
+  export OS="solus"
+  export PKG="eopkg"
+  ./packages/solus.sh
+elif [ -n "$(command -v apt)" ]; then
+  debug ">>> Running Debian Base OS"
+  export OS="debian"
+  export PKG="apt"
+  ./packages/deb.sh
+elif [ -n "$(command -v pacman)" ]; then
+  debug ">>> Running Arch Based OS"
+  export OS="arch"
+  export PKG="pacman"
+  ./packages/arch.sh
+elif [ -n "$(command -v dnf)" ]; then
+  debug ">>> Running Fedora Based OS"
+  export OS="fedora"
+  export PKG="dnf"
+  ./packages/fedora.sh
+fi
+
+info ">>> Installing Snaps"
+
+# Uses exports above to figure out how to install snapcraft if necessary
+./packages/snap.sh
 
 ########################
 # Install Hashi Tools
