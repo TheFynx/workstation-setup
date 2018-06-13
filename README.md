@@ -17,7 +17,7 @@ Just download and run locally
 - For custom user or group `config.sh -u username -g groupname`
 - Use the `-?` flag to get the latest Options
 
-  ```bash
+```bash
   >>> Usage:
   -u | Pass Customer User - config.sh -u USER
   -g | Pass Customer Group - config.sh -g GROUP
