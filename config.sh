@@ -190,22 +190,22 @@ if [ -n "$(command -v eopkg)" ]; then
   debug ">>> Running Solus OS"
   export OS="solus"
   export PKG="eopkg"
-  ./packages/solus.sh
+  bash ${INIT_HOME}/workstation-setup/packages/solus.sh
 elif [ -n "$(command -v apt)" ]; then
   debug ">>> Running Debian Base OS"
   export OS="debian"
   export PKG="apt"
-  ./packages/deb.sh
+  bash ${INIT_HOME}/workstation-setup/packages/deb.sh
 elif [ -n "$(command -v pacman)" ]; then
   debug ">>> Running Arch Based OS"
   export OS="arch"
   export PKG="pacman"
-  ./packages/arch.sh
+  bash ${INIT_HOME}/workstation-setup/packages/arch.sh
 elif [ -n "$(command -v dnf)" ]; then
   debug ">>> Running Fedora Based OS"
   export OS="fedora"
   export PKG="dnf"
-  ./packages/fedora.sh
+  bash ${INIT_HOME}/workstation-setup/packages/fedora.sh
 fi
 
 info ">>> Installing Snaps"
