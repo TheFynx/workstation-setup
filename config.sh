@@ -115,22 +115,22 @@ function setos () {
   if [ -n "$(command -v eopkg)" ]; then
     export OS="solus"
     export PKG="eopkg"
-    export PKG_INSTALL="eopkg it -y "
+    export PKG_INSTALL="sudo eopkg it -y "
     export PACKAGE_SCRIPT="bash ${INIT_HOME}/workstation-setup/packages/solus.sh"
   elif [ -n "$(command -v apt)" ]; then
     export OS="debian"
     export PKG="apt"
-    export PKG_INSTALL="apt install -y "
+    export PKG_INSTALL="sudo apt install -y "
     export PACKAGE_SCRIPT="bash ${INIT_HOME}/workstation-setup/packages/deb.sh"
   elif [ -n "$(command -v pacman)" ]; then
     export OS="arch"
     export PKG="pacman"
-    export PKG_INSTALL="pacman -Sy "
+    export PKG_INSTALL="sudo pacman -Sy "
     export PACKAGE_SCRIPT="bash ${INIT_HOME}/workstation-setup/packages/arch.sh"
   elif [ -n "$(command -v dnf)" ]; then
     export OS="fedora"
     export PKG="dnf"
-    export PKG_INSTALL="dnf install -y "
+    export PKG_INSTALL="sudo dnf install -y "
     export PACKAGE_SCRIPT="bash ${INIT_HOME}/workstation-setup/packages/fedora.sh"
   fi
 }
@@ -153,7 +153,7 @@ export INIT_HOME=${USER_HOME}/init
 
 setos
 if [ -z "$(command -v git)" ]; then
-  sudo $PKG_INSTALL git
+  $PKG_INSTALL git
 fi
 
 ########################
