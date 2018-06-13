@@ -72,7 +72,8 @@ BULLETTRAIN_STATUS_EXIT_SHOW=true
 
 BULLETTRAIN_PROMPT_ORDER=(
   time
-  context
+  status
+  dir
   git
   screen
   perl

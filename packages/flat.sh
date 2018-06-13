@@ -16,6 +16,6 @@ if [ -z "$(command -v flatpak)" ]; then
 fi
 
 if [ -n "$(command -v flatpak)" ]; then
-    flatpak install flathub us.zoom.Zoom
-    flatpak install flathub com.visualstudio.code
+    flatpak install -y flathub us.zoom.Zoom
+    flatpak install -y flathub com.visualstudio.code
 fi

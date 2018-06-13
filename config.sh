@@ -184,8 +184,8 @@ ${PACKAGE_SCRIPT}
 info ">>> Installing Snaps"
 ${INIT_HOME}/workstation-setup/packages/snap.sh
 
-#info ">>> Installing Flatpaks"
-#${INIT_HOME}/workstation-setup/packages/flat.sh
+info ">>> Installing Flatpaks"
+${INIT_HOME}/workstation-setup/packages/flat.sh
 
 ########################
 # Setup SSH Keys
