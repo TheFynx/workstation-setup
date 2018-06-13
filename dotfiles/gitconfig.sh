@@ -1,3 +1,4 @@
+cat > "${HOME}/.gitconfig" << 'EOF'
 [user]
     name = Levi Smith
     email = levi@fynx.me
@@ -51,3 +52,5 @@
     amend = commit --amend -C HEAD
     l = log --graph --pretty=format:'%Cgreen%h%Cblue%d %C(white)%s %Cblue%an %C(white)[%ar]'
     la = log --all --graph --pretty=format:'%Cgreen%h%Cblue%d %C(white)%s %Cblue%an %C(white)[%ar]'
+
+EOF

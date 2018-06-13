@@ -1,4 +1,6 @@
-cat > "" << EOF
+mkdir -p ${HOME}/.config/terminator/
+
+cat > "${HOME}/.config/terminator/config" << EOF
 [global_config]
   borderless = True
   custom_url_handler = firefox

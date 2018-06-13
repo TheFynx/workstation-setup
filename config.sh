@@ -44,7 +44,7 @@ else
 fi
 
 # Set magic variables for current file, directory, os, etc.
-__dir="$(cd "$(dirname "${BASH_SOURCE[${__b3bp_tmp_source_idx:-0}]}")" && pwd)"
+export __dir="$(cd "$(dirname "${BASH_SOURCE[${__b3bp_tmp_source_idx:-0}]}")" && pwd)"
 __file="${__dir}/$(basename "${BASH_SOURCE[${__b3bp_tmp_source_idx:-0}]}")"
 __base="$(basename "${__file}" .sh)"
 __invocation="$(printf %q "${__file}")$((($#)) && printf ' %q' "$@")"
@@ -111,9 +111,6 @@ USER='levi'
 GROUP='levi'
 PACKER_VERSION='1.2.4'
 TERRAFORM_VERSION='0.11.7'
-RUBY_VERSION='2.5.1'
-PYTHON_VERSION='3.6.5'
-ATOM_USER='thefynx'
 
 print_help() {
   echo ">>> Usage:"
@@ -121,13 +118,10 @@ print_help() {
   echo "-g | Pass Customer Group - install.sh -g GROUP - Default: ${GROUP}"
   echo "-p | Pass Packer Version to Install - install.sh -p 1.2.2 - Default: ${PACKER_VERSION}"
   echo "-t | Pass Terraform Version to Install - install.sh -t 0.11.6 - Default: ${TERRAFORM_VERSION}"
-  echo "-r | Pass Ruby Version to Set for RBENV - install.sh -r 2.5.0 - Default: ${RUBY_VERSION}"
-  echo "-y | Pass Python Version to Set for PYENV - install.sh -r 3.5.0 - Default: ${PYTHON_VERSION}"
-  echo "-a | Pass Atom User to installed starred items from - install.sh -a USERNAME - Default: ${ATOM_USER}"
   echo "-? | List this help menu"
 }
 
-while getopts u:g:p:t:r:y:o:a:q:? option
+while getopts u:g:p:t:? option
 do
  case "${option}"
  in
@@ -135,10 +129,6 @@ do
  g) GROUP=${OPTARG};;
  p) PACKER_VERSION=${OPTARG};;
  t) TERRAFORM_VERSION=${OPTARG};;
- r) RUBY_VERSION=${OPTARG};;
- y) PYTHON_VERSION=${OPTARG};;
- a) ATOM_USER=${OPTARG};;
- q) QUICK=${OPTARG};;
  ?) print_help; exit 2;;
  esac
 done
@@ -160,34 +150,32 @@ HOSTNAME=$(hostname)
 
 info ">>> Installing packages"
 
-sudo eopkg it -y \
-  clipit \
-  docker \
-  docker-compose \
-  terminator \
-  exa \
-  xclip \
-  vscode \
-  lynx \
-  pandoc \
-  neovim \
-  golang \
-  python3 \
-  pip \
-  ruby \
-  zsh \
-  insomnia \
-  vlc
+if [ -n "$(command -v eopkg)" ]; then
+  debug ">>> Running Solus OS"
+  export OS="solus"
+  export PKG="eopkg"
+  ./packages/solus.sh
+elif [ -n "$(command -v apt)" ]; then
+  debug ">>> Running Debian Base OS"
+  export OS="debian"
+  export PKG="apt"
+  ./packages/deb.sh
+elif [ -n "$(command -v pacman)" ]; then
+  debug ">>> Running Arch Based OS"
+  export OS="arch"
+  export PKG="pacman"
+  ./packages/arch.sh
+elif [ -n "$(command -v dnf)" ]; then
+  debug ">>> Running Fedora Based OS"
+  export OS="fedora"
+  export PKG="dnf"
+  ./packages/fedora.sh
+fi
 
 info ">>> Installing Snaps"
 
-sudo snap install \
-  postman \
-  wavebox \
-  slack \
-  google-play-music-desktop-player \
-  aws-cli \
-
+# Uses exports above to figure out how to install snapcraft if necessary
+./packages/snap.sh
 
 ########################
 # Setup SSH Keys
@@ -232,7 +220,7 @@ if [ ! -f "${USER_HOME}/.ssh/id_rsa" ]; then
 fi
 
 ########################
-# Clone Repo
+# Clone Setup Repo
 ########################
 
 mkdir -p ${USER_HOME}/init
@@ -279,33 +267,33 @@ cd .. &&\
 rm -rf fonts
 
 ########################
-# Install dotfiles
-########################
-
-info ">>> Configuring dotFiles"
-
-./dotfiles/neo.sh ${__dir}
-./dotfiles/aliases.sh
-./dotfiles/bash_profile.sh
-./dotfiles/bashrc.sh
-./dotfiles/exports.sh
-./dotfiles/functions.sh
-./dotfiles/gitconfig.sh
-./dotfiles/gitignore.sh
-./dotfiles/path.sh
-./dotfiles/profile.sh
-./dotfiles/terminator.sh
-
-########################
 # Install Oh-My-ZSH
 ########################
 
 info ">>> Installing Oh-My-ZSH"
 
+cd ${HOME}
+
 git clone https://github.com/robbyrussell/oh-my-zsh.git ${USER_HOME}/.oh-my-zsh
 curl http://raw.github.com/caiogondim/bullet-train-oh-my-zsh-theme/master/bullet-train.zsh-theme -o ~/.oh-my-zsh/custom/bullet-train.zsh-theme
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-./dotfiles/zshrc.sh
+
+########################
+# Install dotfiles
+########################
+
+info ">>> Configuring dotFiles"
+
+cd ${__dir}/dotfiles
+
+for dot in *.sh; do
+  bash $dot || warning "${dot} failed to run"
+done
+
+########################
+# Install Change Shell
+########################
+
 chsh -s /bin/zsh
 
 ########################

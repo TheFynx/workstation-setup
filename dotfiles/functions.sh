@@ -1,3 +1,4 @@
+cat > "${HOME}/.functions" << 'EOF'
 #!/bin/bash
 
 # Cleanup Docker Containers
@@ -68,3 +69,5 @@ kgrep(){
     awk '{print $2}' | \
     xargs kill -9
 }
+
+EOF

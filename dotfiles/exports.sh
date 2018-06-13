@@ -1,3 +1,4 @@
+cat > "${HOME}/.exports" << 'EOF'
 #!/bin/bash
 
 # Make vim the default editor
@@ -25,3 +26,5 @@ export QT_DEVICE_PIXEL_RATIO=2
 
 # Set docker to allow untrusted images
 export DOCKER_CONTENT_TRUST=0
+
+EOF

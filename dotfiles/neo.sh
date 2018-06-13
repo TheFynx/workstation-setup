@@ -1,6 +1,7 @@
 mkdir -p ${HOME}/.config/nvim/modules/
 
-cp -fr ${1}/dotfiles/neo/* ${HOME}/.config/nvim/modules/
+# ${__dir} is exported from config.sh
+cp -fr ${__dir}/dotfiles/neo/* ${HOME}/.config/nvim/modules/
 
 cat > "${HOME}/.config/nvim/init.vim" << EOF
 source $HOME/.config/nvim/modules/init.vim

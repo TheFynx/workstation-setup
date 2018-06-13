@@ -1,3 +1,4 @@
+cat > "${HOME}/.gitignore" << 'EOF'
 # Compiled source #
 ###################
 *.com
@@ -35,3 +36,5 @@
 ehthumbs.db
 Icon?
 Thumbs.db
+
+EOF
