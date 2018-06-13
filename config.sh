@@ -320,6 +320,6 @@ done
 ########################
 
 info ">>> Perfoming Cleanup"
-sudo eopkg rmf -y
+sudo eopkg rmo -y
 
 echo 'please run `chsh -s /bin/zsh` to run oh-my-zsh'
