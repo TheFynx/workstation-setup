@@ -1,5 +1,6 @@
 sudo eopkg it -y \
   clipit \
+  git \
   docker-compose \
   terminator \
   exa \

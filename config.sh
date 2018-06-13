@@ -123,48 +123,6 @@ HOSTNAME=$(hostname)
 export INIT_HOME=${USER_HOME}/init
 
 ########################
-# Setup SSH Keys
-########################
-
-# READ and Ask for GIT keys
-# curl -H "Authorization: token OAUTH-TOKEN" --data '{"title":"test-key","key":"'"$(cat ~/.ssh/id_rsa.pub)"'"}' https://api.github.com/user/keys
-read -p ">>> Client Install: Do you have a secrets file? y/n (default n) " secretAnswer
-
-if [ "${secretAnswer}" == 'y' ]; then
-  read -p ">>> Client Install: Please enter path to secret file to source (i.e. /path/to/creds.sh) " secretPath
-  . ${secretPath}
-
-  if [ ! -f "${USER_HOME}/.ssh/git" ]; then
-    info ">>> Client Install: Generating Git SSH Keys"
-    ssh-keygen -t rsa -N "" -f ${USER_HOME}/.ssh/git
-  fi
-
-  info ">>> Client Install: Uploading Git SSH Keys"
-  if [ -z "$(curl -s -H "Authorization: token ${GH_TOKEN}" https://api.github.com/user/keys | grep "${HOSTNAME}")" ]; then
-    curl -H "Authorization: token ${GH_TOKEN}" --data '{"title":"'"${HOSTNAME}"'","key":"'"$(cat ~/.ssh/git.pub)"'"}' https://api.github.com/user/keys
-  else
-    info ">>> Client Install: Git Key Already Exists"
-  fi
-
-  info ">>> Client Install: Adding SSH Config for Git SSH Key"
-  touch ${USER_HOME}/.ssh/config
-  if [ -z "$(grep 'github' ~/.ssh/config)" ]; then
-    cat > "${USER_HOME}/.ssh/config" << EOF
-Host github.com
-  User git
-  Hostname github.com
-  PreferredAuthentications publickey
-  IdentityFile /home/${USER}/.ssh/git
-EOF
-  fi
-fi
-
-if [ ! -f "${USER_HOME}/.ssh/id_rsa" ]; then
-  info ">>> Generating SSH Keys"
-  ssh-keygen -t rsa -N "" -f ${USER_HOME}/.ssh/id_rsa
-fi
-
-########################
 # Clone Setup Repo
 ########################
 
@@ -212,6 +170,48 @@ info ">>> Installing Snaps"
 
 # Uses exports above to figure out how to install snapcraft if necessary
 ./packages/snap.sh
+
+########################
+# Setup SSH Keys
+########################
+
+# READ and Ask for GIT keys
+# curl -H "Authorization: token OAUTH-TOKEN" --data '{"title":"test-key","key":"'"$(cat ~/.ssh/id_rsa.pub)"'"}' https://api.github.com/user/keys
+read -p ">>> Client Install: Do you have a secrets file? y/n (default n) " secretAnswer
+
+if [ "${secretAnswer}" == 'y' ]; then
+  read -p ">>> Client Install: Please enter path to secret file to source (i.e. /path/to/creds.sh) " secretPath
+  . ${secretPath}
+
+  if [ ! -f "${USER_HOME}/.ssh/git" ]; then
+    info ">>> Client Install: Generating Git SSH Keys"
+    ssh-keygen -t rsa -N "" -f ${USER_HOME}/.ssh/git
+  fi
+
+  info ">>> Client Install: Uploading Git SSH Keys"
+  if [ -z "$(curl -s -H "Authorization: token ${GH_TOKEN}" https://api.github.com/user/keys | grep "${HOSTNAME}")" ]; then
+    curl -H "Authorization: token ${GH_TOKEN}" --data '{"title":"'"${HOSTNAME}"'","key":"'"$(cat ~/.ssh/git.pub)"'"}' https://api.github.com/user/keys
+  else
+    info ">>> Client Install: Git Key Already Exists"
+  fi
+
+  info ">>> Client Install: Adding SSH Config for Git SSH Key"
+  touch ${USER_HOME}/.ssh/config
+  if [ -z "$(grep 'github' ~/.ssh/config)" ]; then
+    cat > "${USER_HOME}/.ssh/config" << EOF
+Host github.com
+  User git
+  Hostname github.com
+  PreferredAuthentications publickey
+  IdentityFile /home/${USER}/.ssh/git
+EOF
+  fi
+fi
+
+if [ ! -f "${USER_HOME}/.ssh/id_rsa" ]; then
+  info ">>> Generating SSH Keys"
+  ssh-keygen -t rsa -N "" -f ${USER_HOME}/.ssh/id_rsa
+fi
 
 ########################
 # Install Hashi Tools
