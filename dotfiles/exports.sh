@@ -1,21 +1,19 @@
 cat > "${HOME}/.exports" << 'EOF'
-#!/bin/bash
-
 # Make vim the default editor
-export EDITOR=$(which nvim);
-export TERMINAL="urxvt";
+export EDITOR=$(which nvim)
+export TERM="xterm-256color"
 
 # Larger bash history (allow 32³ entries; default is 500)
-export HISTSIZE=50000000;
-export HISTFILESIZE=$HISTSIZE;
-export HISTCONTROL=ignoredups;
+export HISTSIZE=50000000
+export HISTFILESIZE=$HISTSIZE
+export HISTCONTROL=ignoredups
 
 # Prefer US English and use UTF-8
-export LANG="en_US.UTF-8";
-export LC_ALL="en_US.UTF-8";
+export LANG="en_US.UTF-8"
+export LC_ALL="en_US.UTF-8"
 
 # Highlight section titles in manual pages
-export LESS_TERMCAP_md="${yellow}";
+export LESS_TERMCAP_md="${yellow}"
 
 export TODOTXT_DEFAULT_ACTION=ls
 
