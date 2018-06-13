@@ -115,22 +115,22 @@ function setos () {
   if [ -n "$(command -v eopkg)" ]; then
     export OS="solus"
     export PKG="eopkg"
-    export PKG_INSTALL="eopkg -it -y"
+    export PKG_INSTALL="eopkg -it -y "
     export PACKAGE_SCRIPT="bash ${INIT_HOME}/workstation-setup/packages/solus.sh"
   elif [ -n "$(command -v apt)" ]; then
     export OS="debian"
     export PKG="apt"
-    export PKG_INSTALL="apt install -y"
+    export PKG_INSTALL="apt install -y "
     export PACKAGE_SCRIPT="bash ${INIT_HOME}/workstation-setup/packages/deb.sh"
   elif [ -n "$(command -v pacman)" ]; then
     export OS="arch"
     export PKG="pacman"
-    export PKG_INSTALL="pacman -Sy"
+    export PKG_INSTALL="pacman -Sy "
     export PACKAGE_SCRIPT="bash ${INIT_HOME}/workstation-setup/packages/arch.sh"
   elif [ -n "$(command -v dnf)" ]; then
     export OS="fedora"
     export PKG="dnf"
-    export PKG_INSTALL="dnf install -y"
+    export PKG_INSTALL="dnf install -y "
     export PACKAGE_SCRIPT="bash ${INIT_HOME}/workstation-setup/packages/fedora.sh"
   fi
 }
@@ -152,7 +152,7 @@ export INIT_HOME=${USER_HOME}/init
 ########################
 
 setos
-$PKG_INSTALL git
+sudo $PKG_INSTALL git
 
 ########################
 # Clone Setup Repo
@@ -180,9 +180,10 @@ debug ">>> Running ${OS} OS"
 bash ${PACKAGE_SCRIPT}
 
 info ">>> Installing Snaps"
+${INIT_HOME}/workstation-setup/dotfiles/packages/snap.sh
 
-# Uses exports above to figure out how to install snapcraft if necessary
-./packages/snap.sh
+info ">>> Installing Flatpaks"
+${INIT_HOME}/workstation-setup/dotfiles/packages/flat.sh
 
 ########################
 # Setup SSH Keys
