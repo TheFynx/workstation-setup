@@ -16,11 +16,11 @@ if [ -n "$(command -v snap)" ]; then
     sudo snap install postman \
         wavebox \
         google-play-music-desktop-player \
-        aws-cli \
         docker \
         insomnia \
         vlc \
         simplenote
     sudo snap install --classic \
-        slack
+        slack \
+        aws-cli
 fi
