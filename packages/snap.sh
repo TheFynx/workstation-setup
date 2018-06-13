@@ -14,14 +14,15 @@ fi
 
 if [ -n "$(command -v snap)" ]; then
     sudo snap install \
-    postman \
-    wavebox \
-    slack \
-    google-play-music-desktop-player \
-    aws-cli \
-    docker \
-    insomnia \
-    vlc \
-    simplenote \
-    slack
+        postman \
+        wavebox \
+        slack \
+        google-play-music-desktop-player \
+        aws-cli \
+        docker \
+        insomnia \
+        vlc \
+        simplenote
+    sudo snap install --clasic \
+        slack
 fi
