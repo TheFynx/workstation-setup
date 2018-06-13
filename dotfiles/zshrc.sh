@@ -68,6 +68,25 @@ plugins=(
   zsh-autosuggestions
 )
 
+BULLETTRAIN_STATUS_EXIT_SHOW=true
+
+BULLETTRAIN_PROMPT_ORDER=(
+  time
+  context
+  git
+  screen
+  perl
+  ruby
+  virtualenv
+  nvm
+  aws
+  go
+  rust
+  elixir
+  hg
+  cmd_exec_time
+)
+
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
