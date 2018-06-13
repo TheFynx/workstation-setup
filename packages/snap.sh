@@ -13,10 +13,8 @@ if [ -z "$(command -v snap)" ]; then
 fi
 
 if [ -n "$(command -v snap)" ]; then
-    sudo snap install \
-        postman \
+    sudo snap install postman \
         wavebox \
-        slack \
         google-play-music-desktop-player \
         aws-cli \
         docker \
