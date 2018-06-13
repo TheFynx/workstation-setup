@@ -110,6 +110,31 @@ do
  esac
 done
 
+
+function setos () {
+  if [ -n "$(command -v eopkg)" ]; then
+    export OS="solus"
+    export PKG="eopkg"
+    export PKG_INSTALL="eopkg -it -y"
+    export PACKAGE_SCRIPT="bash ${INIT_HOME}/workstation-setup/packages/solus.sh"
+  elif [ -n "$(command -v apt)" ]; then
+    export OS="debian"
+    export PKG="apt"
+    export PKG_INSTALL="apt install -y"
+    export PACKAGE_SCRIPT="bash ${INIT_HOME}/workstation-setup/packages/deb.sh"
+  elif [ -n "$(command -v pacman)" ]; then
+    export OS="arch"
+    export PKG="pacman"
+    export PKG_INSTALL="pacman -Sy"
+    export PACKAGE_SCRIPT="bash ${INIT_HOME}/workstation-setup/packages/arch.sh"
+  elif [ -n "$(command -v dnf)" ]; then
+    export OS="fedora"
+    export PKG="dnf"
+    export PKG_INSTALL="dnf install -y"
+    export PACKAGE_SCRIPT="bash ${INIT_HOME}/workstation-setup/packages/fedora.sh"
+  fi
+}
+
 info ">>> Solus Setup: Initiating"
 
 ########################
@@ -121,6 +146,13 @@ setup_git="https://github.com/TheFynx/workstation-setup.git"
 USER_HOME="/home/${USER}"
 HOSTNAME=$(hostname)
 export INIT_HOME=${USER_HOME}/init
+
+########################
+# Get PreReqs
+########################
+
+setos
+$PKG_INSTALL git
 
 ########################
 # Clone Setup Repo
@@ -144,27 +176,8 @@ fi
 
 info ">>> Installing packages"
 
-if [ -n "$(command -v eopkg)" ]; then
-  debug ">>> Running Solus OS"
-  export OS="solus"
-  export PKG="eopkg"
-  bash ${INIT_HOME}/workstation-setup/packages/solus.sh
-elif [ -n "$(command -v apt)" ]; then
-  debug ">>> Running Debian Base OS"
-  export OS="debian"
-  export PKG="apt"
-  bash ${INIT_HOME}/workstation-setup/packages/deb.sh
-elif [ -n "$(command -v pacman)" ]; then
-  debug ">>> Running Arch Based OS"
-  export OS="arch"
-  export PKG="pacman"
-  bash ${INIT_HOME}/workstation-setup/packages/arch.sh
-elif [ -n "$(command -v dnf)" ]; then
-  debug ">>> Running Fedora Based OS"
-  export OS="fedora"
-  export PKG="dnf"
-  bash ${INIT_HOME}/workstation-setup/packages/fedora.sh
-fi
+debug ">>> Running ${OS} OS"
+bash ${PACKAGE_SCRIPT}
 
 info ">>> Installing Snaps"
 
