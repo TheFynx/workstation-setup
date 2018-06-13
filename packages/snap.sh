@@ -23,6 +23,6 @@ if [ -n "$(command -v snap)" ]; then
         insomnia \
         vlc \
         simplenote
-    sudo snap install --clasic \
+    sudo snap install --classic \
         slack
 fi
