@@ -20,7 +20,7 @@ if [ -n "$(command -v snap)" ]; then
         insomnia \
         vlc \
         simplenote
-    sudo snap install --classic \
-        slack \
-        aws-cli
+
+    sudo snap install --classic slack
+    sudo snap install --classic aws-cli
 fi
