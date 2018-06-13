@@ -179,7 +179,7 @@ fi
 info ">>> Installing packages"
 
 debug ">>> Running ${OS} OS"
-bash ${PACKAGE_SCRIPT}
+${PACKAGE_SCRIPT}
 
 info ">>> Installing Snaps"
 ${INIT_HOME}/workstation-setup/dotfiles/packages/snap.sh
