@@ -261,7 +261,7 @@ fi
 
 if [ -z "$(command -v terraform)" ]; then
   install_terraform
-elif [ "$(terraform -version)" != *"${TERRAFORM_VERSION}"* ]; then
+elif [ "$(terraform -version)" != "Terraform v${TERRAFORM_VERSION}" ]; then
   sudo rm -f /usr/bin/terraform
   install_terraform
 else
@@ -296,7 +296,7 @@ cd ${HOME}
 
 if [ ! -d "${USER_HOME}/.oh-my-zsh" ]; then
   sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-  curl http://raw.github.com/caiogondim/bullet-train-oh-my-zsh-theme/master/bullet-train.zsh-theme -o ~/.oh-my-zsh/custom/themes/bullet-train.zsh-theme
+  curl https://raw.githubusercontent.com/caiogondim/bullet-train-oh-my-zsh-theme/master/bullet-train.zsh-theme -o ~/.oh-my-zsh/custom/themes/bullet-train.zsh-theme
   git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 else
   info ">>> Oh-My-ZSH Already Installed"
