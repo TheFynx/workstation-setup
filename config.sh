@@ -26,29 +26,6 @@ set -o pipefail
 # Turn on traces, useful while debugging but commented out by default
 # set -o xtrace
 
-if [[ "${BASH_SOURCE[0]}" != "${0}" ]]; then
-  __i_am_main_script="0" # false
-
-  if [[ "${__usage+x}" ]]; then
-    if [[ "${BASH_SOURCE[1]}" = "${0}" ]]; then
-      __i_am_main_script="1" # true
-    fi
-
-    __b3bp_external_usage="true"
-    __b3bp_tmp_source_idx=1
-  fi
-else
-  __i_am_main_script="1" # true
-  [[ "${__usage+x}" ]] && unset -v __usage
-  [[ "${__helptext+x}" ]] && unset -v __helptext
-fi
-
-# Set magic variables for current file, directory, os, etc.
-export __dir="$(cd "$(dirname "${BASH_SOURCE[${__b3bp_tmp_source_idx:-0}]}")" && pwd)"
-__file="${__dir}/$(basename "${BASH_SOURCE[${__b3bp_tmp_source_idx:-0}]}")"
-__base="$(basename "${__file}" .sh)"
-__invocation="$(printf %q "${__file}")$((($#)) && printf ' %q' "$@")"
-
 # Define the environment variables (and their defaults) that this script depends on
 LOG_LEVEL="${LOG_LEVEL:-6}" # 7 = debug -> 0 = emergency
 NO_COLOR="${NO_COLOR:-}"    # true = disable color. otherwise autodetected
@@ -139,10 +116,11 @@ info ">>> Solus Setup: Initiating"
 # Setup Config
 ########################
 
-setup_git="https://github.com/TheFynx/solus-setup.git"
+setup_git="https://github.com/TheFynx/workstation-setup.git"
 
 USER_HOME="/home/${USER}"
 HOSTNAME=$(hostname)
+export INIT_HOME=${USER_HOME}/init
 
 ########################
 # Package Install
@@ -223,14 +201,14 @@ fi
 # Clone Setup Repo
 ########################
 
-mkdir -p ${USER_HOME}/init
+mkdir -p ${INIT_HOME}
 
-if [ -d "${USER_HOME}/init/solus-setup" ]; then
-    cd ${USER_HOME}/init/solus-setup
+if [ -d "${INIT_HOME}/workstation-setup" ]; then
+    cd ${INIT_HOME}/workstation-setup
     git pull
     info ">>> Solus Setup Files Updated"
 else
-    cd ${USER_HOME}/init
+    cd ${INIT_HOME}
     git clone ${setup_git}
     info ">>> Solus Setup Files Cloned"
 fi
@@ -284,7 +262,7 @@ git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-m
 
 info ">>> Configuring dotFiles"
 
-cd ${__dir}/dotfiles
+cd ${INIT_HOME}/workstation-setup/dotfiles
 
 for dot in *.sh; do
   bash $dot || warning "${dot} failed to run"
