@@ -1,4 +1,4 @@
-cat > "${HOME}/.aliases" << EOF
+cat > "${HOME}/.aliases" << 'EOF'
 # Easier navigation
 alias ..="cd .."
 alias ...="cd ../.."
