@@ -152,7 +152,7 @@ export INIT_HOME=${USER_HOME}/init
 ########################
 
 setos
-if [ -n "$(command -v git)" ]; then
+if [ -z "$(command -v git)" ]; then
   sudo $PKG_INSTALL git
 fi
 
