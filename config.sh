@@ -238,11 +238,11 @@ info ">>> Installing Hashicorp Tools"
 cd /tmp
 
 curl https://releases.hashicorp.com/packer/${PACKER_VERSION}/packer_${PACKER_VERSION}_linux_amd64.zip -o packer.zip &&\
-sudo unzip packer.zip -d /usr/local/bin/ &&\
+sudo unzip -o packer.zip -d /usr/local/bin/ &&\
 sudo chmod +x /usr/local/bin/packer
 
 curl https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip -o terraform.zip &&\
-sudo unzip terraform.zip -d /usr/local/bin/ &&\
+sudo unzip -o terraform.zip -d /usr/local/bin/ &&\
 sudo chmod +x /usr/local/bin/terraform
 
 
