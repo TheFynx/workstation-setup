@@ -182,10 +182,10 @@ debug ">>> Running ${OS} OS"
 ${PACKAGE_SCRIPT}
 
 info ">>> Installing Snaps"
-${INIT_HOME}/workstation-setup/dotfiles/packages/snap.sh
+${INIT_HOME}/workstation-setup/packages/snap.sh
 
 info ">>> Installing Flatpaks"
-${INIT_HOME}/workstation-setup/dotfiles/packages/flat.sh
+${INIT_HOME}/workstation-setup/packages/flat.sh
 
 ########################
 # Setup SSH Keys
