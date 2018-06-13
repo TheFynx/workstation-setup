@@ -237,13 +237,35 @@ info ">>> Installing Hashicorp Tools"
 
 cd /tmp
 
-curl https://releases.hashicorp.com/packer/${PACKER_VERSION}/packer_${PACKER_VERSION}_linux_amd64.zip -o packer.zip &&\
-sudo unzip -o packer.zip -d /usr/local/bin/ &&\
-sudo chmod +x /usr/local/bin/packer
+install_packer () {
+  curl https://releases.hashicorp.com/packer/${PACKER_VERSION}/packer_${PACKER_VERSION}_linux_amd64.zip -o packer.zip &&\
+  sudo unzip -o packer.zip -d /usr/local/bin/ &&\
+  sudo chmod +x /usr/local/bin/packer
+}
 
-curl https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip -o terraform.zip &&\
-sudo unzip -o terraform.zip -d /usr/local/bin/ &&\
-sudo chmod +x /usr/local/bin/terraform
+install_terraform () {
+  curl https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip -o terraform.zip &&\
+  sudo unzip -o terraform.zip -d /usr/local/bin/ &&\
+  sudo chmod +x /usr/local/bin/terraform
+}
+
+if [ -z "$(command -v packer)" ]; then
+  install_packer
+elif [ "$(packer -version)" != "${PACKER_VERSION}" ]; then
+  sudo rm -f /usr/local/bin/packer
+  install_packer
+else
+  info ">>> Packer Already Installed and at wanted version"
+fi
+
+if [ -z "$(command -v terraform)" ]; then
+  install_terraform
+elif [ "$(terraform -version)" != "${TERRAFORM_VERSION}" ]; then
+  sudo rm -f /usr/local/bin/terraform
+  install_terraform
+else
+  info ">>> Terraform Already Installed and at wanted version"
+fi
 
 
 ########################
@@ -268,9 +290,11 @@ info ">>> Installing Oh-My-ZSH"
 
 cd ${HOME}
 
-git clone https://github.com/robbyrussell/oh-my-zsh.git ${USER_HOME}/.oh-my-zsh
-curl http://raw.github.com/caiogondim/bullet-train-oh-my-zsh-theme/master/bullet-train.zsh-theme -o ~/.oh-my-zsh/custom/bullet-train.zsh-theme
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+if [ ! -d "${USER_HOME}/.oh-my-zsh" ]; then
+  git clone https://github.com/robbyrussell/oh-my-zsh.git ${USER_HOME}/.oh-my-zsh
+  curl http://raw.github.com/caiogondim/bullet-train-oh-my-zsh-theme/master/bullet-train.zsh-theme -o ~/.oh-my-zsh/custom/themes/bullet-train.zsh-theme
+  git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+fi
 
 ########################
 # Install dotfiles
