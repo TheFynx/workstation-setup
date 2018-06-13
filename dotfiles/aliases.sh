@@ -26,6 +26,7 @@ if [ -n "$(command -v nvim)" ]; then
   alias vcb="nvim +BundleClean! +BundleInstall! +qall!"
   alias v="nvim"
   alias vi="nvim"
+  alias vim="nvim"
   alias ni="nvim"
   alias neo="nvim"
 fi
