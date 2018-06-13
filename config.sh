@@ -135,7 +135,7 @@ function setos () {
   fi
 }
 
-info ">>> Solus Setup: Initiating"
+info ">>> Workstation Setup: Initiating"
 
 ########################
 # Setup Config
@@ -165,11 +165,11 @@ mkdir -p ${INIT_HOME}
 if [ -d "${INIT_HOME}/workstation-setup" ]; then
     cd ${INIT_HOME}/workstation-setup
     git pull
-    info ">>> Solus Setup Files Updated"
+    info ">>> Workstation Setup Files Updated"
 else
     cd ${INIT_HOME}
     git clone ${setup_git}
-    info ">>> Solus Setup Files Cloned"
+    info ">>> Workstation Setup Files Cloned"
 fi
 
 ########################
@@ -193,6 +193,7 @@ ${INIT_HOME}/workstation-setup/packages/snap.sh
 
 # READ and Ask for GIT keys
 # curl -H "Authorization: token OAUTH-TOKEN" --data '{"title":"test-key","key":"'"$(cat ~/.ssh/id_rsa.pub)"'"}' https://api.github.com/user/keys
+
 read -p ">>> Client Install: Do you have a secrets file? y/n (default n) " secretAnswer
 
 if [ "${secretAnswer}" == 'y' ]; then
@@ -266,7 +267,6 @@ elif [ "$(terraform -version)" != "${TERRAFORM_VERSION}" ]; then
 else
   info ">>> Terraform Already Installed and at wanted version"
 fi
-
 
 ########################
 # Install Fonts
