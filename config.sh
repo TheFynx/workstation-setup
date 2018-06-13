@@ -145,27 +145,53 @@ done
 
 info ">>> Solus Setup: Initiating"
 
-# dotFile config
+########################
+# Setup Config
+########################
+
 setup_git="https://github.com/TheFynx/solus-setup.git"
 
 USER_HOME="/home/${USER}"
 HOSTNAME=$(hostname)
 
-sudo eopkg it -y clipit \
-                 docker \
-                 docker-compose \
-                 terminator \
-                 exa \
-                 xclip \
-                 vscode \
-                 lynx \
-                 neovim \
-                 golang \
-                 python3 \
-                 pip \
-                 ruby \
-                 zsh
+########################
+# Package Install
+########################
 
+info ">>> Installing packages"
+
+sudo eopkg it -y \
+  clipit \
+  docker \
+  docker-compose \
+  terminator \
+  exa \
+  xclip \
+  vscode \
+  lynx \
+  pandoc \
+  neovim \
+  golang \
+  python3 \
+  pip \
+  ruby \
+  zsh \
+  insomnia \
+  vlc
+
+info ">>> Installing Snaps"
+
+sudo snap install \
+  postman \
+  wavebox \
+  slack \
+  google-play-music-desktop-player \
+  aws-cli \
+
+
+########################
+# Setup SSH Keys
+########################
 
 # READ and Ask for GIT keys
 # curl -H "Authorization: token OAUTH-TOKEN" --data '{"title":"test-key","key":"'"$(cat ~/.ssh/id_rsa.pub)"'"}' https://api.github.com/user/keys
@@ -200,20 +226,23 @@ EOF
   fi
 fi
 
-mkdir -p ${USER_HOME}/init
-
-cd ${USER_HOME}/init
-
 if [ ! -f "${USER_HOME}/.ssh/id_rsa" ]; then
   info ">>> Generating SSH Keys"
   ssh-keygen -t rsa -N "" -f ${USER_HOME}/.ssh/id_rsa
 fi
 
-if [ -d "${USER_HOME}/formulas/client-formula" ]; then
-    cd ${USER_HOME}/init
+########################
+# Clone Repo
+########################
+
+mkdir -p ${USER_HOME}/init
+
+if [ -d "${USER_HOME}/init/solus-setup" ]; then
+    cd ${USER_HOME}/init/solus-setup
     git pull
     info ">>> Solus Setup Files Updated"
 else
+    cd ${USER_HOME}/init
     git clone ${setup_git}
     info ">>> Solus Setup Files Cloned"
 fi
@@ -275,6 +304,7 @@ info ">>> Installing Oh-My-ZSH"
 
 git clone https://github.com/robbyrussell/oh-my-zsh.git ${USER_HOME}/.oh-my-zsh
 curl http://raw.github.com/caiogondim/bullet-train-oh-my-zsh-theme/master/bullet-train.zsh-theme -o ~/.oh-my-zsh/custom/bullet-train.zsh-theme
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 ./dotfiles/zshrc.sh
 chsh -s /bin/zsh
 

@@ -65,7 +65,7 @@ plugins=(
   aws
   pip
   python
-
+  zsh-autosuggestions
 )
 
 source $ZSH/oh-my-zsh.sh
