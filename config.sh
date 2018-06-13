@@ -239,20 +239,20 @@ cd /tmp
 
 install_packer () {
   curl https://releases.hashicorp.com/packer/${PACKER_VERSION}/packer_${PACKER_VERSION}_linux_amd64.zip -o packer.zip &&\
-  sudo unzip -o packer.zip -d /usr/local/bin/ &&\
-  sudo chmod +x /usr/local/bin/packer
+  sudo unzip -o packer.zip -d /usr/bin/ &&\
+  sudo chmod +x /usr/bin/packer
 }
 
 install_terraform () {
   curl https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip -o terraform.zip &&\
-  sudo unzip -o terraform.zip -d /usr/local/bin/ &&\
-  sudo chmod +x /usr/local/bin/terraform
+  sudo unzip -o terraform.zip -d /usr/bin/ &&\
+  sudo chmod +x /usr/bin/terraform
 }
 
 if [ -z "$(command -v packer)" ]; then
   install_packer
 elif [ "$(packer -version)" != "${PACKER_VERSION}" ]; then
-  sudo rm -f /usr/local/bin/packer
+  sudo rm -f /usr/bin/packer
   install_packer
 else
   info ">>> Packer Already Installed and at wanted version"
@@ -261,7 +261,7 @@ fi
 if [ -z "$(command -v terraform)" ]; then
   install_terraform
 elif [ "$(terraform -version)" != "${TERRAFORM_VERSION}" ]; then
-  sudo rm -f /usr/local/bin/terraform
+  sudo rm -f /usr/bin/terraform
   install_terraform
 else
   info ">>> Terraform Already Installed and at wanted version"
@@ -274,13 +274,17 @@ fi
 
 info ">>> Installing Custom Fonts"
 
-cd /tmp
+if [ ! -d "${USER_HOME}/.local/share/fonts" ]; then
+  cd /tmp
 
-git clone https://github.com/powerline/fonts.git --depth=1 &&\
-cd fonts &&\
-sh ./install.sh &&\
-cd .. &&\
-rm -rf fonts
+  git clone https://github.com/powerline/fonts.git --depth=1 &&\
+  cd fonts &&\
+  sh ./install.sh &&\
+  cd .. &&\
+  rm -rf fonts
+else
+  info ">>> Fonts already installed"
+fi
 
 ########################
 # Install Oh-My-ZSH
@@ -294,6 +298,8 @@ if [ ! -d "${USER_HOME}/.oh-my-zsh" ]; then
   git clone https://github.com/robbyrussell/oh-my-zsh.git ${USER_HOME}/.oh-my-zsh
   curl http://raw.github.com/caiogondim/bullet-train-oh-my-zsh-theme/master/bullet-train.zsh-theme -o ~/.oh-my-zsh/custom/themes/bullet-train.zsh-theme
   git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+else
+  info ">>> Oh-My-ZSH Already Installed"
 fi
 
 ########################
@@ -305,14 +311,9 @@ info ">>> Configuring dotFiles"
 cd ${INIT_HOME}/workstation-setup/dotfiles
 
 for dot in *.sh; do
+  info ">>> Running ${dot}"
   bash $dot || warning "${dot} failed to run"
 done
-
-########################
-# Install Change Shell
-########################
-
-chsh -s /bin/zsh
 
 ########################
 # Cleanup
@@ -320,3 +321,5 @@ chsh -s /bin/zsh
 
 info ">>> Perfoming Cleanup"
 sudo eopkg rmf -y
+
+echo "please run `chsh -s /bin/zsh` to run oh-my-zsh"
