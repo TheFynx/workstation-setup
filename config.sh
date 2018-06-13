@@ -115,7 +115,7 @@ function setos () {
   if [ -n "$(command -v eopkg)" ]; then
     export OS="solus"
     export PKG="eopkg"
-    export PKG_INSTALL="eopkg -it -y "
+    export PKG_INSTALL="eopkg it -y "
     export PACKAGE_SCRIPT="bash ${INIT_HOME}/workstation-setup/packages/solus.sh"
   elif [ -n "$(command -v apt)" ]; then
     export OS="debian"
@@ -152,7 +152,9 @@ export INIT_HOME=${USER_HOME}/init
 ########################
 
 setos
-sudo $PKG_INSTALL git
+if [ -n "$(command -v git)" ]; then
+  sudo $PKG_INSTALL git
+fi
 
 ########################
 # Clone Setup Repo
