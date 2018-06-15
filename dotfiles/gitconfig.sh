@@ -3,7 +3,7 @@ cat > "${HOME}/.gitconfig.2" << 'EOF'
     name = Levi Smith
     email = levi@fynx.me
 [core]
-    editor = vim
+    editor = nvim
     autocrlf = input
     whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
     excludesfile = ~/.gitignore
