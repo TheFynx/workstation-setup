@@ -47,7 +47,7 @@ fi
 if [ -z "$(command -v consul)" ]; then
   info ">>> Installing Consul"
   install_consul > /dev/null 2>&1
-elif [ "$(consul -version)" != "consul v${CONSUL_VERSION}" ]; then
+elif [ "$(consul --version | head -1)" != "Consul v${CONSUL_VERSION}" ]; then
   info ">>> Upgrading Consul"
   sudo rm -f /usr/bin/consul
   install_consul > /dev/null 2>&1

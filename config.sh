@@ -255,7 +255,7 @@ fi
 ########################
 
 info ">>> Installing Hashicorp Tools"
-${INIT_HOME}/workstation-setup/packages/zoom.sh ${PACKER_VERSION} ${TERRAFORM_VERSION} ${CONSUL_VERSION}
+${INIT_HOME}/workstation-setup/packages/hashi.sh ${PACKER_VERSION} ${TERRAFORM_VERSION} ${CONSUL_VERSION}
 
 ########################
 # Install Fonts
