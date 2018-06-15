@@ -1,4 +1,4 @@
-cat > "${HOME}/.zshrc" << 'EOF'
+cat > "${HOME}/.zshrc.2" << 'EOF'
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -79,7 +79,6 @@ BULLETTRAIN_PROMPT_ORDER=(
   perl
   ruby
   virtualenv
-  nvm
   aws
   go
   rust
@@ -101,3 +100,17 @@ done
 unset file
 
 EOF
+
+if [ -f "${HOME}/.zshrc" ]; then
+  info ">>> ZSHRC: File detected - Looking for changes"
+  if [ -n "$(diff -y --suppress-common-lines ${HOME}/.zshrc ${HOME}/.zshrc.2)" ]; then
+    info ">>> ZSHRC: Changes detected, printing side by side diff"
+    diff -y --suppress-common-lines ${HOME}/.zshrc ${HOME}/.zshrc.2
+    mv ${HOME}/.zshrc.2 ${HOME}/.zshrc
+  else
+    info ">>> ZSHRC: No changes detected"
+  fi
+else
+  info ">>> ZSHRC: No file detected, creating new file"
+  mv ${HOME}/.zshrc.2 ${HOME}/.zshrc
+fi

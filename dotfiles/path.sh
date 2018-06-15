@@ -1,4 +1,4 @@
-cat > "${HOME}/.path" << 'EOF'
+cat > "${HOME}/.path.2" << 'EOF'
 # update path
 if [ -d "/usr/share/bcc/tools" ]; then
   export PATH=/usr/share/bcc/tools:${PATH}
@@ -75,3 +75,17 @@ if [ -d "${GOPATH}/bin" ]; then
 fi
 
 EOF
+
+if [ -f "${HOME}/.path" ]; then
+  info ">>> Path: File detected - Looking for changes"
+  if [ -n "$(diff -y --suppress-common-lines ${HOME}/.path ${HOME}/.path.2)" ]; then
+    info ">>> Path: Changes detected, printing side by side diff"
+    diff -y --suppress-common-lines ${HOME}/.path ${HOME}/.path.2
+    mv ${HOME}/.path.2 ${HOME}/.path
+  else
+    info ">>> Path: No changes detected"
+  fi
+else
+  info ">>> Path: No file detected, creating new file"
+  mv ${HOME}/.path.2 ${HOME}/.path
+fi

@@ -1,37 +1,62 @@
 mkdir -p ${HOME}/.config/terminator/
 
-cat > "${HOME}/.config/terminator/config" << EOF
+cat > "${HOME}/.config/terminator/config.2" << EOF
 [global_config]
   borderless = True
   custom_url_handler = firefox
   enabled_plugins = InactivityWatch, TestPlugin, SearchPlugin, ActivityWatch, LaunchpadBugURLHandler, TerminalExporter, TerminalShot, LaunchpadCodeURLHandler, APTURLHandler, Logger
   suppress_multiple_term_dialog = True
+  title_font = Droid Sans 9
   title_inactive_bg_color = "#000000"
   title_receive_bg_color = "#817e7e"
   title_transmit_bg_color = "#000000"
+  title_use_system_font = False
   use_custom_url_handler = True
   window_state = maximise
 [keybindings]
-  broadcast_all = <Super>b
-  broadcast_off = <Primary><Super>b
+  broadcast_all = None
+  broadcast_group = None
+  broadcast_off = None
+  cycle_next = None
+  cycle_prev = None
+  edit_tab_title = None
+  edit_terminal_title = None
+  edit_window_title = None
+  full_screen = None
+  go_next = None
+  go_prev = None
+  group_all = None
+  group_tab = None
   hide_window = <Shift><Control>a
+  move_tab_left = None
+  move_tab_right = None
+  new_tab = None
+  new_terminator = None
+  new_window = None
+  next_tab = None
+  prev_tab = None
+  rotate_ccw = None
+  rotate_cw = None
   split_horiz = <Super>h
   split_vert = <Super>v
-  switch_to_tab_1 = <Super>1
-  switch_to_tab_10 = <Super>0
-  switch_to_tab_2 = <Super>2
-  switch_to_tab_3 = <Super>3
-  switch_to_tab_4 = <Super>4
-  switch_to_tab_5 = <Super>5
-  switch_to_tab_6 = <Super>6
-  switch_to_tab_7 = <Super>7
-  switch_to_tab_8 = <Super>8
-  switch_to_tab_9 = <Super>9
+  switch_to_tab_1 = None
+  switch_to_tab_10 = None
+  switch_to_tab_2 = None
+  switch_to_tab_3 = None
+  switch_to_tab_4 = None
+  switch_to_tab_5 = None
+  switch_to_tab_6 = None
+  switch_to_tab_7 = None
+  switch_to_tab_8 = None
+  switch_to_tab_9 = None
   toggle_zoom = <Primary><Super>m
+  ungroup_all = None
+  ungroup_tab = None
 [layouts]
   [[default]]
     [[[child1]]]
       parent = window0
+      profile = default
       type = Terminal
     [[[window0]]]
       parent = ""
@@ -40,19 +65,16 @@ cat > "${HOME}/.config/terminator/config" << EOF
 [profiles]
   [[default]]
     background_darkness = 0.59
-    background_image = None
     background_type = transparent
     color_scheme = custom
-    broadcast_default = off
     copy_on_selection = True
     cursor_color = "#ffffff"
     cursor_shape = ibeam
     font = Droid Sans Mono for Powerline 10
-    foreground_color = "#dcdcdc"
+    foreground_color = "#eeeeec"
     icon_bell = False
     login_shell = True
-    palette = "#000000:#cd0000:#00cd00:#cdcd00:#1e90ff:#cd00cd:#00cdcd:#e5e5e5:#4c4c4c:#ff0000:#00ff00:#ffff00:#4682b4:#ff00ff:#00ffff:#ffffff"
-    scroll_on_output = False
+    palette = "#2e3436:#f57900:#4e9a06:#edd400:#3465a4:#75507b:#06989a:#d3d7cf:#555753:#fcaf3e:#8ae234:#fce94f:#729fcf:#ad7fa8:#34e2e2:#eeeeec"
     scrollback_infinite = True
     scrollback_lines = 5000
     scrollbar_position = hidden
@@ -60,3 +82,17 @@ cat > "${HOME}/.config/terminator/config" << EOF
     use_system_font = False
 
 EOF
+
+if [ -f "${HOME}/.config/terminator/config" ]; then
+  info ">>> Terminator: File detected - Looking for changes"
+  if [ -n "$(diff -y --suppress-common-lines ${HOME}/.config/terminator/config ${HOME}/.config/terminator/config.2)" ]; then
+    info ">>> Terminator: Changes detected, printing side by side diff"
+    diff -y --suppress-common-lines ${HOME}/.config/terminator/config ${HOME}/.config/terminator/config.2
+    mv ${HOME}/.config/terminator/config.2 ${HOME}/.config/terminator/config
+  else
+    info ">>> Terminator: No changes detected"
+  fi
+else
+  info ">>> Terminator: No file detected, creating new file"
+  mv ${HOME}/.config/terminator/config.2 ${HOME}/.config/terminator/config
+fi

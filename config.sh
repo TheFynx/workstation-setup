@@ -27,8 +27,8 @@ set -o pipefail
 # set -o xtrace
 
 # Define the environment variables (and their defaults) that this script depends on
-LOG_LEVEL="${LOG_LEVEL:-6}" # 7 = debug -> 0 = emergency
-NO_COLOR="${NO_COLOR:-}"    # true = disable color. otherwise autodetected
+export LOG_LEVEL="${LOG_LEVEL:-6}" # 7 = debug -> 0 = emergency
+export NO_COLOR="${NO_COLOR:-}"    # true = disable color. otherwise autodetected
 
 
 ### Functions
@@ -84,10 +84,21 @@ function notice ()    { [[ "${LOG_LEVEL:-0}" -ge 5 ]] && _workstation_log notice
 function info ()      { [[ "${LOG_LEVEL:-0}" -ge 6 ]] && _workstation_log info "${@}"; true; }
 function debug ()     { [[ "${LOG_LEVEL:-0}" -ge 7 ]] && _workstation_log debug "${@}"; true; }
 
+export -f emergency
+export -f alert
+export -f critical
+export -f error
+export -f warning
+export -f notice
+export -f info
+export -f debug
+export -f _workstation_log
+
 USER='levi'
 GROUP='levi'
 PACKER_VERSION='1.2.4'
 TERRAFORM_VERSION='0.11.7'
+CONSUL_VERSION='1.1.0'
 
 print_help() {
   echo ">>> Usage:"
@@ -95,10 +106,11 @@ print_help() {
   echo "-g | Pass Customer Group - install.sh -g GROUP - Default: ${GROUP}"
   echo "-p | Pass Packer Version to Install - install.sh -p 1.2.2 - Default: ${PACKER_VERSION}"
   echo "-t | Pass Terraform Version to Install - install.sh -t 0.11.6 - Default: ${TERRAFORM_VERSION}"
+  echo "-c | Pass Terraform Version to Install - install.sh -t 0.11.6 - Default: ${CONSUL_VERSION}"
   echo "-? | List this help menu"
 }
 
-while getopts u:g:p:t:? option
+while getopts u:g:p:t:c:h option
 do
  case "${option}"
  in
@@ -106,7 +118,8 @@ do
  g) GROUP=${OPTARG};;
  p) PACKER_VERSION=${OPTARG};;
  t) TERRAFORM_VERSION=${OPTARG};;
- ?) print_help; exit 2;;
+ t) CONSUL_VERSION=${OPTARG};;
+ h) print_help; exit 2;;
  esac
 done
 
@@ -143,8 +156,8 @@ info ">>> Workstation Setup: Initiating"
 
 setup_git="https://github.com/TheFynx/workstation-setup.git"
 
-USER_HOME="/home/${USER}"
-HOSTNAME=$(hostname)
+export USER_HOME="/home/${USER}"
+export HOSTNAME=$(hostname)
 export INIT_HOME=${USER_HOME}/init
 
 ########################
@@ -153,7 +166,8 @@ export INIT_HOME=${USER_HOME}/init
 
 setos
 if [ -z "$(command -v git)" ]; then
-  $PKG_INSTALL git
+  info ">>> Git not installed, installing"
+  $PKG_INSTALL git > /dev/null 2>&1
 fi
 
 ########################
@@ -164,11 +178,11 @@ mkdir -p ${INIT_HOME}
 
 if [ -d "${INIT_HOME}/workstation-setup" ]; then
     cd ${INIT_HOME}/workstation-setup
-    git pull
+    git pull > /dev/null 2>&1
     info ">>> Workstation Setup Files Updated"
 else
     cd ${INIT_HOME}
-    git clone ${setup_git}
+    git clone ${setup_git} > /dev/null 2>&1
     info ">>> Workstation Setup Files Cloned"
 fi
 
@@ -176,7 +190,7 @@ fi
 # Package Install
 ########################
 
-info ">>> Installing packages"
+info ">>> Installing ${PKG} packages"
 
 debug ">>> Running ${OS} OS"
 ${PACKAGE_SCRIPT}
@@ -184,8 +198,8 @@ ${PACKAGE_SCRIPT}
 info ">>> Installing Snaps"
 ${INIT_HOME}/workstation-setup/packages/snap.sh
 
-info ">>> Installing Flatpaks"
-${INIT_HOME}/workstation-setup/packages/flat.sh
+#info ">>> Installing Flatpaks"
+#${INIT_HOME}/workstation-setup/packages/flat.sh
 
 ########################
 # Setup SSH Keys
@@ -200,14 +214,17 @@ if [ "${secretAnswer}" == 'y' ]; then
   read -p ">>> Client Install: Please enter path to secret file to source (i.e. /path/to/creds.sh) " secretPath
   . ${secretPath}
 
-  if [ ! -f "${USER_HOME}/.ssh/git" ]; then
+  if [ ! -f "${USER_HOME}/.ssh/priv_keys/git" ]; then
     info ">>> Client Install: Generating Git SSH Keys"
     ssh-keygen -t rsa -N "" -f ${USER_HOME}/.ssh/git
+    mkdir -p ${USER_HOME}/.ssh/priv_keys ${USER_HOME}/.ssh/pub_keys
+    mv ${USER_HOME}/.ssh/git ${USER_HOME}/.ssh/priv_keys
+    mv ${USER_HOME}/.ssh/git.pub ${USER_HOME}/.ssh/pub_keys
   fi
 
   info ">>> Client Install: Uploading Git SSH Keys"
   if [ -z "$(curl -s -H "Authorization: token ${GH_TOKEN}" https://api.github.com/user/keys | grep "${HOSTNAME}")" ]; then
-    curl -H "Authorization: token ${GH_TOKEN}" --data '{"title":"'"${HOSTNAME}"'","key":"'"$(cat ~/.ssh/git.pub)"'"}' https://api.github.com/user/keys
+    curl -H "Authorization: token ${GH_TOKEN}" --data '{"title":"'"${HOSTNAME}"'","key":"'"$(cat ~/.ssh/pub_keys/git.pub)"'"}' https://api.github.com/user/keys
   else
     info ">>> Client Install: Git Key Already Exists"
   fi
@@ -220,14 +237,17 @@ Host github.com
   User git
   Hostname github.com
   PreferredAuthentications publickey
-  IdentityFile /home/${USER}/.ssh/git
+  IdentityFile /home/${USER}/.ssh/priv_keys/git
 EOF
   fi
 fi
 
-if [ ! -f "${USER_HOME}/.ssh/id_rsa" ]; then
+if [ ! -f "${USER_HOME}/.ssh/priv_keys/id_rsa" ]; then
   info ">>> Generating SSH Keys"
+  mkdir -p ${USER_HOME}/.ssh/priv_keys ${USER_HOME}/.ssh/pub_keys
   ssh-keygen -t rsa -N "" -f ${USER_HOME}/.ssh/id_rsa
+  mv ${USER_HOME}/.ssh/id_rsa ${USER_HOME}/.ssh/priv_keys
+  mv ${USER_HOME}/.ssh/id_rsa.pub ${USER_HOME}/.ssh/pub_keys
 fi
 
 ########################
@@ -235,55 +255,32 @@ fi
 ########################
 
 info ">>> Installing Hashicorp Tools"
-
-cd /tmp
-
-install_packer () {
-  curl https://releases.hashicorp.com/packer/${PACKER_VERSION}/packer_${PACKER_VERSION}_linux_amd64.zip -o packer.zip &&\
-  sudo unzip -o packer.zip -d /usr/bin/ &&\
-  sudo chmod +x /usr/bin/packer
-}
-
-install_terraform () {
-  curl https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip -o terraform.zip &&\
-  sudo unzip -o terraform.zip -d /usr/bin/ &&\
-  sudo chmod +x /usr/bin/terraform
-}
-
-if [ -z "$(command -v packer)" ]; then
-  install_packer
-elif [ "$(packer -version)" != "${PACKER_VERSION}" ]; then
-  sudo rm -f /usr/bin/packer
-  install_packer
-else
-  info ">>> Packer Already Installed and at wanted version"
-fi
-
-if [ -z "$(command -v terraform)" ]; then
-  install_terraform
-elif [ "$(terraform -version)" != "Terraform v${TERRAFORM_VERSION}" ]; then
-  sudo rm -f /usr/bin/terraform
-  install_terraform
-else
-  info ">>> Terraform Already Installed and at wanted version"
-fi
+${INIT_HOME}/workstation-setup/packages/zoom.sh ${PACKER_VERSION} ${TERRAFORM_VERSION} ${CONSUL_VERSION}
 
 ########################
 # Install Fonts
 ########################
 
 info ">>> Installing Custom Fonts"
+${INIT_HOME}/workstation-setup/packages/fonts.sh
 
-if [ ! -d "${USER_HOME}/.local/share/fonts" ]; then
-  cd /tmp
+########################
+# Install Zoom
+########################
 
-  git clone https://github.com/powerline/fonts.git --depth=1 &&\
-  cd fonts &&\
-  sh ./install.sh &&\
-  cd .. &&\
-  rm -rf fonts
+info ">>> Installing Zoom"
+${INIT_HOME}/workstation-setup/packages/zoom.sh
+
+########################
+# Ensure set to ZSH
+########################
+
+info ">>> Check current shell"
+if [ "${SHELL}" != "" ]; then
+  sudo chsh -s /bin/bash ${USER}
+  info ">>> Shell changed"
 else
-  info ">>> Fonts already installed"
+  info ">>> Shell already set"
 fi
 
 ########################
@@ -291,16 +288,7 @@ fi
 ########################
 
 info ">>> Installing Oh-My-ZSH"
-
-cd ${HOME}
-
-if [ ! -d "${USER_HOME}/.oh-my-zsh" ]; then
-  sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-  curl https://raw.githubusercontent.com/caiogondim/bullet-train-oh-my-zsh-theme/master/bullet-train.zsh-theme -o ~/.oh-my-zsh/custom/themes/bullet-train.zsh-theme
-  git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-else
-  info ">>> Oh-My-ZSH Already Installed"
-fi
+${INIT_HOME}/workstation-setup/packages/oh-my-zsh.sh
 
 ########################
 # Install dotfiles
@@ -320,6 +308,6 @@ done
 ########################
 
 info ">>> Perfoming Cleanup"
-sudo eopkg rmo -y
+sudo eopkg rmo -y > /dev/null 2>&1
 
-echo 'please run `chsh -s /bin/zsh` to run oh-my-zsh'
+info ">>> Setup Complete"

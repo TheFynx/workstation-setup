@@ -1,4 +1,4 @@
-cat > "${HOME}/.aliases" << 'EOF'
+cat > "${HOME}/.aliases.2" << 'EOF'
 # Easier navigation
 alias ..="cd .."
 alias ...="cd ../.."
@@ -106,3 +106,17 @@ alias mv='mv -i'
 alias untar='tar -xvf'
 
 EOF
+
+if [ -f "${HOME}/.aliases" ]; then
+  info ">>> Aliases: File detected - Looking for changes"
+  if [ -n "$(diff -y --suppress-common-lines ${HOME}/.aliases ${HOME}/.aliases.2)" ]; then
+    info ">>> Aliases: Changes detected, printing side by side diff"
+    diff -y --suppress-common-lines ${HOME}/.aliases ${HOME}/.aliases.2
+    mv ${HOME}/.aliases.2 ${HOME}/.aliases
+  else
+    info ">>> Aliases: No changes detected"
+  fi
+else
+  info ">>> Aliases: No file detected, creating new file"
+  mv ${HOME}/.aliases.2 ${HOME}/.aliases
+fi

@@ -1,4 +1,4 @@
-cat > "${HOME}/.functions" << 'EOF'
+cat > "${HOME}/.functions.2" << 'EOF'
 # Cleanup Docker Containers
 if [ -n "$(command -v docker)" ]; then
     ## Clean All Non-In Use Docker Items
@@ -69,3 +69,17 @@ kgrep(){
 }
 
 EOF
+
+if [ -f "${HOME}/.functions" ]; then
+  info ">>> Functions: File detected - Looking for changes"
+  if [ -n "$(diff -y --suppress-common-lines ${HOME}/.functions ${HOME}/.functions.2)" ]; then
+    info ">>> Functions: Changes detected, printing side by side diff"
+    diff -y --suppress-common-lines ${HOME}/.functions ${HOME}/.functions.2
+    mv ${HOME}/.functions.2 ${HOME}/.functions
+  else
+    info ">>> Functions: No changes detected"
+  fi
+else
+  info ">>> Functions: No file detected, creating new file"
+  mv ${HOME}/.functions.2 ${HOME}/.functions
+fi

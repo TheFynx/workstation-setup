@@ -1,4 +1,4 @@
-cat > "${HOME}/.exports" << 'EOF'
+cat > "${HOME}/.exports.2" << 'EOF'
 # Make vim the default editor
 export EDITOR=$(which nvim)
 export TERM="xterm-256color"
@@ -26,3 +26,17 @@ export QT_DEVICE_PIXEL_RATIO=2
 export DOCKER_CONTENT_TRUST=0
 
 EOF
+
+if [ -f "${HOME}/.exports" ]; then
+  info ">>> Exports: File detected - Looking for changes"
+  if [ -n "$(diff -y --suppress-common-lines ${HOME}/.exports ${HOME}/.exports.2)" ]; then
+    info ">>> Exports: Changes detected, printing side by side diff"
+    diff -y --suppress-common-lines ${HOME}/.exports ${HOME}/.exports.2
+    mv ${HOME}/.exports.2 ${HOME}/.exports
+  else
+    info ">>> Exports: No changes detected"
+  fi
+else
+  info ">>> Exports: No file detected, creating new file"
+  mv ${HOME}/.exports.2 ${HOME}/.exports
+fi
