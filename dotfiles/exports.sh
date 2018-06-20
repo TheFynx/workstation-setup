@@ -35,6 +35,7 @@ if [ -f "${HOME}/.exports" ]; then
     mv ${HOME}/.exports.2 ${HOME}/.exports
   else
     info ">>> Exports: No changes detected"
+    mv ${HOME}/.exports.2 ${HOME}/.exports
   fi
 else
   info ">>> Exports: No file detected, creating new file"

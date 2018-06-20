@@ -115,6 +115,7 @@ if [ -f "${HOME}/.aliases" ]; then
     mv ${HOME}/.aliases.2 ${HOME}/.aliases
   else
     info ">>> Aliases: No changes detected"
+    mv ${HOME}/.aliases.2 ${HOME}/.aliases
   fi
 else
   info ">>> Aliases: No file detected, creating new file"

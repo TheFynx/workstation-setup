@@ -84,6 +84,7 @@ if [ -f "${HOME}/.path" ]; then
     mv ${HOME}/.path.2 ${HOME}/.path
   else
     info ">>> Path: No changes detected"
+    mv ${HOME}/.path.2 ${HOME}/.path
   fi
 else
   info ">>> Path: No file detected, creating new file"

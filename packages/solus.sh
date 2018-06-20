@@ -13,6 +13,7 @@ info ">>> Installing Packages"
 sudo eopkg it -y \
   clipit \
   git \
+  docker \
   docker-compose \
   terminator \
   exa \

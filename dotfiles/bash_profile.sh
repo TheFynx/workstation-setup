@@ -32,6 +32,7 @@ if [ -f "${HOME}/.bash_profile" ]; then
     mv ${HOME}/.bash_profile.2 ${HOME}/.bash_profile
   else
     info ">>> BASH Profile: No changes detected"
+    mv ${HOME}/.bash_profile.2 ${HOME}/.bash_profile
   fi
 else
   info ">>> BASH Profile: No file detected, creating new file"

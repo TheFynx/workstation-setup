@@ -78,6 +78,7 @@ if [ -f "${HOME}/.functions" ]; then
     mv ${HOME}/.functions.2 ${HOME}/.functions
   else
     info ">>> Functions: No changes detected"
+    mv ${HOME}/.functions.2 ${HOME}/.functions
   fi
 else
   info ">>> Functions: No file detected, creating new file"

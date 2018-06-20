@@ -109,6 +109,7 @@ if [ -f "${HOME}/.zshrc" ]; then
     mv ${HOME}/.zshrc.2 ${HOME}/.zshrc
   else
     info ">>> ZSHRC: No changes detected"
+    mv ${HOME}/.zshrc.2 ${HOME}/.zshrc
   fi
 else
   info ">>> ZSHRC: No file detected, creating new file"

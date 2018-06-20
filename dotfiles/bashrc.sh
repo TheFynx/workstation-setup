@@ -24,6 +24,7 @@ if [ -f "${HOME}/.bashrc" ]; then
     mv ${HOME}/.bashrc.2 ${HOME}/.bashrc
   else
     info ">>> BASHRC: No changes detected"
+    mv ${HOME}/.bashrc.2 ${HOME}/.bashrc
   fi
 else
   info ">>> BASHRC: No file detected, creating new file"

@@ -1,6 +1,6 @@
 mkdir -p ${HOME}/.config/terminator/
 
-cat > "${HOME}/.config/terminator/config.2" << EOF
+cat > "${HOME}/.config/terminator/config.2" << 'EOF'
 [global_config]
   borderless = True
   custom_url_handler = firefox
@@ -70,6 +70,7 @@ cat > "${HOME}/.config/terminator/config.2" << EOF
     copy_on_selection = True
     cursor_color = "#ffffff"
     cursor_shape = ibeam
+    custom_command = exec $SHELL -l
     font = Droid Sans Mono for Powerline 10
     foreground_color = "#eeeeec"
     icon_bell = False
@@ -79,6 +80,7 @@ cat > "${HOME}/.config/terminator/config.2" << EOF
     scrollback_lines = 5000
     scrollbar_position = hidden
     show_titlebar = False
+    use_custom_command = True
     use_system_font = False
 
 EOF
@@ -91,6 +93,7 @@ if [ -f "${HOME}/.config/terminator/config" ]; then
     mv ${HOME}/.config/terminator/config.2 ${HOME}/.config/terminator/config
   else
     info ">>> Terminator: No changes detected"
+    mv ${HOME}/.config/terminator/config.2 ${HOME}/.config/terminator/config
   fi
 else
   info ">>> Terminator: No file detected, creating new file"

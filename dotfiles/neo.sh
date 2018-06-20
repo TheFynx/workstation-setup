@@ -18,6 +18,7 @@ if [ -f "${HOME}/.config/nvim/init.vim" ]; then
     mv ${HOME}/.config/nvim/init.vim.2 ${HOME}/.config/nvim/init.vim
   else
     info ">>> NEOVIM: No changes detected"
+    mv ${HOME}/.config/nvim/init.vim.2 ${HOME}/.config/nvim/init.vim
   fi
 else
   info ">>> NEOVIM: No file detected, creating new file"

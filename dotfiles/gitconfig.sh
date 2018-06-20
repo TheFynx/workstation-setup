@@ -63,6 +63,7 @@ if [ -f "${HOME}/.gitconfig" ]; then
     mv ${HOME}/.gitconfig.2 ${HOME}/.gitconfig
   else
     info ">>> GitConfig: No changes detected"
+    mv ${HOME}/.gitconfig.2 ${HOME}/.gitconfig
   fi
 else
   info ">>> GitConfig: No file detected, creating new file"

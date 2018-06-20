@@ -47,6 +47,7 @@ if [ -f "${HOME}/.gitignore" ]; then
     mv ${HOME}/.gitignore.2 ${HOME}/.gitignore
   else
     info ">>> GitIgnore: No changes detected"
+    mv ${HOME}/.gitignore.2 ${HOME}/.gitignore
   fi
 else
   info ">>> GitIgnore: No file detected, creating new file"
