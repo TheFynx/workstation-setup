@@ -29,9 +29,11 @@ set -o pipefail
 # Define the environment variables (and their defaults) that this script depends on
 export LOG_LEVEL="${LOG_LEVEL:-6}" # 7 = debug -> 0 = emergency
 export NO_COLOR="${NO_COLOR:-}"    # true = disable color. otherwise autodetected
+export RESET="\\x1b[0m"
+export RED="\\x1b[1;5;33m"
 
-
-### Functions
+##############################################################################
+# Functions
 ##############################################################################
 
 function _workstation_log () {
@@ -75,7 +77,7 @@ function _workstation_log () {
   done <<< "${@:-}"
 }
 
-function emergency () {                                _workstation_log emergency "${@}"; exit 1; }
+function emergency () {                                  _workstation_log emergency "${@}"; exit 1; }
 function alert ()     { [[ "${LOG_LEVEL:-0}" -ge 1 ]] && _workstation_log alert "${@}"; true; }
 function critical ()  { [[ "${LOG_LEVEL:-0}" -ge 2 ]] && _workstation_log critical "${@}"; true; }
 function error ()     { [[ "${LOG_LEVEL:-0}" -ge 3 ]] && _workstation_log error "${@}"; true; }
@@ -83,6 +85,7 @@ function warning ()   { [[ "${LOG_LEVEL:-0}" -ge 4 ]] && _workstation_log warnin
 function notice ()    { [[ "${LOG_LEVEL:-0}" -ge 5 ]] && _workstation_log notice "${@}"; true; }
 function info ()      { [[ "${LOG_LEVEL:-0}" -ge 6 ]] && _workstation_log info "${@}"; true; }
 function debug ()     { [[ "${LOG_LEVEL:-0}" -ge 7 ]] && _workstation_log debug "${@}"; true; }
+function query()      { echo -e "$(date -u +"%Y-%m-%d %H:%M:%S UTC") ${RED}$(printf "[%9s]" query)${RESET} ${1} "; }
 
 export -f emergency
 export -f alert
@@ -92,13 +95,15 @@ export -f warning
 export -f notice
 export -f info
 export -f debug
+export -f query
 export -f _workstation_log
 
-USER='levi'
-GROUP='levi'
-PACKER_VERSION='1.2.4'
-TERRAFORM_VERSION='0.11.7'
-CONSUL_VERSION='1.1.0'
+export USER='levi'
+export GROUP='levi'
+export PACKER_VERSION='1.2.4'
+export TERRAFORM_VERSION='0.11.7'
+export CONSUL_VERSION='1.1.0'
+export CONSUL_TEMPLATE_VERSION='0.19.5'
 
 print_help() {
   echo ">>> Usage:"
@@ -106,19 +111,21 @@ print_help() {
   echo "-g | Pass Customer Group - install.sh -g GROUP - Default: ${GROUP}"
   echo "-p | Pass Packer Version to Install - install.sh -p 1.2.2 - Default: ${PACKER_VERSION}"
   echo "-t | Pass Terraform Version to Install - install.sh -t 0.11.6 - Default: ${TERRAFORM_VERSION}"
-  echo "-c | Pass Terraform Version to Install - install.sh -t 0.11.6 - Default: ${CONSUL_VERSION}"
+  echo "-c | Pass Consul Version to Install - install.sh -c 1.1.0 - Default: ${CONSUL_VERSION}"
+  echo "-e | Pass Consul Template Version to Install - install.sh -e 0.19.4 - Default: ${CONSUL_VERSION}"
   echo "-? | List this help menu"
 }
 
-while getopts u:g:p:t:c:h option
+while getopts u:g:p:t:c:e:h option
 do
  case "${option}"
  in
- u) USER=${OPTARG};;
- g) GROUP=${OPTARG};;
- p) PACKER_VERSION=${OPTARG};;
- t) TERRAFORM_VERSION=${OPTARG};;
- t) CONSUL_VERSION=${OPTARG};;
+ u) export USER=${OPTARG};;
+ g) export GROUP=${OPTARG};;
+ p) export PACKER_VERSION=${OPTARG};;
+ t) export TERRAFORM_VERSION=${OPTARG};;
+ t) export CONSUL_VERSION=${OPTARG};;
+ e) export CONSUL_TEMPLATE_VERSION=${OPTARG};;
  h) print_help; exit 2;;
  esac
 done
@@ -205,31 +212,28 @@ ${INIT_HOME}/workstation-setup/packages/snap.sh
 # Setup SSH Keys
 ########################
 
-# READ and Ask for GIT keys
-# curl -H "Authorization: token OAUTH-TOKEN" --data '{"title":"test-key","key":"'"$(cat ~/.ssh/id_rsa.pub)"'"}' https://api.github.com/user/keys
-
-read -p ">>> Client Install: Do you have a secrets file? y/n (default n) " secretAnswer
+read -p "$(query ">>> Workstation Setup: Do you have a secrets file? y/n (default n)")" secretAnswer
 
 if [ "${secretAnswer}" == 'y' ]; then
-  read -p ">>> Client Install: Please enter path to secret file to source (i.e. /path/to/creds.sh) " secretPath
+  read -p "$(query ">>> Workstation Setup: Please enter path to secret file to source (i.e. /path/to/creds.sh)")" secretPath
   . ${secretPath}
 
   if [ ! -f "${USER_HOME}/.ssh/priv_keys/git" ]; then
-    info ">>> Client Install: Generating Git SSH Keys"
+    info ">>> Workstation Setup: Generating Git SSH Keys"
     ssh-keygen -t rsa -N "" -f ${USER_HOME}/.ssh/git
     mkdir -p ${USER_HOME}/.ssh/priv_keys ${USER_HOME}/.ssh/pub_keys
     mv ${USER_HOME}/.ssh/git ${USER_HOME}/.ssh/priv_keys
     mv ${USER_HOME}/.ssh/git.pub ${USER_HOME}/.ssh/pub_keys
   fi
 
-  info ">>> Client Install: Uploading Git SSH Keys"
+  info ">>> Workstation Setup: Uploading Git SSH Keys"
   if [ -z "$(curl -s -H "Authorization: token ${GH_TOKEN}" https://api.github.com/user/keys | grep "${HOSTNAME}")" ]; then
     curl -H "Authorization: token ${GH_TOKEN}" --data '{"title":"'"${HOSTNAME}"'","key":"'"$(cat ~/.ssh/pub_keys/git.pub)"'"}' https://api.github.com/user/keys
   else
-    info ">>> Client Install: Git Key Already Exists"
+    info ">>> Workstation Setup: Git Key Already Exists"
   fi
 
-  info ">>> Client Install: Adding SSH Config for Git SSH Key"
+  info ">>> Workstation Setup: Adding SSH Config for Git SSH Key"
   touch ${USER_HOME}/.ssh/config
   if [ -z "$(grep 'github' ~/.ssh/config)" ]; then
     cat > "${USER_HOME}/.ssh/config" << EOF
@@ -255,27 +259,27 @@ fi
 ########################
 
 info ">>> Installing Hashicorp Tools"
-${INIT_HOME}/workstation-setup/packages/hashi.sh ${PACKER_VERSION} ${TERRAFORM_VERSION} ${CONSUL_VERSION}
+${INIT_HOME}/workstation-setup/packages/hashi.sh || warning "Hashi install failed to run"
 
 ########################
 # Install Fonts
 ########################
 
 info ">>> Installing Custom Fonts"
-${INIT_HOME}/workstation-setup/packages/fonts.sh
+${INIT_HOME}/workstation-setup/packages/fonts.sh || warning "Fonts install failed to run"
 
 ########################
 # Install Zoom
 ########################
 
 info ">>> Installing Zoom"
-${INIT_HOME}/workstation-setup/packages/zoom.sh
+${INIT_HOME}/workstation-setup/packages/zoom.sh || warning "Zoom install failed to run"
 
 ########################
 # Ensure set to ZSH
 ########################
 
-info ">>> Check current shell"
+info ">>> Checking current shell"
 if [ "${SHELL}" != "" ]; then
   sudo chsh -s /bin/bash ${USER}
   info ">>> Shell changed"
@@ -288,7 +292,7 @@ fi
 ########################
 
 info ">>> Installing Oh-My-ZSH"
-${INIT_HOME}/workstation-setup/packages/oh-my-zsh.sh
+${INIT_HOME}/workstation-setup/packages/oh-my-zsh.sh || warning "Oh My ZSH install failed to run"
 
 ########################
 # Install dotfiles

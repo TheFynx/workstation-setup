@@ -1,6 +1,6 @@
-PACKER_VERSION=$1
-TERRAFORM_VERSION=$2
-CONSUL_VERSION=$3
+#!/usr/bin/env bash
+
+set -o nounset
 
 cd /tmp
 
@@ -20,6 +20,12 @@ install_consul () {
   curl https://releases.hashicorp.com/consul/${CONSUL_VERSION}/consul_${CONSUL_VERSION}_linux_amd64.zip -o consul.zip &&\
   sudo unzip -o consul.zip -d /usr/bin/ &&\
   sudo chmod +x /usr/bin/consul
+}
+
+install_consul_template () {
+  curl https://releases.hashicorp.com/consul-template/${CONSUL_TEMPLATE_VERSION}/consul-template_${CONSUL_TEMPLATE_VERSION}_linux_amd64.zip -o consul-template.zip &&\
+  sudo unzip -o consul-template.zip -d /usr/bin/ &&\
+  sudo chmod +x /usr/bin/consul-template
 }
 
 if [ -z "$(command -v packer)" ]; then
@@ -53,4 +59,15 @@ elif [ "$(consul --version | head -1)" != "Consul v${CONSUL_VERSION}" ]; then
   install_consul > /dev/null 2>&1
 else
   info ">>> Consul Already Installed and at wanted version"
+fi
+
+if [ -z "$(command -v consul-template)" ]; then
+  info ">>> Installing Consul-Template"
+  install_consul_template > /dev/null 2>&1
+elif [ -z "$(consul-template --version | grep ${CONSUL_TEMPLATE_VERSION})" ]; then
+  info ">>> Upgrading Consul-Template"
+  sudo rm -f /usr/bin/consul-template
+  install_consul_template > /dev/null 2>&1
+else
+  info ">>> Consul-Template Already Installed and at wanted version"
 fi

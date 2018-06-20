@@ -23,4 +23,5 @@ Just download and run locally
   -g | Pass Customer Group - config.sh -g GROUP
   -p | Pass Packer Version to Install - config.sh -p 1.2.2
   -t | Pass Terraform Version to Install - config.sh -t 0.11.6
+  -c | Pass Consul Version to Install - config.sh -c 1.1.0
 ```
