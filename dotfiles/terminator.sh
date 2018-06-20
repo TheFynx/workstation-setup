@@ -70,7 +70,7 @@ cat > "${HOME}/.config/terminator/config.2" << 'EOF'
     copy_on_selection = True
     cursor_color = "#ffffff"
     cursor_shape = ibeam
-    custom_command = exec $SHELL -l
+    custom_command = exec /bin/zsh -l
     font = Droid Sans Mono for Powerline 10
     foreground_color = "#eeeeec"
     icon_bell = False
