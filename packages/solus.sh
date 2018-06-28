@@ -27,6 +27,7 @@ sudo eopkg it -y \
   ruby \
   zsh \
   vscode \
+  variety \
   diffutils > /dev/null 2>&1
 
 info ">>> Packages succesfully installed"

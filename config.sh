@@ -102,7 +102,7 @@ export USER='levi'
 export GROUP='levi'
 export PACKER_VERSION='1.2.4'
 export TERRAFORM_VERSION='0.11.7'
-export CONSUL_VERSION='1.1.0'
+export CONSUL_VERSION='1.2.0'
 export CONSUL_TEMPLATE_VERSION='0.19.5'
 
 print_help() {
@@ -113,23 +113,22 @@ print_help() {
   echo "-t | Pass Terraform Version to Install - install.sh -t 0.11.6 - Default: ${TERRAFORM_VERSION}"
   echo "-c | Pass Consul Version to Install - install.sh -c 1.1.0 - Default: ${CONSUL_VERSION}"
   echo "-e | Pass Consul Template Version to Install - install.sh -e 0.19.4 - Default: ${CONSUL_VERSION}"
-  echo "-? | List this help menu"
+  echo "-h | List this help menu"
 }
 
 while getopts u:g:p:t:c:e:h option
 do
  case "${option}"
- in
- u) export USER=${OPTARG};;
- g) export GROUP=${OPTARG};;
- p) export PACKER_VERSION=${OPTARG};;
- t) export TERRAFORM_VERSION=${OPTARG};;
- t) export CONSUL_VERSION=${OPTARG};;
- e) export CONSUL_TEMPLATE_VERSION=${OPTARG};;
- h) print_help; exit 2;;
- esac
+   in
+     u) export USER=${OPTARG};;
+     g) export GROUP=${OPTARG};;
+     p) export PACKER_VERSION=${OPTARG};;
+     t) export TERRAFORM_VERSION=${OPTARG};;
+     t) export CONSUL_VERSION=${OPTARG};;
+     e) export CONSUL_TEMPLATE_VERSION=${OPTARG};;
+     h) print_help; exit 2;;
+   esac
 done
-
 
 function setos () {
   if [ -n "$(command -v eopkg)" ]; then
@@ -184,13 +183,13 @@ fi
 mkdir -p ${INIT_HOME}
 
 if [ -d "${INIT_HOME}/workstation-setup" ]; then
-    cd ${INIT_HOME}/workstation-setup
-    git pull > /dev/null 2>&1
-    info ">>> Workstation Setup Files Updated"
+  cd ${INIT_HOME}/workstation-setup
+  git pull > /dev/null 2>&1
+  info ">>> Workstation Setup Files Updated"
 else
-    cd ${INIT_HOME}
-    git clone ${setup_git} > /dev/null 2>&1
-    info ">>> Workstation Setup Files Cloned"
+  cd ${INIT_HOME}
+  git clone ${setup_git} > /dev/null 2>&1
+  info ">>> Workstation Setup Files Cloned"
 fi
 
 ########################
@@ -204,9 +203,6 @@ ${PACKAGE_SCRIPT}
 
 info ">>> Installing Snaps"
 ${INIT_HOME}/workstation-setup/packages/snap.sh
-
-#info ">>> Installing Flatpaks"
-#${INIT_HOME}/workstation-setup/packages/flat.sh
 
 ########################
 # Setup SSH Keys
@@ -293,6 +289,14 @@ fi
 
 info ">>> Installing Oh-My-ZSH"
 ${INIT_HOME}/workstation-setup/packages/oh-my-zsh.sh || warning "Oh My ZSH install failed to run"
+
+########################
+# Copy Wallpapers
+########################
+
+info ">>> Copying Wallpapers"
+mkdir -p ${USER_HOME}/Wallpapers
+/bin/cp -r ${INIT_HOME}/workstation-setup/files/wallpapers/* ${USER_HOME}/Wallpapers/
 
 ########################
 # Install dotfiles
