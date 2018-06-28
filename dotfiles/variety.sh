@@ -187,6 +187,13 @@ slideshow_pan = 0.05
 # BE CAREFUL: all keys below (src1, src2, etc.) MUST be different
 [sources]
 src1 = True|folder|${HOME}/Wallpapers
+src2 = False|favorites|The Favorites folder
+src3 = False|fetched|The Fetched folder
+src4 = False|desktoppr|Random wallpapers from Desktoppr.co
+src5 = False|bing|Bing Photo of the Day
+src6 = False|unsplash|High-resolution photos from Unsplash.com
+src7 = False|apod|NASA's Astronomy Picture of the Day
+src8 = False|earth|World Sunlight Map - live wallpaper from Die.net
 
 # Image filters to apply randomly to every wallpaper (ImageMagick is used for this)
 # Each filter is filterX = <enabled or not|filter name|arguments to pass to ImageMagick when calling convert>
@@ -203,17 +210,17 @@ filter8 = False|Pixellate|-scale 3% -scale 3333%
 
 EOF
 
-if [ -f "${HOME}/.variety" ]; then
+if [ -f "${HOME}/.config/variety/variety.conf" ]; then
   info ">>> Variety: File detected - Looking for changes"
-  if [ -n "$(diff -y --suppress-common-lines ${HOME}/.variety ${HOME}/.variety.2)" ]; then
+  if [ -n "$(diff -y --suppress-common-lines ${HOME}/.config/variety/variety.conf ${HOME}/.config/variety/variety.conf.2)" ]; then
     info ">>> Variety: Changes detected, printing side by side diff"
-    diff -y --suppress-common-lines ${HOME}/.variety ${HOME}/.variety.2
-    mv ${HOME}/.variety.2 ${HOME}/.variety
+    diff -y --suppress-common-lines ${HOME}/.config/variety/variety.conf ${HOME}/.config/variety/variety.conf.2
+    mv ${HOME}/.config/variety/variety.conf.2 ${HOME}/.config/variety/variety.conf
   else
     info ">>> Variety: No changes detected"
-    mv ${HOME}/.variety.2 ${HOME}/.variety
+    mv ${HOME}/.config/variety/variety.conf.2 ${HOME}/.config/variety/variety.conf
   fi
 else
   info ">>> Variety: No file detected, creating new file"
-  mv ${HOME}/.variety.2 ${HOME}/.variety
+  mv ${HOME}/.config/variety/variety.conf.2 ${HOME}/.config/variety/variety.conf
 fi
