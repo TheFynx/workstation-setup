@@ -2,7 +2,7 @@ info ">>> Generating DCONF File"
 
 mkdir -p ${HOME}/.custom/
 
-cat > "${HOME}/.custom/dconf.2" << 'EOF'
+cat > "${HOME}/.custom/dconf.2" << EOF
 [com/solus-project/budgie-panel]
 dark-theme=true
 migration-level=1
@@ -76,6 +76,9 @@ name='User Indicator'
 [com/solus-project/budgie-wm]
 button-layout='appmenu:minimize,maximize,close'
 
+[org/gnome/desktop/wm/preferences]
+num-workspaces=${WORKSPACE_COUNT}
+
 [com/solus-project/software-center]
 last-checked=int64 1529519046
 update-type='security-only'
@@ -147,7 +150,7 @@ secondary-color='#000000000000'
 show-desktop-icons=false
 color-shading-type='solid'
 primary-color='#000000000000'
-picture-options='centered'
+picture-options='zoom'
 secondary-color='#000000000000'
 
 

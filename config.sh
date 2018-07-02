@@ -104,6 +104,7 @@ export PACKER_VERSION='1.2.4'
 export TERRAFORM_VERSION='0.11.7'
 export CONSUL_VERSION='1.2.0'
 export CONSUL_TEMPLATE_VERSION='0.19.5'
+export WORKSPACE_COUNT="4"
 
 print_help() {
   echo ">>> Usage:"
@@ -113,10 +114,11 @@ print_help() {
   echo "-t | Pass Terraform Version to Install - install.sh -t 0.11.6 - Default: ${TERRAFORM_VERSION}"
   echo "-c | Pass Consul Version to Install - install.sh -c 1.1.0 - Default: ${CONSUL_VERSION}"
   echo "-e | Pass Consul Template Version to Install - install.sh -e 0.19.4 - Default: ${CONSUL_VERSION}"
+  echo "-w | Pass Number of Workspaces to create by default - install.sh -w 5 - Default: ${WORKSPACE_COUNT}"
   echo "-h | List this help menu"
 }
 
-while getopts u:g:p:t:c:e:h option
+while getopts u:g:p:t:c:e:w:h option
 do
  case "${option}"
    in
@@ -126,6 +128,7 @@ do
      t) export TERRAFORM_VERSION=${OPTARG};;
      t) export CONSUL_VERSION=${OPTARG};;
      e) export CONSUL_TEMPLATE_VERSION=${OPTARG};;
+     w) export WORKSPACE_COUNT=${OPTARG};;
      h) print_help; exit 2;;
    esac
 done

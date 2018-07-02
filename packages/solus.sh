@@ -28,6 +28,7 @@ sudo eopkg it -y \
   zsh \
   vscode \
   variety \
+  libu2f-host \
   diffutils > /dev/null 2>&1
 
 info ">>> Packages succesfully installed"
