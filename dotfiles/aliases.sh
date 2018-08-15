@@ -13,6 +13,7 @@ alias ..7="cd ../../../../../../.."
 alias gc=". /usr/local/bin/gitdate && git commit -v "
 alias pgrep='ps -ef|grep'
 alias gsc='. /usr/local/bin/gitdate && git commit -v -S -a -m'
+alias pip='pip3'
 
 # enable color support of ls and also add handy aliases
 if [ -x "/usr/bin/dircolors" ]; then

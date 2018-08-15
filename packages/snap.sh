@@ -14,13 +14,9 @@ fi
 
 if [ -n "$(command -v snap)" ]; then
     sudo snap install postman \
-        google-play-music-desktop-player \
         insomnia \
         vlc \
         simplenote > /dev/null 2>&1
-
-    sudo snap install --classic slack > /dev/null 2>&1
-    sudo snap install --classic aws-cli > /dev/null 2>&1
     info ">>> Snaps installed succesfully"
 else
     warning ">>> Snapcraft not installed, cannot install snaps"

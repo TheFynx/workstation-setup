@@ -12,13 +12,14 @@ panels=['622508c4-6f5c-11e8-bfef-c86000757626']
 size=39
 dock-mode=false
 enable-shadow=true
-applets=['62648b7a-6f5c-11e8-bfef-c86000757626', '626590b0-6f5c-11e8-bfef-c86000757626', '726d0af2-701e-11e8-81b9-c86000757626', '625958d6-6f5c-11e8-bfef-c86000757626', '6259b880-6f5c-11e8-bfef-c86000757626', '624f3a18-6f5c-11e8-bfef-c86000757626', '626644ec-6f5c-11e8-bfef-c86000757626', '6243016c-6f5c-11e8-bfef-c86000757626', '62452a5a-6f5c-11e8-bfef-c86000757626', 'b17c8866-6f5c-11e8-bfef-c86000757626']
+applets=['62648b7a-6f5c-11e8-bfef-c86000757626', '626590b0-6f5c-11e8-bfef-c86000757626', '726d0af2-701e-11e8-81b9-c86000757626', '625958d6-6f5c-11e8-bfef-c86000757626', '6259b880-6f5c-11e8-bfef-c86000757626', '624f
+3a18-6f5c-11e8-bfef-c86000757626', '6243016c-6f5c-11e8-bfef-c86000757626', '626644ec-6f5c-11e8-bfef-c86000757626', '62452a5a-6f5c-11e8-bfef-c86000757626', 'b17c8866-6f5c-11e8-bfef-c86000757626']
 transparency='none'
 location='top'
 theme-regions=true
 
 [com/solus-project/budgie-panel/instance/icon-tasklist/{62452a5a-6f5c-11e8-bfef-c86000757626}]
-pinned-launchers=['org.gnome.Nautilus.desktop', 'simplenote_simplenote.desktop', 'google-play-music-desktop-player_google-play-music-desktop-player.desktop', 'vscode-oss.desktop', 'postman_postman.desktop']
+pinned-launchers=['org.gnome.Nautilus.desktop', 'simplenote_simplenote.desktop', 'spotify.desktop', 'vscode-oss.desktop', 'insomnia_insomnia.desktop', 'postman_postman.desktop', 'google-chrome.desktop']
 
 [com/solus-project/budgie-panel/instance/workspaces/{726d0af2-701e-11e8-81b9-c86000757626}]
 addbutton-visibility='never'
@@ -76,8 +77,16 @@ name='User Indicator'
 [com/solus-project/budgie-wm]
 button-layout='appmenu:minimize,maximize,close'
 
+[com/solus-project/software-center]
+last-checked=int64 1534361334
+update-type='security-only'
+
+[com/solus-project/budgie-wm]
+button-layout='appmenu:minimize,maximize,close'
+
 [org/gnome/desktop/wm/preferences]
 num-workspaces=${WORKSPACE_COUNT}
+action-middle-click-titlebar='lower'
 
 [com/solus-project/software-center]
 last-checked=int64 1529519046
@@ -106,9 +115,14 @@ night-light-enabled=false
 night-light-last-coordinates=(37.027099999999997, -93.319299999999998)
 
 [org/gnome/settings-daemon/plugins/media-keys]
-custom-keybindings=['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/']
+custom-keybindings=['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/']
 www='<Super>w'
 calculator='<Primary><Super>c'
+
+[org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1]
+binding='<Super>e'
+command='code-oss'
+name='vscode'
 
 [org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0]
 binding='<Super>t'
@@ -133,8 +147,8 @@ clock-show-date=true
 monospace-font-name='Droid Sans Mono for Powerline 10'
 gtk-im-module='gtk-im-context-simple'
 cursor-theme='breeze-cursor'
-gtk-theme='Adapta-Eta'
-icon-theme='Papirus'
+gtk-theme='Materia'
+icon-theme='Moka'
 
 [org/gnome/desktop/media-handling]
 autorun-never=true
@@ -145,14 +159,12 @@ primary-color='#000000000000'
 picture-options='zoom'
 secondary-color='#000000000000'
 
-
 [org/gnome/desktop/background]
 show-desktop-icons=false
 color-shading-type='solid'
 primary-color='#000000000000'
 picture-options='zoom'
 secondary-color='#000000000000'
-
 
 [org/gnome/eog/view]
 background-color='rgb(0,0,0)'

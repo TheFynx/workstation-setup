@@ -207,6 +207,9 @@ ${PACKAGE_SCRIPT}
 info ">>> Installing Snaps"
 ${INIT_HOME}/workstation-setup/packages/snap.sh
 
+info ">>> Installing Python Packages"
+${INIT_HOME}/workstation-setup/packages/python.sh
+
 ########################
 # Setup SSH Keys
 ########################
