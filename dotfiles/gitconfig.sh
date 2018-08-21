@@ -10,7 +10,7 @@ cat > "${HOME}/.gitconfig.2" << 'EOF'
 [web]
     browser = google-chrome
 [push]
-    default = matching
+    default = current
 [credential]
     helper = cache --timeout=3600
 [color]

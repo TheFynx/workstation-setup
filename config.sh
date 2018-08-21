@@ -100,9 +100,9 @@ export -f _workstation_log
 
 export USER='levi'
 export GROUP='levi'
-export PACKER_VERSION='1.2.4'
-export TERRAFORM_VERSION='0.11.7'
-export CONSUL_VERSION='1.2.0'
+export PACKER_VERSION='1.2.5'
+export TERRAFORM_VERSION='0.11.8'
+export CONSUL_VERSION='1.2.2'
 export CONSUL_TEMPLATE_VERSION='0.19.5'
 export WORKSPACE_COUNT="4"
 
@@ -159,9 +159,9 @@ function setos () {
 
 info ">>> Workstation Setup: Initiating"
 
-########################
+###############################################################################
 # Setup Config
-########################
+###############################################################################
 
 setup_git="https://github.com/TheFynx/workstation-setup.git"
 
@@ -169,9 +169,9 @@ export USER_HOME="/home/${USER}"
 export HOSTNAME=$(hostname)
 export INIT_HOME=${USER_HOME}/init
 
-########################
+###############################################################################
 # Get PreReqs
-########################
+###############################################################################
 
 setos
 if [ -z "$(command -v git)" ]; then
@@ -179,9 +179,9 @@ if [ -z "$(command -v git)" ]; then
   $PKG_INSTALL git > /dev/null 2>&1
 fi
 
-########################
+###############################################################################
 # Clone Setup Repo
-########################
+###############################################################################
 
 mkdir -p ${INIT_HOME}
 
@@ -195,9 +195,9 @@ else
   info ">>> Workstation Setup Files Cloned"
 fi
 
-########################
+###############################################################################
 # Package Install
-########################
+###############################################################################
 
 info ">>> Installing ${PKG} packages"
 
@@ -210,9 +210,9 @@ ${INIT_HOME}/workstation-setup/packages/snap.sh
 info ">>> Installing Python Packages"
 ${INIT_HOME}/workstation-setup/packages/python.sh
 
-########################
+###############################################################################
 # Setup SSH Keys
-########################
+###############################################################################
 
 read -p "$(query ">>> Workstation Setup: Do you have a secrets file? y/n (default n)")" secretAnswer
 
@@ -256,30 +256,30 @@ if [ ! -f "${USER_HOME}/.ssh/priv_keys/id_rsa" ]; then
   mv ${USER_HOME}/.ssh/id_rsa.pub ${USER_HOME}/.ssh/pub_keys
 fi
 
-########################
+###############################################################################
 # Install Hashi Tools
-########################
+###############################################################################
 
 info ">>> Installing Hashicorp Tools"
 ${INIT_HOME}/workstation-setup/packages/hashi.sh || warning "Hashi install failed to run"
 
-########################
+###############################################################################
 # Install Fonts
-########################
+###############################################################################
 
 info ">>> Installing Custom Fonts"
 ${INIT_HOME}/workstation-setup/packages/fonts.sh || warning "Fonts install failed to run"
 
-########################
+###############################################################################
 # Install Zoom
-########################
+###############################################################################
 
 info ">>> Installing Zoom"
 ${INIT_HOME}/workstation-setup/packages/zoom.sh || warning "Zoom install failed to run"
 
-########################
+###############################################################################
 # Ensure set to ZSH
-########################
+###############################################################################
 
 info ">>> Checking current shell"
 if [ "${SHELL}" != "" ]; then
@@ -289,24 +289,24 @@ else
   info ">>> Shell already set"
 fi
 
-########################
+###############################################################################
 # Install Oh-My-ZSH
-########################
+###############################################################################
 
 info ">>> Installing Oh-My-ZSH"
 ${INIT_HOME}/workstation-setup/packages/oh-my-zsh.sh || warning "Oh My ZSH install failed to run"
 
-########################
+###############################################################################
 # Copy Wallpapers
-########################
+###############################################################################
 
 info ">>> Copying Wallpapers"
 mkdir -p ${USER_HOME}/Wallpapers
 /bin/cp -r ${INIT_HOME}/workstation-setup/files/wallpapers/* ${USER_HOME}/Wallpapers/
 
-########################
+###############################################################################
 # Install dotfiles
-########################
+###############################################################################
 
 info ">>> Configuring dotFiles"
 
@@ -317,9 +317,9 @@ for dot in *.sh; do
   bash $dot || warning "${dot} failed to run"
 done
 
-########################
+###############################################################################
 # Cleanup
-########################
+###############################################################################
 
 info ">>> Perfoming Cleanup"
 sudo eopkg rmo -y > /dev/null 2>&1

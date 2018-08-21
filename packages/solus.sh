@@ -43,7 +43,7 @@ else
 fi
 
 info ">>> Installing Google Talk Plugin"
-if [ -z "$(eopkg li | frep google-talkplugin)" ]; then
+if [ -z "$(eopkg li | grep google-talkplugin)" ]; then
   sudo eopkg bi --ignore-safety https://raw.githubusercontent.com/solus-project/3rd-party/master/network/im/google-talkplugin/pspec.xml > /dev/null 2>&1
   sudo eopkg it google-talkplugin*.eopkg;sudo rm google-talkplugin*.eopkg > /dev/null 2>&1
 else

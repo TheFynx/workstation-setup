@@ -19,7 +19,7 @@ location='top'
 theme-regions=true
 
 [com/solus-project/budgie-panel/instance/icon-tasklist/{62452a5a-6f5c-11e8-bfef-c86000757626}]
-pinned-launchers=['org.gnome.Nautilus.desktop', 'simplenote_simplenote.desktop', 'spotify.desktop', 'vscode-oss.desktop', 'insomnia_insomnia.desktop', 'postman_postman.desktop', 'google-chrome.desktop']
+pinned-launchers=['org.gnome.Nautilus.desktop', 'google-chrome.desktop', 'spotify.desktop', 'vscode-oss.desktop', 'insomnia_insomnia.desktop', 'postman_postman.desktop', 'simplenote_simplenote.desktop']
 
 [com/solus-project/budgie-panel/instance/workspaces/{726d0af2-701e-11e8-81b9-c86000757626}]
 addbutton-visibility='never'
