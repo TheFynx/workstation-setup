@@ -30,6 +30,9 @@ sudo eopkg it -y \
   variety \
   rsync \
   libu2f-host \
+  moka-icon-theme \
+  materia-gtk-theme \
+  materia-gtk-theme-dark \
   diffutils > /dev/null 2>&1
 
 info ">>> Installing 3rd Party Packages"
