@@ -1,6 +1,6 @@
 if [ -z "$(command -v snap)" ]; then
     if [ "${PKG}" == "apt" ]; then
-      sudo apt -y install snapd > /dev/null 2>&1 || warning ">>> Failed to install Snapcraft using ${PKG}"
+      sudo apt-get -y install snapd > /dev/null 2>&1 || warning ">>> Failed to install Snapcraft using ${PKG}"
       sudo systemctl enable snapd
       sudo systemctl start snapd
     elif [ "${OS}" == "fedora" ]; then

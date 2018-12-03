@@ -27,7 +27,7 @@ cat > "${HOME}/.config/terminator/config.2" << 'EOF'
   go_prev = None
   group_all = None
   group_tab = None
-  hide_window = <Shift><Control>a
+  hide_window = None
   move_tab_left = None
   move_tab_right = None
   new_tab = None

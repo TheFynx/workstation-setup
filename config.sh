@@ -322,6 +322,10 @@ done
 ###############################################################################
 
 info ">>> Perfoming Cleanup"
-sudo eopkg rmo -y > /dev/null 2>&1
+if [ "${PKG}" == 'eopkg' ]; then
+  sudo eopkg rmo -y > /dev/null 2>&1
+elif [ "${PKG}" == 'apt' ]; then
+  sudo apt-get clean -y
+fi
 
 info ">>> Setup Complete"

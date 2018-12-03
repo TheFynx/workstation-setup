@@ -1,5 +1,14 @@
-
-if [ ! -d "/opt/zoom" ]; then
+if [ "${PKG}" == "apt" ]; then
+  if [ -z "$(dpkg -l | awk '{print $2}' | grep -w "zoom")" ]; then
+    cd /tmp
+    curl -sO https://zoom.us/client/latest/zoom_amd64.deb
+    apt install -y zoom_amd64.deb || warning "Failed to install zoom"
+    rm -rf zoom_amd64.deb
+  else
+    info ">>> Zoom already installed"
+  fi
+else
+  if [ ! -d "/opt/zoom" ]; then
     cd /tmp
     curl -sL https://zoom.us/client/latest/zoom_x86_64.tar.xz -o zoom.tar.xz
     tar -xzf zoom.tar.xz > /dev/null 2>&1 || warning "Failed to un-tar Zoom"
@@ -26,9 +35,9 @@ EOF
     sudo update-desktop-database > /dev/null 2>&1
 
     rm -rf /tmp/zoom.tar.xz
-
     info ">>> Zoom succesfully installed"
-else
+  else
     info ">>> Zoom already installed"
+  fi
 fi
 
