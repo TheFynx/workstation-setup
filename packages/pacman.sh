@@ -34,7 +34,7 @@ sudo pacman -Syu --noconfirm \
     vagrant \
     yaourt \
     keybase-gui \
-    bzip2 > /dev/null 2>&1
+    bzip2
 
 info ">>> Installing AUR Packages"
 sudo yaourt -Syu --noconfirm \
@@ -46,4 +46,4 @@ sudo yaourt -Syu --noconfirm \
   insomnia \
   pyenv \
   rbenv \
-  postman > /dev/null 2>&1
+  postman
