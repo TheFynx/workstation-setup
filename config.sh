@@ -147,8 +147,8 @@ function setos () {
   elif [ -n "$(command -v pacman)" ]; then
     export OS="arch"
     export PKG="pacman"
-    export PKG_INSTALL="sudo pacman -Sy "
-    export PACKAGE_SCRIPT="bash ${INIT_HOME}/workstation-setup/packages/arch.sh"
+    export PKG_INSTALL="sudo pacman -Sy --noconfirm "
+    export PACKAGE_SCRIPT="bash ${INIT_HOME}/workstation-setup/packages/pacman.sh"
   elif [ -n "$(command -v dnf)" ]; then
     export OS="fedora"
     export PKG="dnf"
@@ -176,7 +176,7 @@ export INIT_HOME=${USER_HOME}/init
 setos
 if [ -z "$(command -v git)" ]; then
   info ">>> Git not installed, installing"
-  $PKG_INSTALL git > /dev/null 2>&1
+  ${PKG_INSTALL} git > /dev/null 2>&1
 fi
 
 ###############################################################################
@@ -205,7 +205,11 @@ debug ">>> Running ${OS} OS"
 ${PACKAGE_SCRIPT}
 
 info ">>> Installing Snaps"
-${INIT_HOME}/workstation-setup/packages/snap.sh
+if [ "${PKG}" != "pacman" ]; then
+  ${INIT_HOME}/workstation-setup/packages/snap.sh
+else
+  info ">>> No need for snap in Arch"
+fi
 
 info ">>> Installing Python Packages"
 ${INIT_HOME}/workstation-setup/packages/python.sh
@@ -261,7 +265,11 @@ fi
 ###############################################################################
 
 info ">>> Installing Hashicorp Tools"
-${INIT_HOME}/workstation-setup/packages/hashi.sh || warning "Hashi install failed to run"
+if [ "${PKG}" != "pacman" ]; then
+  ${INIT_HOME}/workstation-setup/packages/hashi.sh || warning "Hashi install failed to run"
+else
+  info ">>> Hashi Tools installed via Pacman"
+fi
 
 ###############################################################################
 # Install Fonts
@@ -275,7 +283,11 @@ ${INIT_HOME}/workstation-setup/packages/fonts.sh || warning "Fonts install faile
 ###############################################################################
 
 info ">>> Installing Zoom"
-${INIT_HOME}/workstation-setup/packages/zoom.sh || warning "Zoom install failed to run"
+if [ "${PKG}" != "pacman" ]; then
+  ${INIT_HOME}/workstation-setup/packages/zoom.sh || warning "Zoom install failed to run"
+else
+  info ">>> Zoom installed via Pacman"
+fi
 
 ###############################################################################
 # Ensure set to ZSH
@@ -326,6 +338,8 @@ if [ "${PKG}" == 'eopkg' ]; then
   sudo eopkg rmo -y > /dev/null 2>&1
 elif [ "${PKG}" == 'apt' ]; then
   sudo apt-get clean -y
+elif [ "${PKG}" == 'pacman' ]; then
+  sudo pacman -Sc
 fi
 
 info ">>> Setup Complete"

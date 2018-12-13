@@ -6,9 +6,6 @@ if [ -z "$(command -v snap)" ]; then
     elif [ "${OS}" == "fedora" ]; then
       sudo dnf install -y snapd > /dev/null 2>&1  || warning ">>> Failed to install Snapcraft using ${PKG}"
       sudo ln -s /var/lib/snapd/snap /snap || warning ">>> Failed to create snap bin link"
-    elif [ "${OS}" == "arch" ]; then
-      yaourt -Sy snapd > /dev/null 2>&1  || warning ">>> Failed to install Snapcraft using ${PKG}"
-      sudo systemctl enable --now snapd.socket > /dev/null 2>&1 || warning ">>> Failed to enable Snapcraft"
     else
       warning ">>> Cannot install snapcraft"
     fi
