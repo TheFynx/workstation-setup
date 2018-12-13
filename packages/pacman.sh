@@ -3,7 +3,6 @@ sudo pacman -Syyu > /dev/null 2>&1
 
 info ">>> Installing Packages"
 sudo pacman -Syu --noconfirm \
-    apt-transport-https \
     curl \
     wget \
     unzip \
