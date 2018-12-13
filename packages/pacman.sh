@@ -1,5 +1,5 @@
 info ">>> Upgrading System"
-sudo pacman-mirrors --fasttrack 5 && sudo pacman -Syyu > /dev/null 2>&1
+sudo pacman -Syyu > /dev/null 2>&1
 
 info ">>> Installing Packages"
 sudo pacman -Syu --noconfirm \
