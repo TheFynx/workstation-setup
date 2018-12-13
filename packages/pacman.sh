@@ -2,7 +2,7 @@ info ">>> Upgrading System"
 sudo pacman -Syyu > /dev/null 2>&1
 
 info ">>> Installing Packages"
-sudo pacman -Syu --noconfirm \
+sudo pacman -Sy --noconfirm \
     curl \
     wget \
     unzip \
@@ -36,7 +36,7 @@ sudo pacman -Syu --noconfirm \
     bzip2
 
 info ">>> Installing AUR Packages"
-sudo yaourt -Syu --noconfirm \
+yaourt -Sy \
   simplenote-electron-bin \
   slack-desktop \
   gitkraken \
