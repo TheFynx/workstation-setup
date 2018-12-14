@@ -2,7 +2,7 @@ info ">>> Upgrading System"
 sudo pacman -Syyu > /dev/null 2>&1
 
 info ">>> Installing Packages"
-sudo pacman -Sy --noconfirm \
+sudo pacman -Sy --needed --noconfirm \
     curl \
     wget \
     unzip \
@@ -33,10 +33,10 @@ sudo pacman -Sy --noconfirm \
     vagrant \
     yaourt \
     keybase-gui \
-    bzip2
+    bzip2 > /dev/null 2>&1
 
 info ">>> Installing AUR Packages"
-yaourt -Sy \
+yaourt -Sy --needed --noconfirm \
   simplenote-electron-bin \
   slack-desktop \
   gitkraken \
@@ -45,4 +45,4 @@ yaourt -Sy \
   insomnia \
   pyenv \
   rbenv \
-  postman
+  postman > /dev/null 2>&1
