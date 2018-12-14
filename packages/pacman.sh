@@ -32,6 +32,7 @@ sudo pacman -Sy --needed --noconfirm \
     packer \
     vagrant \
     yaourt \
+    libu2f-host \
     keybase-gui \
     bzip2 > /dev/null 2>&1
 
