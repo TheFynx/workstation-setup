@@ -43,11 +43,6 @@ if [ -d "${HOME}/.goenv" ]; then
   export PATH="${GOENV_ROOT}/bin:${PATH}"
 fi
 
-# Add shim/goenv to path
-if [ -n "$(command -v pyenv)" ]; then
-  eval "$(goenv init -)"
-fi
-
 # Set Pyenv
 if [ -d "${HOME}/.pyenv" ]; then
   export PYENV_ROOT="${HOME}/.pyenv"

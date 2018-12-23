@@ -72,17 +72,16 @@ cat > "${HOME}/.config/terminator/config.2" << 'EOF'
     cursor_shape = ibeam
     custom_command = exec /bin/zsh -l
     font = Droid Sans Mono for Powerline 10
-    foreground_color = "#eeeeec"
+    foreground_color = "#ffffff"
     icon_bell = False
     login_shell = True
-    palette = "#2e3436:#f57900:#4e9a06:#edd400:#3465a4:#75507b:#06989a:#d3d7cf:#555753:#fcaf3e:#8ae234:#fce94f:#729fcf:#ad7fa8:#34e2e2:#eeeeec"
+    palette = "#000000:#cc0000:#4e9a06:#c17d11:#204a87:#cd00cd:#00cdcd:#d3d7cf:#7f7f7f:#ef2929:#73d216:#e9b96e:#729fcf:#ff00ff:#00ffff:#eeeeec"
     scrollback_infinite = True
     scrollback_lines = 5000
     scrollbar_position = hidden
     show_titlebar = False
     use_custom_command = True
     use_system_font = False
-
 EOF
 
 if [ -f "${HOME}/.config/terminator/config" ]; then

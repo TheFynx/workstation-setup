@@ -46,4 +46,5 @@ yaourt -Sy --needed --noconfirm \
   insomnia \
   pyenv \
   rbenv \
+  ttf-ancient-fonts \
   postman > /dev/null 2>&1
