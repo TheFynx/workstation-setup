@@ -1,5 +1,5 @@
 info ">>> Upgrading System"
-sudo pacman -Syyu > /dev/null 2>&1
+sudo pacman -Syu --noconfirm > /dev/null 2>&1
 
 info ">>> Installing Packages"
 sudo pacman -Sy --needed --noconfirm \
