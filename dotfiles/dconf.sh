@@ -145,6 +145,7 @@ window-size=(3440, 1366)
 clock-show-date=true
 monospace-font-name='Droid Sans Mono for Powerline 10'
 gtk-im-module='gtk-im-context-simple'
+toolkit-accessibility=false
 cursor-theme='breeze-cursor'
 gtk-theme='Materia'
 icon-theme='Moka'
@@ -173,6 +174,7 @@ use-background-color=true
 desktop-effects-unmaximize-transition='easeNone'
 desktop-effects-on-dialogs=false
 desktop-effects-maximize-transition='easeInExpo'
+active-display-scale=2
 desktop-effects-map-effect='traditional'
 command-history=['jmeter ', 'jmeter', 'code']
 hotcorner-layout=['expo:false:0', 'scale:false:0', 'scale:false:0', 'desktop:false:0']
@@ -221,8 +223,8 @@ text-scaling-factor=1.0
 cursor-size=24
 cursor-blink-time=1200
 gtk-overlay-scrollbars=false
-icon-theme='Papirus-Dark'
-gtk-theme='Mint-Y-Dark'
+icon-theme='Adwaita'
+gtk-theme='Materia-dark'
 
 [org/cinnamon/desktop/keybindings/media-keys]
 terminal=['<Super>t']
@@ -248,7 +250,7 @@ recent-files-max-age=-1
 
 [org/cinnamon/desktop/wm/preferences]
 min-window-opacity=30
-theme='Mint-Y-Dark'
+theme='Materia-dark'
 num-workspaces=5
 workspace-names=@as []
 
@@ -279,7 +281,7 @@ event-sounds=false
 
 [org/cinnamon/desktop/background]
 picture-uri='file:///home/levi/Wallpapers/coffee-pixels.png'
-primary-color='#555557575353'
+primary-color='#000000000000'
 picture-options='zoom'
 secondary-color='#000000000000'
 
@@ -289,7 +291,7 @@ delay=15
 
 [org/cinnamon/theme]
 theme-cache-updated=1536677289
-name='Mint-Y-Dark'
+name='Materia-dark'
 
 [org/cinnamon/settings-daemon/plugins/power]
 sleep-display-ac=7200
@@ -330,6 +332,9 @@ root='file:///'
 
 [org/x/editor/plugins]
 active-plugins=['textsize', 'spell', 'sort', 'modelines', 'filebrowser', 'docinfo', 'time']
+
+[org/nemo/preferences]
+show-hidden-files=true
 
 [com/linuxmint/updates]
 hide-systray=false
