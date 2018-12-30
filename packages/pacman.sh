@@ -48,5 +48,7 @@ yaourt -Sy --needed --noconfirm \
   pyenv \
   rbenv-git \
   ruby-build \
+  nodenv \
+  nodenv-node-build-git \
   ttf-ancient-fonts \
   postman > /dev/null 2>&1

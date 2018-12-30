@@ -29,7 +29,8 @@ fi
 
 # set PATH so it includes user's private bin if it exists
 if [ -d "${HOME}/bin" ]; then
-  export PATH="${HOME}/bin:${PATH}"
+  export RBENV_ROOT="${HOME}/.rbenv"
+  export PATH="${RBENV_ROOT}/bin:${PATH}"
 fi
 
 # Add shim/rbenv to path
@@ -43,6 +44,11 @@ if [ -d "${HOME}/.goenv" ]; then
   export PATH="${GOENV_ROOT}/bin:${PATH}"
 fi
 
+# Add shim/goenv to path
+if [ -n "$(command -v goenv)" ]; then
+  eval "$(goenv init -)"
+fi
+
 # Set Pyenv
 if [ -d "${HOME}/.pyenv" ]; then
   export PYENV_ROOT="${HOME}/.pyenv"
@@ -52,6 +58,17 @@ fi
 # Add shim/pyenv to path
 if [ -n "$(command -v pyenv)" ]; then
   eval "$(pyenv init -)"
+fi
+
+# Set Nodenv
+if [ -d "${HOME}/.nodenv" ]; then
+  export NODENV_ROOT="${HOME}/.nodenv"
+  export PATH="${NODENV_ROOT}/bin:${PATH}"
+fi
+
+# Add shim/nodenv to path
+if [ -n "$(command -v nodenv)" ]; then
+  eval "$(nodenv init -)"
 fi
 
 # set GOPATH if it exists
