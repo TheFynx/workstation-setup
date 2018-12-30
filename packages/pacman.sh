@@ -32,6 +32,7 @@ sudo pacman -Sy --needed --noconfirm \
     packer \
     vagrant \
     yaourt \
+    clamtk \
     libu2f-host \
     keybase-gui \
     bzip2 > /dev/null 2>&1
@@ -45,6 +46,7 @@ yaourt -Sy --needed --noconfirm \
   zoom \
   insomnia \
   pyenv \
-  rbenv \
+  rbenv-git \
+  ruby-build \
   ttf-ancient-fonts \
   postman > /dev/null 2>&1
