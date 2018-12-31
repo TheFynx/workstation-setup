@@ -12,4 +12,4 @@ if [ -n "$(command -v rbenv)" ]; then
 fi
 
 info ">>> Installing Gems"
-gem install travis --no-rdoc --no-ri
+gem install travis --no-document
