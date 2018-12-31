@@ -65,6 +65,7 @@ plugins=(
   aws
   pip
   python
+  node
   zsh-autosuggestions
 )
 
@@ -79,6 +80,7 @@ BULLETTRAIN_PROMPT_ORDER=(
   perl
   ruby
   virtualenv
+  nvm
   aws
   go
   rust

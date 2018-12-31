@@ -98,13 +98,16 @@ export -f debug
 export -f query
 export -f _workstation_log
 
-export USER='levi'
-export GROUP='levi'
-export PACKER_VERSION='1.2.5'
-export TERRAFORM_VERSION='0.11.8'
-export CONSUL_VERSION='1.2.2'
-export CONSUL_TEMPLATE_VERSION='0.19.5'
-export WORKSPACE_COUNT="4"
+: {USER:='levi'}
+: {GROUP:='levi'}
+: {PACKER_VERSION:='1.2.5'}
+: {TERRAFORM_VERSION:='0.11.8'}
+: {CONSUL_VERSION:='1.2.2'}
+: {CONSUL_TEMPLATE_VERSION:='0.19.5'}
+: {GO_VERSION:="1.11.4"}
+: {RB_VERSION:="2.6.0"}
+: {NODE_VERSION:="10.15.0"}
+: {PY_VERSION:="3.7.1"}
 
 print_help() {
   echo ">>> Usage:"
@@ -214,6 +217,15 @@ fi
 info ">>> Installing Python Packages"
 ${INIT_HOME}/workstation-setup/packages/python.sh
 
+info ">>> Installing Ruby Packages"
+${INIT_HOME}/workstation-setup/packages/ruby.sh
+
+info ">>> Installing NodeJS Packages"
+${INIT_HOME}/workstation-setup/packages/node.sh
+
+info ">>> Installing Golang Packages"
+${INIT_HOME}/workstation-setup/packages/go.sh
+
 ###############################################################################
 # Setup SSH Keys
 ###############################################################################
@@ -295,7 +307,7 @@ fi
 
 info ">>> Checking current shell"
 if [ "${SHELL}" != "" ]; then
-  sudo chsh -s /bin/bash ${USER}
+  sudo chsh -s /bin/zsh ${USER}
   info ">>> Shell changed"
 else
   info ">>> Shell already set"
