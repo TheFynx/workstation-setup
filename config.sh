@@ -98,16 +98,17 @@ export -f debug
 export -f query
 export -f _workstation_log
 
-export ${USER:='levi'}
-export ${GROUP:='levi'}
-export ${PACKER_VERSION:='1.2.5'}
-export ${TERRAFORM_VERSION:='0.11.8'}
-export ${CONSUL_VERSION:='1.2.2'}
-export ${CONSUL_TEMPLATE_VERSION:='0.19.5'}
-export ${GO_VERSION:="1.11.4"}
-export ${RB_VERSION:="2.6.0"}
-export ${NODE_VERSION:="10.15.0"}
-export ${PY_VERSION:="3.7.1"}
+export USER='levi'
+export GROUP='levi'
+export PACKER_VERSION='1.2.5'
+export TERRAFORM_VERSION='0.11.8'
+export CONSUL_VERSION='1.2.2'
+export CONSUL_TEMPLATE_VERSION='0.19.5'
+export WORKSPACE_COUNT='4'
+export GO_VERSION="1.11.4"
+export RB_VERSION="2.6.0"
+export NODE_VERSION="10.15.0"
+export PY_VERSION="3.7.1"
 
 print_help() {
   echo ">>> Usage:"
