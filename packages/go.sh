@@ -13,5 +13,7 @@ fi
 # Add shim/goenv to path
 if [ -n "$(command -v goenv)" ]; then
   eval "$(goenv init -)"
-  goenv install ${GO_VERSION}
+  if [ -z "$(goenv versions | grep "${GO_VERSION}")" ]; then
+    goenv install ${GO_VERSION}
+  fi
 fi

@@ -9,7 +9,9 @@ fi
 if [ -n "$(command -v pyenv)" ]; then
   eval "$(pyenv init -)"
   info ">>> Installing Python to PYENV"
-  echo "pyenv install ${PY_VERSION}"
+  if [ -z "$(pyenv versions | grep "${PY_VERSION}")" ]; then
+    pyenv install ${PY_VERSION}
+  fi
 fi
 
 info ">>> Upgrading Pip"

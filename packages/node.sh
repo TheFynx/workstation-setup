@@ -8,5 +8,7 @@ fi
 # Add shim/nodenv to path
 if [ -n "$(command -v nodenv)" ]; then
   eval "$(nodenv init -)"
-  nodenv install ${NODE_VERSION}
+  if [ -z "$(nodenv versions | grep "${NODE_VERSION}")" ]; then
+    nodenv install ${NODE_VERSION}
+  fi
 fi

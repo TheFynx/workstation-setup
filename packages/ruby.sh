@@ -8,7 +8,9 @@ fi
 # Add shim/rbenv to path
 if [ -n "$(command -v rbenv)" ]; then
   eval "$(rbenv init -)"
-  rbenv install ${RB_VERSION}
+  if [ -z "$(rbenv versions | grep "${RB_VERSION}")" ]; then
+    rbenv install ${RB_VERSION}
+  fi
 fi
 
 info ">>> Installing Gems"
