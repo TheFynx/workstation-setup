@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # This file:
 #
-#  - Sets up a Solus system to my liking
+#  - Sets up a OS I prefer to my liking
 #
 # Usage:
 #
@@ -98,16 +98,16 @@ export -f debug
 export -f query
 export -f _workstation_log
 
-: {USER:='levi'}
-: {GROUP:='levi'}
-: {PACKER_VERSION:='1.2.5'}
-: {TERRAFORM_VERSION:='0.11.8'}
-: {CONSUL_VERSION:='1.2.2'}
-: {CONSUL_TEMPLATE_VERSION:='0.19.5'}
-: {GO_VERSION:="1.11.4"}
-: {RB_VERSION:="2.6.0"}
-: {NODE_VERSION:="10.15.0"}
-: {PY_VERSION:="3.7.1"}
+: ${USER:='levi'}
+: ${GROUP:='levi'}
+: ${PACKER_VERSION:='1.2.5'}
+: ${TERRAFORM_VERSION:='0.11.8'}
+: ${CONSUL_VERSION:='1.2.2'}
+: ${CONSUL_TEMPLATE_VERSION:='0.19.5'}
+: ${GO_VERSION:="1.11.4"}
+: ${RB_VERSION:="2.6.0"}
+: ${NODE_VERSION:="10.15.0"}
+: ${PY_VERSION:="3.7.1"}
 
 print_help() {
   echo ">>> Usage:"
