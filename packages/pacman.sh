@@ -49,6 +49,7 @@ yaourt -Sy --needed --noconfirm \
   rbenv-git \
   ruby-build \
   nodenv \
+  google-talkplugin \
   nodenv-node-build-git \
   ttf-ancient-fonts \
   postman > /dev/null 2>&1
