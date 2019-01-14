@@ -119,10 +119,11 @@ print_help() {
   echo "-c | Pass Consul Version to Install - install.sh -c 1.1.0 - Default: ${CONSUL_VERSION}"
   echo "-e | Pass Consul Template Version to Install - install.sh -e 0.19.4 - Default: ${CONSUL_VERSION}"
   echo "-w | Pass Number of Workspaces to create by default - install.sh -w 5 - Default: ${WORKSPACE_COUNT}"
+  echo "-s | Skip a specific section of setup/install - config.sh -s dconf"
   echo "-h | List this help menu"
 }
 
-while getopts u:g:p:t:c:e:w:h option
+while getopts u:g:p:t:c:e:w:s:h option
 do
  case "${option}"
    in
@@ -133,6 +134,7 @@ do
      t) export CONSUL_VERSION=${OPTARG};;
      e) export CONSUL_TEMPLATE_VERSION=${OPTARG};;
      w) export WORKSPACE_COUNT=${OPTARG};;
+     s) export SKIP=${OPTARG};;
      h) print_help; exit 2;;
    esac
 done
@@ -352,7 +354,7 @@ if [ "${PKG}" == 'eopkg' ]; then
 elif [ "${PKG}" == 'apt' ]; then
   sudo apt-get clean -y
 elif [ "${PKG}" == 'pacman' ]; then
-  sudo pacman -Sc
+  sudo pacman -Sc --noconfirm
 fi
 
 info ">>> Setup Complete"

@@ -14,6 +14,8 @@ fi
 if [ -n "$(command -v goenv)" ]; then
   eval "$(goenv init -)"
   if [ -z "$(goenv versions | grep "${GO_VERSION}")" ]; then
-    goenv install ${GO_VERSION}
+    info ">>> Installing Golang to GOENV"
+    goenv install ${GO_VERSION} > /dev/null 2>&1
+    goenv global ${GO_VERSION} > /dev/null 2>&1
   fi
 fi

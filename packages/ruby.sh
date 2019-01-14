@@ -9,9 +9,10 @@ fi
 if [ -n "$(command -v rbenv)" ]; then
   eval "$(rbenv init -)"
   if [ -z "$(rbenv versions | grep "${RB_VERSION}")" ]; then
-    rbenv install ${RB_VERSION}
+    info ">>> Installing Ruby to RBENV"
+    rbenv install ${RB_VERSION} > /dev/null 2>&1
   fi
 fi
 
 info ">>> Installing Gems"
-gem install travis --no-document
+gem install travis --no-document > /dev/null 2>&1
