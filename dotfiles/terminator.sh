@@ -64,14 +64,14 @@ cat > "${HOME}/.config/terminator/config.2" << 'EOF'
 [plugins]
 [profiles]
   [[default]]
-    background_darkness = 0.59
+    background_darkness = 0.8
     background_type = transparent
     color_scheme = custom
     copy_on_selection = True
     cursor_color = "#ffffff"
     cursor_shape = ibeam
     custom_command = exec /bin/zsh -l
-    font = Droid Sans Mono for Powerline 10
+    font = Source Code Pro for Powerline Medium 10
     foreground_color = "#ffffff"
     icon_bell = False
     login_shell = True

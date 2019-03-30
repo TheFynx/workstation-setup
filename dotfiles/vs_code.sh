@@ -21,7 +21,9 @@ cat > "${LOCATION}/settings.json" << EOF
     "files.autoSave": "onFocusChange",
     "editor.tabSize": 2,
     "editor.insertSpaces": true,
-    "editor.detectIndentation": false
+    "editor.detectIndentation": false,
+    "markdown.extension.toc.githubCompatibility": true,
+    "markdown.extension.toc.updateOnSave": true,
 }
 EOF
 else
