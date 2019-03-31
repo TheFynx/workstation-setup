@@ -4,7 +4,7 @@ sudo pacman -Syyu --noconfirm > /dev/null 2>&1
 info ">>> Installing Packages"
 sudo pacman -Sy --needed --noconfirm yay
 
-yay -S --noconfirm \
+yay -Sy --noconfirm --noeditmenu --nodiffmenu  \
   simplenote-electron-bin \
   slack-desktop \
   gitkraken \
