@@ -7,6 +7,7 @@ if [ -z "$(command -v snap)" ]; then
       sudo dnf install -y snapd > /dev/null 2>&1 || warning ">>> Failed to install Snapcraft using ${PKG}"
       sudo ln -s /var/lib/snapd/snap /snap || warning ">>> Failed to create snap bin link"
     elif [ "${PKG}" == "pacman" ]; then
+      echo "no snap for arch"
       #yaourt -Sy --needed --noconfirm snapd-git > /dev/null 2>&1 || warning ">>> Failed to install Snapcraft using ${PKG}"
     else
       warning ">>> Cannot install snapcraft"
@@ -18,6 +19,7 @@ if [ -n "$(command -v snap)" ]; then
       sudo snap install postman \
         simplenote > /dev/null 2>&1
     elif [ "${PKG}" == "pacman" ]; then
+      echo "no snap for arch"
       #sudo snap install --devmode --beta anbox > /dev/null 2>&1
     else
       sudo snap install postman \
