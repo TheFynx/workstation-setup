@@ -1,10 +1,14 @@
-mkdir -p ${HOME}/.config/terminator/
+mkdir -p ${HOME}/.config/terminator/plugins
 
-cat > "${HOME}/.config/terminator/config.2" << 'EOF'
+if [ ! -f "${HOME}/.config/terminator/plugins/terminator-themes.py" ]; then
+  wget https://git.io/v5Zww -O "${HOME}/.config/terminator/plugins/terminator-themes.py"
+fi
+
+cat >"${HOME}/.config/terminator/config.2" <<'EOF'
 [global_config]
   borderless = True
   custom_url_handler = firefox
-  enabled_plugins = InactivityWatch, TestPlugin, SearchPlugin, ActivityWatch, LaunchpadBugURLHandler, TerminalExporter, TerminalShot, LaunchpadCodeURLHandler, APTURLHandler, Logger
+  enabled_plugins = InactivityWatch, TestPlugin, TerminatorThemes, ActivityWatch, TerminalShot, LaunchpadCodeURLHandler, APTURLHandler, Logger, LaunchpadBugURLHandler
   suppress_multiple_term_dialog = True
   title_font = Droid Sans 9
   title_inactive_bg_color = "#000000"
@@ -56,7 +60,7 @@ cat > "${HOME}/.config/terminator/config.2" << 'EOF'
   [[default]]
     [[[child1]]]
       parent = window0
-      profile = default
+      profile = MaterialDark
       type = Terminal
     [[[window0]]]
       parent = ""
@@ -64,18 +68,38 @@ cat > "${HOME}/.config/terminator/config.2" << 'EOF'
 [plugins]
 [profiles]
   [[default]]
-    background_darkness = 0.59
+    background_darkness = 0.8
     background_type = transparent
     color_scheme = custom
     copy_on_selection = True
     cursor_color = "#ffffff"
     cursor_shape = ibeam
     custom_command = exec /bin/zsh -l
-    font = Droid Sans Mono for Powerline 10
+    font = Source Code Pro for Powerline Medium 10
     foreground_color = "#ffffff"
     icon_bell = False
     login_shell = True
     palette = "#000000:#cc0000:#4e9a06:#c17d11:#204a87:#cd00cd:#00cdcd:#d3d7cf:#7f7f7f:#ef2929:#73d216:#e9b96e:#729fcf:#ff00ff:#00ffff:#eeeeec"
+    scrollback_infinite = True
+    scrollback_lines = 5000
+    scrollbar_position = hidden
+    show_titlebar = False
+    use_custom_command = True
+    use_system_font = False
+  [[MaterialDark]]
+    background_color = "#232322"
+    background_darkness = 0.8
+    background_type = transparent
+    color_scheme = custom
+    copy_on_selection = True
+    cursor_color = "#16afca"
+    cursor_shape = ibeam
+    custom_command = exec /bin/zsh -l
+    font = Source Code Pro for Powerline Medium 10
+    foreground_color = "#e5e5e5"
+    icon_bell = False
+    login_shell = True
+    palette = "#212121:#b7141f:#457b24:#f6981e:#134eb2:#560088:#0e717c:#efefef:#424242:#e83b3f:#7aba3a:#ffea2e:#54a4f3:#aa4dbc:#26bbd1:#d9d9d9"
     scrollback_infinite = True
     scrollback_lines = 5000
     scrollbar_position = hidden

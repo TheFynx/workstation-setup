@@ -100,8 +100,8 @@ export -f _workstation_log
 
 export USER='levi'
 export GROUP='levi'
-export PACKER_VERSION='1.2.5'
-export TERRAFORM_VERSION='0.11.8'
+export PACKER_VERSION='1.3.3'
+export TERRAFORM_VERSION='0.11.13'
 export CONSUL_VERSION='1.2.2'
 export CONSUL_TEMPLATE_VERSION='0.19.5'
 export WORKSPACE_COUNT='4'
@@ -211,11 +211,7 @@ debug ">>> Running ${OS} OS"
 ${PACKAGE_SCRIPT}
 
 info ">>> Installing Snaps"
-if [ "${PKG}" != "pacman" ]; then
-  ${INIT_HOME}/workstation-setup/packages/snap.sh
-else
-  info ">>> No need for snap in Arch"
-fi
+${INIT_HOME}/workstation-setup/packages/snap.sh
 
 info ">>> Installing Python Packages"
 ${INIT_HOME}/workstation-setup/packages/python.sh
