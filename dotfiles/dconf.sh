@@ -2,7 +2,7 @@ info ">>> Generating DCONF File"
 
 mkdir -p ${HOME}/.custom/
 
-cat > "${HOME}/.custom/dconf.2" << EOF
+cat >"${HOME}/.custom/dconf.2" <<EOF
 [apps/light-locker]
 idle-hint=false
 late-locking=false
@@ -497,7 +497,7 @@ if [ -f "${HOME}/.custom/dconf" ]; then
     info ">>> DCONF: Changes detected, printing side by side diff"
     diff -y --suppress-common-lines ${HOME}/.custom/dconf ${HOME}/.custom/dconf.2
     mv ${HOME}/.custom/dconf.2 ${HOME}/.custom/dconf
-    dconf load / < ${HOME}/.custom/dconf
+    dconf load / <${HOME}/.custom/dconf
   else
     info ">>> DCONF: No changes detected"
     mv ${HOME}/.custom/dconf.2 ${HOME}/.custom/dconf
@@ -505,5 +505,5 @@ if [ -f "${HOME}/.custom/dconf" ]; then
 else
   info ">>> DCONF: No file detected, creating new file"
   mv ${HOME}/.custom/dconf.2 ${HOME}/.custom/dconf
-  dconf load / < ${HOME}/.custom/dconf
+  dconf load / <${HOME}/.custom/dconf
 fi

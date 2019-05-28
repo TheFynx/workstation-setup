@@ -1,4 +1,4 @@
-cat > "${HOME}/.aliases.2" << 'EOF'
+cat >"${HOME}/.aliases.2" <<'EOF'
 # Easier navigation
 alias ..="cd .."
 alias ...="cd ../.."
@@ -10,9 +10,10 @@ alias ..6="cd ../../../../../.."
 alias ..7="cd ../../../../../../.."
 
 # Shortcuts
-alias gc=". /usr/local/bin/gitdate && git commit -v "
+alias gc="git commit -v "
 alias pgrep='ps -ef|grep'
-alias gsc='. /usr/local/bin/gitdate && git commit -v -S -a -m'
+alias gsc='git commit -v -S -a -m'
+alias gsa='git commit -v -S -a --amend -m'
 alias pip='pip3'
 
 # enable color support of ls and also add handy aliases

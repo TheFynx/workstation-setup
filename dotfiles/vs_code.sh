@@ -1,21 +1,24 @@
 if [ -n "$(command -v code)" ]; then
   info ">>> Installing VS Code Extensions"
   EXTENSIONS="bungcip.better-toml \
-              CoenraadS.bracket-pair-colorizer \
-              eamodio.gitlens \
-              eg2.vscode-npm-script \
-              eriklynd.json-tools \
-              esbenp.prettier-vscode \
-              foxundermoon.shell-format \
-              mauve.terraform \
-              ms-python.python \
-              ms-vscode.Go \
-              ms-vscode.Theme-1337 \
-              PeterJausovec.vscode-docker \
-              PKief.material-icon-theme \
-              shardulm94.trailing-spaces \
-              wwm.better-align \
-              yzhang.markdown-all-in-one"
+    CoenraadS.bracket-pair-colorizer \
+    dbaeumer.vscode-eslint \
+    eamodio.gitlens \
+    eg2.vscode-npm-script \
+    eriklynd.json-tools \
+    esbenp.prettier-vscode \
+    foxundermoon.shell-format \
+    mauve.terraform \
+    maximus136.change-string-case \
+    ms-python.python \
+    ms-vscode.Go \
+    ms-vscode.Theme-1337 \
+    PeterJausovec.vscode-docker \
+    PKief.material-icon-theme \
+    shardulm94.trailing-spaces \
+    weijunyu.vscode-json-path \
+    wwm.better-align \
+    yzhang.markdown-all-in-one"
   for ext in ${EXTENSIONS}; do
     code --install-extension ${ext} >/dev/null 2>&1
   done
@@ -48,6 +51,16 @@ if [ -n "${LOCATION}" ]; then
     "editor.renderWhitespace": "none",
     "editor.fontFamily": "'Hack'",
     "window.zoomLevel": 0,
+    "explorer.confirmDelete": false,
+    "[markdown]": {
+      "editor.defaultFormatter": "yzhang.markdown-all-in-one"
+    },
+    "[json]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[javascript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
 }
 EOF
 else

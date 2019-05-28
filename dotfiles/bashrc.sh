@@ -1,4 +1,4 @@
-cat > "${HOME}/.bashrc.2" << 'EOF'
+cat >"${HOME}/.bashrc.2" <<'EOF'
 # .bashrc
 
 # If not running interactively, don't do anything

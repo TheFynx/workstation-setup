@@ -1,4 +1,4 @@
-cat > "${HOME}/.gitignore.2" << 'EOF'
+cat >"${HOME}/.gitignore.2" <<'EOF'
 # Compiled source #
 ###################
 *.com

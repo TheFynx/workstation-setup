@@ -1,4 +1,4 @@
-cat > "${HOME}/.zshrc.2" << 'EOF'
+cat >"${HOME}/.zshrc.2" <<'EOF'
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -92,6 +92,9 @@ BULLETTRAIN_PROMPT_ORDER=(
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
+
+ssh-add ${USER_HOME}/.ssh/priv_keys/id_rsa
+ssh-add ${USER_HOME}/.ssh/priv_keys/git
 
 # Load the shell dotfiles, and then some:
 # * ~/.path can be used to extend `$PATH`.

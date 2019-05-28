@@ -1,4 +1,4 @@
-cat > "${HOME}/.functions.2" << 'EOF'
+cat >"${HOME}/.functions.2" <<'EOF'
 # Cleanup Docker Containers
 if [ -n "$(command -v docker)" ]; then
     ## Clean All Non-In Use Docker Items
