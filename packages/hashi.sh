@@ -50,24 +50,24 @@ else
   info ">>> Terraform Already Installed and at wanted version"
 fi
 
-if [ -z "$(command -v consul)" ]; then
-  info ">>> Installing Consul"
-  install_consul >/dev/null 2>&1
-elif [ "$(consul --version | head -1)" != "Consul v${CONSUL_VERSION}" ]; then
-  info ">>> Upgrading Consul"
-  sudo rm -f /usr/bin/consul
-  install_consul >/dev/null 2>&1
-else
-  info ">>> Consul Already Installed and at wanted version"
-fi
+# if [ -z "$(command -v consul)" ]; then
+#   info ">>> Installing Consul"
+#   install_consul >/dev/null 2>&1
+# elif [ "$(consul --version | head -1)" != "Consul v${CONSUL_VERSION}" ]; then
+#   info ">>> Upgrading Consul"
+#   sudo rm -f /usr/bin/consul
+#   install_consul >/dev/null 2>&1
+# else
+#   info ">>> Consul Already Installed and at wanted version"
+# fi
 
-if [ -z "$(command -v consul-template)" ]; then
-  info ">>> Installing Consul-Template"
-  install_consul_template >/dev/null 2>&1
-elif [ -z "$(consul-template --version | grep ${CONSUL_TEMPLATE_VERSION})" ]; then
-  info ">>> Upgrading Consul-Template"
-  sudo rm -f /usr/bin/consul-template
-  install_consul_template >/dev/null 2>&1
-else
-  info ">>> Consul-Template Already Installed and at wanted version"
-fi
+# if [ -z "$(command -v consul-template)" ]; then
+#   info ">>> Installing Consul-Template"
+#   install_consul_template >/dev/null 2>&1
+# elif [ -z "$(consul-template --version | grep ${CONSUL_TEMPLATE_VERSION})" ]; then
+#   info ">>> Upgrading Consul-Template"
+#   sudo rm -f /usr/bin/consul-template
+#   install_consul_template >/dev/null 2>&1
+# else
+#   info ">>> Consul-Template Already Installed and at wanted version"
+# fi

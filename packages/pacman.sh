@@ -46,8 +46,6 @@ yay -Sy --noconfirm --noeditmenu --nodiffmenu \
   chromium \
   vlc \
   code \
-  terraform \
-  packer \
   vagrant \
   clamtk \
   libu2f-host \

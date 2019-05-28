@@ -93,6 +93,9 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
+ssh-add ${USER_HOME}/.ssh/priv_keys/id_rsa
+ssh-add ${USER_HOME}/.ssh/priv_keys/git
+
 # Load the shell dotfiles, and then some:
 # * ~/.path can be used to extend `$PATH`.
 # * ~/.extra can be used for other settings you don’t want to commit.

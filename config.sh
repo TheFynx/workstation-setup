@@ -36,7 +36,7 @@ export RED="\\x1b[1;5;33m"
 # Functions
 ##############################################################################
 
-function _workstation_log () {
+function _workstation_log() {
   local log_level="${1}"
   shift
 
@@ -62,10 +62,11 @@ function _workstation_log () {
   local color="${!colorvar:-${color_error}}"
   local color_reset="\\x1b[0m"
 
-  if [[ "${NO_COLOR:-}" = "true" ]] || ( [[ "${TERM:-}" != "xterm"* ]] && [[ "${TERM:-}" != "screen"* ]] ) || [[ ! -t 2 ]]; then
+  if [[ "${NO_COLOR:-}" == "true" ]] || ([[ "${TERM:-}" != "xterm"* ]] && [[ "${TERM:-}" != "screen"* ]]) || [[ ! -t 2 ]]; then
     if [[ "${NO_COLOR:-}" != "false" ]]; then
       # Don't use colors on pipes or non-recognized terminals
-      color=""; color_reset=""
+      color=""
+      color_reset=""
     fi
   fi
 
@@ -74,18 +75,42 @@ function _workstation_log () {
 
   while IFS=$'\n' read -r log_line; do
     echo -e "$(date -u +"%Y-%m-%d %H:%M:%S UTC") ${color}$(printf "[%9s]" "${log_level}")${color_reset} ${log_line}" 1>&2
-  done <<< "${@:-}"
+  done <<<"${@:-}"
 }
 
-function emergency () {                                  _workstation_log emergency "${@}"; exit 1; }
-function alert ()     { [[ "${LOG_LEVEL:-0}" -ge 1 ]] && _workstation_log alert "${@}"; true; }
-function critical ()  { [[ "${LOG_LEVEL:-0}" -ge 2 ]] && _workstation_log critical "${@}"; true; }
-function error ()     { [[ "${LOG_LEVEL:-0}" -ge 3 ]] && _workstation_log error "${@}"; true; }
-function warning ()   { [[ "${LOG_LEVEL:-0}" -ge 4 ]] && _workstation_log warning "${@}"; true; }
-function notice ()    { [[ "${LOG_LEVEL:-0}" -ge 5 ]] && _workstation_log notice "${@}"; true; }
-function info ()      { [[ "${LOG_LEVEL:-0}" -ge 6 ]] && _workstation_log info "${@}"; true; }
-function debug ()     { [[ "${LOG_LEVEL:-0}" -ge 7 ]] && _workstation_log debug "${@}"; true; }
-function query()      { echo -e "$(date -u +"%Y-%m-%d %H:%M:%S UTC") ${RED}$(printf "[%9s]" query)${RESET} ${1} "; }
+function emergency() {
+  _workstation_log emergency "${@}"
+  exit 1
+}
+function alert() {
+  [[ "${LOG_LEVEL:-0}" -ge 1 ]] && _workstation_log alert "${@}"
+  true
+}
+function critical() {
+  [[ "${LOG_LEVEL:-0}" -ge 2 ]] && _workstation_log critical "${@}"
+  true
+}
+function error() {
+  [[ "${LOG_LEVEL:-0}" -ge 3 ]] && _workstation_log error "${@}"
+  true
+}
+function warning() {
+  [[ "${LOG_LEVEL:-0}" -ge 4 ]] && _workstation_log warning "${@}"
+  true
+}
+function notice() {
+  [[ "${LOG_LEVEL:-0}" -ge 5 ]] && _workstation_log notice "${@}"
+  true
+}
+function info() {
+  [[ "${LOG_LEVEL:-0}" -ge 6 ]] && _workstation_log info "${@}"
+  true
+}
+function debug() {
+  [[ "${LOG_LEVEL:-0}" -ge 7 ]] && _workstation_log debug "${@}"
+  true
+}
+function query() { echo -e "$(date -u +"%Y-%m-%d %H:%M:%S UTC") ${RED}$(printf "[%9s]" query)${RESET} ${1} "; }
 
 export -f emergency
 export -f alert
@@ -100,15 +125,15 @@ export -f _workstation_log
 
 export USER='levi'
 export GROUP='levi'
-export PACKER_VERSION='1.3.3'
-export TERRAFORM_VERSION='0.11.13'
+export PACKER_VERSION='1.4.0'
+export TERRAFORM_VERSION='0.11.14'
 export CONSUL_VERSION='1.2.2'
 export CONSUL_TEMPLATE_VERSION='0.19.5'
 export WORKSPACE_COUNT='4'
 export GO_VERSION="1.11.4"
-export RB_VERSION="2.6.0"
-export NODE_VERSION="10.15.0"
-export PY_VERSION="3.7.1"
+export RB_VERSION="2.6.3"
+export NODE_VERSION="8.15.0"
+export PY_VERSION="3.7.3"
 
 print_help() {
   echo ">>> Usage:"
@@ -123,23 +148,25 @@ print_help() {
   echo "-h | List this help menu"
 }
 
-while getopts u:g:p:t:c:e:w:s:h option
-do
- case "${option}"
-   in
-     u) export USER=${OPTARG};;
-     g) export GROUP=${OPTARG};;
-     p) export PACKER_VERSION=${OPTARG};;
-     t) export TERRAFORM_VERSION=${OPTARG};;
-     t) export CONSUL_VERSION=${OPTARG};;
-     e) export CONSUL_TEMPLATE_VERSION=${OPTARG};;
-     w) export WORKSPACE_COUNT=${OPTARG};;
-     s) export SKIP=${OPTARG};;
-     h) print_help; exit 2;;
-   esac
+while getopts u:g:p:t:c:e:w:s:h option; do
+  case "${option}" in
+
+  u) export USER=${OPTARG} ;;
+  g) export GROUP=${OPTARG} ;;
+  p) export PACKER_VERSION=${OPTARG} ;;
+  t) export TERRAFORM_VERSION=${OPTARG} ;;
+  t) export CONSUL_VERSION=${OPTARG} ;;
+  e) export CONSUL_TEMPLATE_VERSION=${OPTARG} ;;
+  w) export WORKSPACE_COUNT=${OPTARG} ;;
+  s) export SKIP=${OPTARG} ;;
+  h)
+    print_help
+    exit 2
+    ;;
+  esac
 done
 
-function setos () {
+function setos() {
   if [ -n "$(command -v eopkg)" ]; then
     export OS="solus"
     export PKG="eopkg"
@@ -182,7 +209,7 @@ export INIT_HOME=${USER_HOME}/init
 setos
 if [ -z "$(command -v git)" ]; then
   info ">>> Git not installed, installing"
-  ${PKG_INSTALL} git > /dev/null 2>&1
+  ${PKG_INSTALL} git >/dev/null 2>&1
 fi
 
 ###############################################################################
@@ -193,11 +220,11 @@ mkdir -p ${INIT_HOME}
 
 if [ -d "${INIT_HOME}/workstation-setup" ]; then
   cd ${INIT_HOME}/workstation-setup
-  git pull > /dev/null 2>&1
+  git pull >/dev/null 2>&1
   info ">>> Workstation Setup Files Updated"
 else
   cd ${INIT_HOME}
-  git clone ${setup_git} > /dev/null 2>&1
+  git clone ${setup_git} >/dev/null 2>&1
   info ">>> Workstation Setup Files Cloned"
 fi
 
@@ -253,7 +280,7 @@ if [ "${secretAnswer}" == 'y' ]; then
   info ">>> Workstation Setup: Adding SSH Config for Git SSH Key"
   touch ${USER_HOME}/.ssh/config
   if [ -z "$(grep 'github' ~/.ssh/config)" ]; then
-    cat > "${USER_HOME}/.ssh/config" << EOF
+    cat >"${USER_HOME}/.ssh/config" <<EOF
 Host github.com
   User git
   Hostname github.com
@@ -276,11 +303,7 @@ fi
 ###############################################################################
 
 info ">>> Installing Hashicorp Tools"
-if [ "${PKG}" != "pacman" ]; then
-  ${INIT_HOME}/workstation-setup/packages/hashi.sh || warning "Hashi install failed to run"
-else
-  info ">>> Hashi Tools installed via Pacman"
-fi
+${INIT_HOME}/workstation-setup/packages/hashi.sh || warning "Hashi install failed to run"
 
 ###############################################################################
 # Install Fonts
@@ -304,20 +327,20 @@ fi
 # Ensure set to ZSH
 ###############################################################################
 
-info ">>> Checking current shell"
-if [ "${SHELL}" != "" ]; then
-  sudo chsh -s /bin/zsh ${USER}
-  info ">>> Shell changed"
-else
-  info ">>> Shell already set"
-fi
+# info ">>> Checking current shell"
+# if [ "${SHELL}" != "" ]; then
+#   sudo chsh -s /bin/zsh ${USER}
+#   info ">>> Shell changed"
+# else
+#   info ">>> Shell already set"
+# fi
 
 ###############################################################################
 # Install Oh-My-ZSH
 ###############################################################################
 
-info ">>> Installing Oh-My-ZSH"
-${INIT_HOME}/workstation-setup/packages/oh-my-zsh.sh || warning "Oh My ZSH install failed to run"
+# info ">>> Installing Oh-My-ZSH"
+# ${INIT_HOME}/workstation-setup/packages/oh-my-zsh.sh || warning "Oh My ZSH install failed to run"
 
 ###############################################################################
 # Copy Wallpapers
@@ -346,7 +369,7 @@ done
 
 info ">>> Perfoming Cleanup"
 if [ "${PKG}" == 'eopkg' ]; then
-  sudo eopkg rmo -y > /dev/null 2>&1
+  sudo eopkg rmo -y >/dev/null 2>&1
 elif [ "${PKG}" == 'apt' ]; then
   sudo apt-get clean -y
 elif [ "${PKG}" == 'pacman' ]; then
