@@ -1,4 +1,4 @@
-cat > "${HOME}/.exports.2" << 'EOF'
+cat >"${HOME}/.exports.2" <<'EOF'
 # Make vim the default editor
 export EDITOR=$(which nvim)
 export TERM="xterm-256color"

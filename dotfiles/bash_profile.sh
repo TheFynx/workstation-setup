@@ -1,4 +1,4 @@
-cat > "${HOME}/.bash_profile.2" << 'EOF'
+cat >"${HOME}/.bash_profile.2" <<'EOF'
 if [ -f "${HOME}/.bashrc" ] ; then
   source ${HOME}/.bashrc
 fi

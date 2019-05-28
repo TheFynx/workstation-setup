@@ -1,4 +1,3 @@
-
 if [ -d "${HOME}/bin" ]; then
   info ">>> Activating RBENV"
   export RBENV_ROOT="${HOME}/.rbenv"
@@ -10,9 +9,9 @@ if [ -n "$(command -v rbenv)" ]; then
   eval "$(rbenv init -)"
   if [ -z "$(rbenv versions | grep "${RB_VERSION}")" ]; then
     info ">>> Installing Ruby to RBENV"
-    rbenv install ${RB_VERSION} > /dev/null 2>&1
+    rbenv install ${RB_VERSION} >/dev/null 2>&1
   fi
 fi
 
 info ">>> Installing Gems"
-gem install travis --no-document > /dev/null 2>&1
+gem install travis --no-document >/dev/null 2>&1

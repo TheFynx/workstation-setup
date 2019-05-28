@@ -1,25 +1,27 @@
 info ">>> Upgrading System"
-sudo pacman -Syyu --noconfirm > /dev/null 2>&1
+sudo pacman -Syyu --noconfirm >/dev/null 2>&1
 
 info ">>> Installing Packages"
 sudo pacman -Sy --needed --noconfirm yay
 
-yay -Sy --noconfirm --noeditmenu --nodiffmenu  \
+yay -Sy --noconfirm --noeditmenu --nodiffmenu \
   simplenote-electron-bin \
   slack-desktop \
   gitkraken \
-  spotify \
   zoom \
   insomnia \
   pyenv \
   rbenv-git \
   ruby-build \
   nodenv \
+  nodenv-node-build-git \
   lightdm-slick-greeter \
+  google-chrome \
+  debtap \
   google-talkplugin \
   nodenv-node-build-git \
   ttf-ancient-fonts \
-  postman\
+  postman \
   curl \
   wget \
   unzip \
@@ -39,7 +41,6 @@ yay -Sy --noconfirm --noeditmenu --nodiffmenu  \
   rsync \
   zsh \
   materia-gtk-theme \
-  deepin-gtk-theme \
   arc-gtk-theme \
   diffutils \
   chromium \
@@ -55,4 +56,6 @@ yay -Sy --noconfirm --noeditmenu --nodiffmenu  \
   shfmt \
   zbar \
   ttf-hack \
-  adobe-source-code-pro-fonts > /dev/null 2>&1
+  saw \
+  drawio-desktop \
+  adobe-source-code-pro-fonts >/dev/null 2>&1

@@ -1,4 +1,4 @@
-cat > "${HOME}/.gitconfig.2" << 'EOF'
+cat >"${HOME}/.gitconfig.2" <<'EOF'
 [user]
     name = Levi Smith
     email = levi@fynx.me

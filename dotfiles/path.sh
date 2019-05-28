@@ -1,4 +1,4 @@
-cat > "${HOME}/.path.2" << 'EOF'
+cat >"${HOME}/.path.2" <<'EOF'
 # update path
 if [ -d "/usr/share/bcc/tools" ]; then
   export PATH=/usr/share/bcc/tools:${PATH}
@@ -36,17 +36,6 @@ fi
 # Add shim/rbenv to path
 if [ -n "$(command -v rbenv)" ]; then
   eval "$(rbenv init -)"
-fi
-
-# Set goenv
-if [ -d "${HOME}/.goenv" ]; then
-  export GOENV_ROOT="${HOME}/.goenv"
-  export PATH="${GOENV_ROOT}/bin:${PATH}"
-fi
-
-# Add shim/goenv to path
-if [ -n "$(command -v goenv)" ]; then
-  eval "$(goenv init -)"
 fi
 
 # Set Pyenv
