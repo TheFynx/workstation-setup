@@ -148,7 +148,7 @@ print_help() {
   echo "-h | List this help menu"
 }
 
-while getopts u:g:p:t:c:e:w:s:d:h option; do
+while getopts u:g:p:t:c:e:w:s:dh option; do
   case "${option}" in
 
   u) export USER=${OPTARG} ;;
