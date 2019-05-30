@@ -148,7 +148,7 @@ print_help() {
   echo "-h | List this help menu"
 }
 
-while getopts u:g:p:t:c:e:w:s:h option; do
+while getopts u:g:p:t:c:e:w:s:d:h option; do
   case "${option}" in
 
   u) export USER=${OPTARG} ;;
@@ -159,6 +159,7 @@ while getopts u:g:p:t:c:e:w:s:h option; do
   e) export CONSUL_TEMPLATE_VERSION=${OPTARG} ;;
   w) export WORKSPACE_COUNT=${OPTARG} ;;
   s) export SKIP=${OPTARG} ;;
+  d) export LOG_LEVEL="7" ;;
   h)
     print_help
     exit 2
@@ -285,13 +286,16 @@ if [ "${secretAnswer}" == 'y' ]; then
 
   info ">>> Workstation Setup: Uploading Git SSH Keys"
   if [ -z "$(curl -s -H "Authorization: token ${GH_TOKEN}" https://api.github.com/user/keys | grep "${HOSTNAME}")" ]; then
-    BODY=$(cat <<EOF
-    {
-      "title": "${HOSTNAME}",
-      "key": "$(cat ~/.ssh/pub_keys/git.pub)"
-    }
+    BODY=$(
+      cat <<EOF
+{
+  "title": "${HOSTNAME}",
+  "key": "$(cat ~/.ssh/pub_keys/git.pub)"
+}
 EOF
     )
+    debug ">>> Posting the following body to github: ${BODY}"
+    debug ">>> Using the following curl command: curl -i -H "Authorization: token ${GH_TOKEN}" --data ${BODY} https://api.github.com/user/keys"
     curl -i -H "Authorization: token ${GH_TOKEN}" --data ${BODY} https://api.github.com/user/keys
   else
     info ">>> Workstation Setup: Git Key Already Exists"
