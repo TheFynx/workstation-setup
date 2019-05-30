@@ -41,130 +41,16 @@ window-height=791
 window-pane-position=280
 window-width=790
 
-[com/solus-project/budgie-panel]
-dark-theme=true
-migration-level=1
-panels=['622508c4-6f5c-11e8-bfef-c86000757626']
-
-[com/solus-project/budgie-panel/applets/{6243016c-6f5c-11e8-bfef-c86000757626}]
-alignment='start'
-name='Budgie Menu'
-position=0
-
-[com/solus-project/budgie-panel/applets/{62452a5a-6f5c-11e8-bfef-c86000757626}]
-alignment='start'
-name='Icon Task List'
-position=1
-
-[com/solus-project/budgie-panel/applets/{624f3a18-6f5c-11e8-bfef-c86000757626}]
-alignment='end'
-name='System Tray'
-position=1
-
-[com/solus-project/budgie-panel/applets/{625958d6-6f5c-11e8-bfef-c86000757626}]
-alignment='end'
-name='Notifications'
-position=5
-
-[com/solus-project/budgie-panel/applets/{6259b880-6f5c-11e8-bfef-c86000757626}]
-alignment='end'
-name='Status Indicator'
-position=3
-
-[com/solus-project/budgie-panel/applets/{62648b7a-6f5c-11e8-bfef-c86000757626}]
-alignment='end'
-name='User Indicator'
-position=7
-
-[com/solus-project/budgie-panel/applets/{626590b0-6f5c-11e8-bfef-c86000757626}]
-alignment='end'
-name='Clock'
-position=4
-
-[com/solus-project/budgie-panel/applets/{626644ec-6f5c-11e8-bfef-c86000757626}]
-alignment='end'
-name='Raven Trigger'
-position=6
-
-[com/solus-project/budgie-panel/applets/{726d0af2-701e-11e8-81b9-c86000757626}]
-alignment='end'
-name='Workspace Switcher'
-position=0
-
-[com/solus-project/budgie-panel/applets/{b17c8866-6f5c-11e8-bfef-c86000757626}]
-alignment='end'
-name='Separator'
-position=2
-
-[com/solus-project/budgie-panel/instance/icon-tasklist/{62452a5a-6f5c-11e8-bfef-c86000757626}]
-pinned-launchers=['org.gnome.Nautilus.desktop', 'google-chrome.desktop', 'spotify.desktop', 'vscode-oss.desktop', 'insomnia_insomnia.desktop', 'postman_postman.desktop', 'simplenote_simplenot
-e.desktop']
-
-[com/solus-project/budgie-panel/instance/workspaces/{726d0af2-701e-11e8-81b9-c86000757626}]
-addbutton-visibility='never'
-
-[com/solus-project/budgie-panel/panels/{622508c4-6f5c-11e8-bfef-c86000757626}]
-applets=['62648b7a-6f5c-11e8-bfef-c86000757626', '626590b0-6f5c-11e8-bfef-c86000757626', '726d0af2-701e-11e8-81b9-c86000757626', '625958d6-6f5c-11e8-bfef-c86000757626', '6259b880-6f5c-11e8-bf
-ef-c86000757626', '624f3a18-6f5c-11e8-bfef-c86000757626', '6243016c-6f5c-11e8-bfef-c86000757626', '626644ec-6f5c-11e8-bfef-c86000757626', '62452a5a-6f5c-11e8-bfef-c86000757626', 'b17c8866-6f5
-c-11e8-bfef-c86000757626']
-dock-mode=false
-enable-shadow=true
-location='top'
-size=39
-theme-regions=true
-transparency='none'
-
-[com/solus-project/budgie-wm]
-button-layout='appmenu:minimize,maximize,close'
-
-[com/solus-project/software-center]
-last-checked=int64 1529519046
-update-type='security-only'
-
 [org/blueberry]
 obex-enabled=false
 
 [org/cinnamon]
-active-display-scale=1
+active-display-scale=1.5
 alttab-switcher-delay=100
-command-history=['jmeter ', 'jmeter', 'code', 'spotify ']
-desklet-snap-interval=25
-desktop-effects=false
-desktop-effects-close-effect='traditional'
-desktop-effects-close-time=120
-desktop-effects-close-transition='easeOutQuad'
-desktop-effects-map-effect='traditional'
-desktop-effects-map-time=100
-desktop-effects-map-transition='easeOutQuad'
-desktop-effects-maximize-effect='none'
-desktop-effects-maximize-time=100
-desktop-effects-maximize-transition='easeInExpo'
-desktop-effects-minimize-effect='traditional'
-desktop-effects-minimize-time=160
-desktop-effects-minimize-transition='easeInQuad'
-desktop-effects-on-dialogs=false
-desktop-effects-on-menus=false
-desktop-effects-tile-effect='none'
-desktop-effects-tile-time=100
-desktop-effects-tile-transition='easeInQuad'
-desktop-effects-unmaximize-effect='none'
-desktop-effects-unmaximize-time=100
-desktop-effects-unmaximize-transition='easeNone'
-enable-vfade=false
-enabled-applets=['panel1:right:3:systray@cinnamon.org:0', 'panel1:left:0:menu@cinnamon.org:1', 'panel1:left:2:panel-launchers@cinnamon.org:3', 'panel1:left:3:window-list@cinnamon.org:4', 'pan
-el1:right:2:notifications@cinnamon.org:6', 'panel1:right:6:removable-drives@cinnamon.org:7', 'panel1:right:7:user@cinnamon.org:8', 'panel1:right:8:network@cinnamon.org:9', 'panel1:right:10:ca
-lendar@cinnamon.org:12', 'panel1:right:9:sound@cinnamon.org:13']
-enabled-desklets=@as []
-favorite-apps=['org.gnome.Terminal.desktop', 'chromium-browser.desktop', 'mintinstall.desktop', 'cinnamon-settings.desktop', 'nemo.desktop']
+enabled-applets=['panel1:right:0:systray@cinnamon.org:0', 'panel1:left:0:menu@cinnamon.org:1', 'panel1:left:2:grouped-window-list@cinnamon.org:3', 'panel1:right:1:keyboard@cinnamon.org:4', 'panel1:right:2:notifications@cinnamon.org:5', 'panel1:right:3:removable-drives@cinnamon.org:6', 'panel1:right:5:bluetooth@cinnamon.org:7', 'panel1:right:6:network@cinnamon.org:8', 'panel1:right:7:sound@cinnamon.org:9', 'panel1:right:8:power@cinnamon.org:10', 'panel1:right:9:calendar@cinnamon.org:11']
 hotcorner-layout=['expo:false:0', 'scale:false:0', 'scale:false:0', 'desktop:false:0']
-next-applet-id=16
-panel-edit-mode=false
-panel-launchers=['DEPRECATED']
-panel-zone-icon-sizes='[{"panelId": 1, "left": 0, "center": 0, "right": 0}]'
+next-applet-id=12
 panels-enabled=['1:0:top']
-panels-height=['1:36']
-panels-resizable=['1:true']
-startup-animation=false
 workspace-osd-duration=400
 workspace-osd-x=50
 workspace-osd-y=50
@@ -199,26 +85,18 @@ exec='gnome-calculator'
 [org/cinnamon/desktop/applications/terminal]
 exec='terminator'
 
-[org/cinnamon/desktop/background]
-picture-options='none'
-picture-uri='file:///home/levi/Wallpapers/pong.png'
-primary-color='#2e2e34343636'
-secondary-color='#000000000000'
-
-[org/cinnamon/desktop/background/slideshow]
-delay=15
-image-source='directory:///home/levi/Wallpapers'
-
 [org/cinnamon/desktop/interface]
 clock-show-date=true
+gtk-overlay-scrollbars=false
+toolkit-accessibility=false
 cursor-blink-time=1200
 cursor-size=24
-gtk-overlay-scrollbars=false
-gtk-theme='Materia-dark'
-icon-theme='Adwaita'
+cursor-theme='Adwaita'
+font-name='Sans 12'
+gtk-theme='Adwaita-dark'
+icon-theme='EvoPop'
 scaling-factor=uint32 0
-text-scaling-factor=1.3000000000000003
-toolkit-accessibility=false
+text-scaling-factor=1.0
 
 [org/cinnamon/desktop/keybindings/media-keys]
 calculator=['XF86Calculator', '<Super>c']
@@ -248,9 +126,8 @@ volume-sound-enabled=false
 
 [org/cinnamon/desktop/wm/preferences]
 min-window-opacity=30
-num-workspaces=${WORKSPACE_COUNT}
-theme='Materia-dark'
-workspace-names=@as []
+theme='Adapta-Nokto'
+titlebar-font='Sans Bold 12'
 
 [org/cinnamon/muffin]
 resize-threshold=24
@@ -267,6 +144,10 @@ repeat-interval=uint32 30
 double-click=400
 drag-threshold=8
 motion-threshold=1
+
+[org/cinnamon/desktop/background]
+picture-options='none'
+primary-color='#2e2e34343636'
 
 [org/cinnamon/settings-daemon/peripherals/touchpad]
 motion-threshold=1
@@ -290,9 +171,8 @@ tile-enabled=false
 unplug-enabled=false
 
 [org/cinnamon/theme]
-name='Materia-dark'
-symbolic-relative-size=0.69999999999999996
-theme-cache-updated=1536677289
+name='Adara-Dark'
+theme-cache-updated=1559228770
 
 [org/gnome/calculator]
 accuracy=9
@@ -465,8 +345,7 @@ start-with-sidebar=true
 
 [org/onboard]
 schema-version='2.3'
-system-theme-associations={'HighContrast': 'HighContrast', 'HighContrastInverse': 'HighContrastInverse', 'LowContrast': 'LowContrast', 'ContrastHighInverse': 'HighContrastInverse', 'Default':
- ''}
+system-theme-associations={'HighContrast': 'HighContrast', 'HighContrastInverse': 'HighContrastInverse', 'LowContrast': 'LowContrast', 'ContrastHighInverse': 'HighContrastInverse', 'Default': ''}
 use-system-defaults=false
 
 [org/onboard/theme-settings]

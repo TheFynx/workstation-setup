@@ -93,8 +93,8 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-ssh-add ~/.ssh/priv_keys/id_rsa
-ssh-add ~/.ssh/priv_keys/git
+ssh-add ~/.ssh/priv_keys/id_rsa >/dev/null 2>&1
+ssh-add ~/.ssh/priv_keys/git >/dev/null 2>&1
 
 # Load the shell dotfiles, and then some:
 # * ~/.path can be used to extend `$PATH`.

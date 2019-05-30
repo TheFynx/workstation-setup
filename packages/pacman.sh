@@ -58,3 +58,17 @@ yay -Sy --noconfirm --noeditmenu --nodiffmenu \
   saw \
   drawio-desktop \
   adobe-source-code-pro-fonts >/dev/null 2>&1
+
+info ">>> Cleaning up uneeded files"
+yay -Rscn --noconfirm \
+  gnome-extra \
+  gnome-builder \
+  gnome-boxes \
+  ghex \
+  glade \
+  accerciser \
+  rygel \
+  tali \
+  devhelp \
+  evolution \
+  evolution-data-server >/dev/null 2>&1
