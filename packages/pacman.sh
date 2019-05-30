@@ -2,7 +2,12 @@ info ">>> Upgrading System"
 sudo pacman -Syyu --noconfirm >/dev/null 2>&1
 
 info ">>> Installing Packages"
-sudo pacman -Sy --needed --noconfirm yay
+if [ -z "$(command -v yay)" ]; then
+  cd /tmp
+  git clone https://aur.archlinux.org/yay.git
+  cd yay
+  makepkg -si
+fi
 
 yay -Sy --noconfirm --noeditmenu --nodiffmenu \
   simplenote-electron-bin \
