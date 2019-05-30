@@ -7,7 +7,6 @@ sudo pacman -Sy --needed --noconfirm yay
 yay -Sy --noconfirm --noeditmenu --nodiffmenu \
   simplenote-electron-bin \
   slack-desktop \
-  gitkraken \
   zoom \
   insomnia \
   pyenv \
@@ -15,13 +14,10 @@ yay -Sy --noconfirm --noeditmenu --nodiffmenu \
   ruby-build \
   nodenv \
   nodenv-node-build-git \
-  lightdm-slick-greeter \
-  google-chrome \
   debtap \
   google-talkplugin \
   nodenv-node-build-git \
   ttf-ancient-fonts \
-  postman \
   curl \
   wget \
   unzip \
@@ -31,7 +27,7 @@ yay -Sy --noconfirm --noeditmenu --nodiffmenu \
   python-pip \
   go \
   xclip \
-  parcellite \
+  gpaste \
   pandoc \
   lynx \
   neovim \

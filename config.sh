@@ -256,37 +256,45 @@ ${INIT_HOME}/workstation-setup/packages/go.sh
 # Setup SSH Keys
 ###############################################################################
 
-read -p "$(query ">>> Workstation Setup: Do you have a secrets file? y/n (default n)")" secretAnswer
+if [ ! -f "${USER_HOME}/.ssh/priv_keys/git" ]; then
+  info ">>> Workstation Setup: Generating Git SSH Keys"
+  ssh-keygen -t rsa -N "" -f ${USER_HOME}/.ssh/git
+  mkdir -p ${USER_HOME}/.ssh/priv_keys ${USER_HOME}/.ssh/pub_keys
+  mv ${USER_HOME}/.ssh/git ${USER_HOME}/.ssh/priv_keys
+  mv ${USER_HOME}/.ssh/git.pub ${USER_HOME}/.ssh/pub_keys
+fi
 
-if [ "${secretAnswer}" == 'y' ]; then
-  read -p "$(query ">>> Workstation Setup: Please enter path to secret file to source (i.e. /path/to/creds.sh)")" secretPath
-  . ${secretPath}
+info ">>> Workstation Setup: Adding SSH Config for Git SSH Key"
+touch ${USER_HOME}/.ssh/config
 
-  if [ ! -f "${USER_HOME}/.ssh/priv_keys/git" ]; then
-    info ">>> Workstation Setup: Generating Git SSH Keys"
-    ssh-keygen -t rsa -N "" -f ${USER_HOME}/.ssh/git
-    mkdir -p ${USER_HOME}/.ssh/priv_keys ${USER_HOME}/.ssh/pub_keys
-    mv ${USER_HOME}/.ssh/git ${USER_HOME}/.ssh/priv_keys
-    mv ${USER_HOME}/.ssh/git.pub ${USER_HOME}/.ssh/pub_keys
-  fi
-
-  info ">>> Workstation Setup: Uploading Git SSH Keys"
-  if [ -z "$(curl -s -H "Authorization: token ${GH_TOKEN}" https://api.github.com/user/keys | grep "${HOSTNAME}")" ]; then
-    curl -H "Authorization: token ${GH_TOKEN}" --data '{"title":"'"${HOSTNAME}"'","key":"'"$(cat ~/.ssh/pub_keys/git.pub)"'"}' https://api.github.com/user/keys
-  else
-    info ">>> Workstation Setup: Git Key Already Exists"
-  fi
-
-  info ">>> Workstation Setup: Adding SSH Config for Git SSH Key"
-  touch ${USER_HOME}/.ssh/config
-  if [ -z "$(grep 'github' ~/.ssh/config)" ]; then
-    cat >"${USER_HOME}/.ssh/config" <<EOF
+if [ -z "$(grep 'github' ~/.ssh/config)" ]; then
+  cat >"${USER_HOME}/.ssh/config" <<EOF
 Host github.com
   User git
   Hostname github.com
   PreferredAuthentications publickey
   IdentityFile /home/${USER}/.ssh/priv_keys/git
 EOF
+fi
+
+read -p "$(query ">>> Workstation Setup: Do you have a secrets file? y/n (default n)")" secretAnswer
+
+if [ "${secretAnswer}" == 'y' ]; then
+  read -p "$(query ">>> Workstation Setup: Please enter path to secret file to source (i.e. /path/to/creds.sh)")" secretPath
+  . ${secretPath}
+
+  info ">>> Workstation Setup: Uploading Git SSH Keys"
+  if [ -z "$(curl -s -H "Authorization: token ${GH_TOKEN}" https://api.github.com/user/keys | grep "${HOSTNAME}")" ]; then
+    BODY=$(cat <<EOF
+    {
+      "title": "${HOSTNAME}",
+      "key": "$(cat ~/.ssh/pub_keys/git.pub)"
+    }
+EOF
+    )
+    curl -i -H "Authorization: token ${GH_TOKEN}" --data ${BODY} https://api.github.com/user/keys
+  else
+    info ">>> Workstation Setup: Git Key Already Exists"
   fi
 fi
 
@@ -324,23 +332,11 @@ else
 fi
 
 ###############################################################################
-# Ensure set to ZSH
-###############################################################################
-
-# info ">>> Checking current shell"
-# if [ "${SHELL}" != "" ]; then
-#   sudo chsh -s /bin/zsh ${USER}
-#   info ">>> Shell changed"
-# else
-#   info ">>> Shell already set"
-# fi
-
-###############################################################################
 # Install Oh-My-ZSH
 ###############################################################################
 
-# info ">>> Installing Oh-My-ZSH"
-# ${INIT_HOME}/workstation-setup/packages/oh-my-zsh.sh || warning "Oh My ZSH install failed to run"
+info ">>> Installing Oh-My-ZSH"
+${INIT_HOME}/workstation-setup/packages/oh-my-zsh.sh || warning "Oh My ZSH install failed to run"
 
 ###############################################################################
 # Copy Wallpapers

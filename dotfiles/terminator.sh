@@ -7,10 +7,10 @@ fi
 cat >"${HOME}/.config/terminator/config.2" <<'EOF'
 [global_config]
   borderless = True
-  custom_url_handler = firefox
-  enabled_plugins = InactivityWatch, TestPlugin, TerminatorThemes, ActivityWatch, TerminalShot, LaunchpadCodeURLHandler, APTURLHandler, Logger, LaunchpadBugURLHandler
+  custom_url_handler = google-chrome-stable
+  enabled_plugins = InactivityWatch, TestPlugin, ActivityWatch, TerminalShot, LaunchpadCodeURLHandler, APTURLHandler, Logger, LaunchpadBugURLHandler
   suppress_multiple_term_dialog = True
-  title_font = Droid Sans 9
+  title_font = Source Code Pro for Powerline Medium 10
   title_inactive_bg_color = "#000000"
   title_receive_bg_color = "#817e7e"
   title_transmit_bg_color = "#000000"
@@ -60,7 +60,7 @@ cat >"${HOME}/.config/terminator/config.2" <<'EOF'
   [[default]]
     [[[child1]]]
       parent = window0
-      profile = MaterialDark
+      profile = default
       type = Terminal
     [[[window0]]]
       parent = ""
@@ -75,17 +75,14 @@ cat >"${HOME}/.config/terminator/config.2" <<'EOF'
     copy_on_selection = True
     cursor_color = "#16afca"
     cursor_shape = ibeam
-    custom_command =
     font = Source Code Pro for Powerline Medium 10
     foreground_color = "#e5e5e5"
     icon_bell = False
-    login_shell = True
     palette = "#212121:#b7141f:#457b24:#e98e17:#134eb2:#560088:#0e717c:#efefef:#424242:#e83b3f:#7aba3a:#ffea2e:#54a4f3:#aa4dbc:#26bbd1:#d9d9d9"
     scrollback_infinite = True
     scrollback_lines = 5000
     scrollbar_position = hidden
     show_titlebar = False
-    use_custom_command = True
     use_system_font = False
 EOF
 
