@@ -32,7 +32,7 @@ yay -Sy --noconfirm --noeditmenu --nodiffmenu \
   python-pip \
   go \
   xclip \
-  gpaste \
+  clipit \
   pandoc \
   lynx \
   neovim \
@@ -56,6 +56,9 @@ yay -Sy --noconfirm --noeditmenu --nodiffmenu \
   zbar \
   ttf-hack \
   saw \
+  cups \
+  jq \
+  lastpass-cli \
   drawio-desktop \
   adobe-source-code-pro-fonts >/dev/null 2>&1
 
