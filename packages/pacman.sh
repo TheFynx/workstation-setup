@@ -12,6 +12,7 @@ fi
 yay -Sy --noconfirm --noeditmenu --nodiffmenu \
   simplenote-electron-bin \
   slack-desktop \
+  etcher-bin \
   insomnia \
   pyenv \
   rbenv-git \
@@ -59,6 +60,9 @@ yay -Sy --noconfirm --noeditmenu --nodiffmenu \
   jq \
   lastpass-cli \
   drawio-desktop \
+  influxdb-cli \
+  evopop-gtk-theme \
+  evopop-icon-theme \
   adobe-source-code-pro-fonts >/dev/null 2>&1
 
 info ">>> Cleaning up uneeded files"
