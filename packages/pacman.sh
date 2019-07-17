@@ -12,7 +12,6 @@ fi
 yay -Sy --noconfirm --noeditmenu --nodiffmenu \
   simplenote-electron-bin \
   slack-desktop \
-  zoom \
   insomnia \
   pyenv \
   rbenv-git \

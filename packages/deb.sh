@@ -60,16 +60,6 @@ else
   info ">>> Google Talk Plugin Already Installed"
 fi
 
-info ">>> Installing Spotify"
-if [ -z "$(dpkg -l | awk '{print $2}' | grep -w "spotify-client")" ]; then
-  sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 0DF731E45CE24F27EEEB1450EFDC8610341D9410 >/dev/null 2>&1
-  echo deb http://repository.spotify.com stable non-free | sudo tee /etc/apt/sources.list.d/spotify.list >/dev/null 2>&1
-  sudo apt-get update -y >/dev/null 2>&1
-  sudo apt-get install spotify-client -y >/dev/null 2>&1
-else
-  info ">>> Spotify Already Installed"
-fi
-
 info ">>> Installing Insomnia"
 if [ -z "$(dpkg -l | awk '{print $2}' | grep -w "insomnia")" ]; then
   echo "deb https://dl.bintray.com/getinsomnia/Insomnia /" | sudo tee /etc/apt/sources.list.d/insomnia.list >/dev/null 2>&1

@@ -127,10 +127,10 @@ export USER='levi'
 export GROUP='levi'
 export PACKER_VERSION='1.4.0'
 export TERRAFORM_VERSION='0.11.14'
-export CONSUL_VERSION='1.2.2'
-export CONSUL_TEMPLATE_VERSION='0.19.5'
+# export CONSUL_VERSION='1.2.2'
+# export CONSUL_TEMPLATE_VERSION='0.19.5'
 export WORKSPACE_COUNT='4'
-export GO_VERSION="1.11.4"
+# export GO_VERSION="1.11.4"
 export RB_VERSION="2.6.3"
 export NODE_VERSION="8.15.0"
 export PY_VERSION="3.7.3"
@@ -141,8 +141,8 @@ print_help() {
   echo "-g | Pass Customer Group - install.sh -g GROUP - Default: ${GROUP}"
   echo "-p | Pass Packer Version to Install - install.sh -p 1.2.2 - Default: ${PACKER_VERSION}"
   echo "-t | Pass Terraform Version to Install - install.sh -t 0.11.6 - Default: ${TERRAFORM_VERSION}"
-  echo "-c | Pass Consul Version to Install - install.sh -c 1.1.0 - Default: ${CONSUL_VERSION}"
-  echo "-e | Pass Consul Template Version to Install - install.sh -e 0.19.4 - Default: ${CONSUL_VERSION}"
+  # echo "-c | Pass Consul Version to Install - install.sh -c 1.1.0 - Default: ${CONSUL_VERSION}"
+  # echo "-e | Pass Consul Template Version to Install - install.sh -e 0.19.4 - Default: ${CONSUL_VERSION}"
   echo "-w | Pass Number of Workspaces to create by default - install.sh -w 5 - Default: ${WORKSPACE_COUNT}"
   echo "-s | Skip a specific section of setup/install - config.sh -s dconf"
   echo "-h | List this help menu"
@@ -155,8 +155,8 @@ while getopts u:g:p:t:c:e:w:s:dh option; do
   g) export GROUP=${OPTARG} ;;
   p) export PACKER_VERSION=${OPTARG} ;;
   t) export TERRAFORM_VERSION=${OPTARG} ;;
-  t) export CONSUL_VERSION=${OPTARG} ;;
-  e) export CONSUL_TEMPLATE_VERSION=${OPTARG} ;;
+  # t) export CONSUL_VERSION=${OPTARG} ;;
+  # e) export CONSUL_TEMPLATE_VERSION=${OPTARG} ;;
   w) export WORKSPACE_COUNT=${OPTARG} ;;
   s) export SKIP=${OPTARG} ;;
   d) export LOG_LEVEL="7" ;;
@@ -238,9 +238,6 @@ info ">>> Installing ${PKG} packages"
 debug ">>> Running ${OS} OS"
 ${PACKAGE_SCRIPT}
 
-info ">>> Installing Snaps"
-${INIT_HOME}/workstation-setup/packages/snap.sh
-
 info ">>> Installing Python Packages"
 ${INIT_HOME}/workstation-setup/packages/python.sh
 
@@ -249,9 +246,6 @@ ${INIT_HOME}/workstation-setup/packages/ruby.sh
 
 info ">>> Installing NodeJS Packages"
 ${INIT_HOME}/workstation-setup/packages/node.sh
-
-info ">>> Installing Golang Packages"
-${INIT_HOME}/workstation-setup/packages/go.sh
 
 ###############################################################################
 # Setup SSH Keys
@@ -287,17 +281,9 @@ if [ "${secretAnswer}" == 'y' ]; then
   info ">>> Workstation Setup: Uploading Git SSH Keys"
   if [ -z "$(curl -i -s -H "Authorization: token ${GH_TOKEN}" https://api.github.com/user/keys | grep "${HOSTNAME}")" ]; then
     info ">>> No github key found, uploading public key"
-    BODY=$(
-      cat <<EOF
-{
-  "title": "${HOSTNAME}",
-  "key": "$(cat ~/.ssh/pub_keys/git.pub)"
-}
-EOF
-    )
     debug ">>> Posting the following body to github: ${BODY}"
-    debug ">>> Using the following curl command: curl -i -H "Authorization: token ${GH_TOKEN}" --data "${BODY}" https://api.github.com/user/keys"
-    curl -i -H "Authorization: token ${GH_TOKEN}" --data "${BODY}" https://api.github.com/user/keys >/dev/null 2>&1
+    debug ">>> Using the following curl command: curl -i -H "Authorization: token ${GH_TOKEN}" --data "{"title": "${HOSTNAME}", "key": "$(cat ~/.ssh/pub_keys/git.pub)"}" https://api.github.com/user/keys"
+    curl -i -H "Authorization: token ${GH_TOKEN}" --data "{"title": "${HOSTNAME}", "key": "$(cat ~/.ssh/pub_keys/git.pub)"}" https://api.github.com/user/keys >/dev/null 2>&1
   else
     info ">>> Workstation Setup: Git Key Already Exists"
   fi
