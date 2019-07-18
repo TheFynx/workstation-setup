@@ -21,7 +21,6 @@ yay -Sy --noconfirm --noeditmenu --nodiffmenu \
   nodenv-node-build-git \
   debtap \
   google-talkplugin \
-  nodenv-node-build-git \
   ttf-ancient-fonts \
   curl \
   wget \
@@ -61,7 +60,7 @@ yay -Sy --noconfirm --noeditmenu --nodiffmenu \
   lastpass-cli \
   drawio-desktop \
   influxdb-cli \
-  evopop-gtk-theme \
+  vopop-gtk-theme \
   evopop-icon-theme \
   adobe-source-code-pro-fonts >/dev/null 2>&1
 
