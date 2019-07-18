@@ -125,15 +125,15 @@ export -f _workstation_log
 
 export USER='levi'
 export GROUP='levi'
-export PACKER_VERSION='1.4.0'
+export PACKER_VERSION='1.4.2'
 export TERRAFORM_VERSION='0.11.14'
 # export CONSUL_VERSION='1.2.2'
 # export CONSUL_TEMPLATE_VERSION='0.19.5'
 export WORKSPACE_COUNT='4'
 # export GO_VERSION="1.11.4"
 export RB_VERSION="2.6.3"
-export NODE_VERSION="8.15.0"
-export PY_VERSION="3.7.3"
+export NODE_VERSION="8.16.0"
+export PY_VERSION="3.7.4"
 
 print_help() {
   echo ">>> Usage:"
