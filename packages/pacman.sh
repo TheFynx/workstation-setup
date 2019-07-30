@@ -1,14 +1,18 @@
 info ">>> Upgrading System"
 sudo pacman -Syyu --noconfirm >/dev/null 2>&1
 
-info ">>> Installing Packages"
+info ">>> Prepping Package Install"
 if [ -z "$(command -v yay)" ]; then
+  info ">>> Installing YAY"
   cd /tmp
   git clone https://aur.archlinux.org/yay.git
   cd yay
   makepkg -si
+else
+  info ">>> YAY Already installed"
 fi
 
+info ">>> Installing base packages"
 yay -Sy --noconfirm --noeditmenu --nodiffmenu \
   simplenote-electron-bin \
   slack-desktop \
@@ -45,7 +49,7 @@ yay -Sy --noconfirm --noeditmenu --nodiffmenu \
   diffutils \
   chromium \
   vlc \
-  code \
+  visual-studio-code-bin \
   vagrant \
   clamtk \
   libu2f-host \
@@ -60,20 +64,6 @@ yay -Sy --noconfirm --noeditmenu --nodiffmenu \
   lastpass-cli \
   drawio-desktop \
   influxdb-cli \
-  vopop-gtk-theme \
+  evopop-gtk-theme \
   evopop-icon-theme \
   adobe-source-code-pro-fonts >/dev/null 2>&1
-
-info ">>> Cleaning up uneeded files"
-yay -Rscn --noconfirm \
-  gnome-extra \
-  gnome-builder \
-  gnome-boxes \
-  ghex \
-  glade \
-  accerciser \
-  rygel \
-  tali \
-  devhelp \
-  evolution \
-  evolution-data-server >/dev/null 2>&1
