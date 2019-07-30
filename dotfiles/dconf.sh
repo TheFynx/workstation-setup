@@ -10,6 +10,33 @@ lock-after-screensaver=uint32 5
 lock-on-lid=false
 lock-on-suspend=true
 
+[apps/psensor]
+graph-alpha-channel-enabled=false
+graph-background-alpha=1.0
+graph-background-color='#e8f4e8f4a8f5'
+graph-foreground-color='#000000000000'
+graph-monitoring-duration=20
+graph-smooth-curves-enabled=true
+graph-update-interval=2
+interface-hide-on-startup=true
+interface-window-divider-pos=0
+interface-window-h=571
+interface-window-restore-enabled=true
+interface-window-w=1250
+interface-window-x=462
+interface-window-y=408
+notif-script=''
+provider-atiadlsdk-enabled=true
+provider-gtop2-enabled=true
+provider-hddtemp-enabled=true
+provider-libatasmart-enabled=true
+provider-lmsensors-enabled=true
+provider-nvctrl-enabled=true
+provider-udisks2-enabled=true
+sensor-update-interval=2
+slog-enabled=false
+slog-interval=300
+
 [com/linuxmint/updates]
 autorefresh-days=0
 autorefresh-hours=2
@@ -44,12 +71,42 @@ window-width=790
 [org/blueberry]
 obex-enabled=false
 
+[org/blueman/general]
+window-properties=[664, 350, 1611, 880]
+
+[org/blueman/plugins/powermanager]
+auto-power-on=@mb true
+
+[org/blueman/plugins/recentconns]
+recent-connections=[{'adapter': '3C:F0:11:3C:87:C7', 'address': 'A4:15:66:5A:70:71', 'alias': 'Wireless Controller', 'icon': 'input-gaming', 'name': 'Auto connect profiles', 'uuid': '00000000-0000-0000-0000-000000000000', 'time': '1564022959.681217', 'device': '', 'mitem': ''}]
+
 [org/cinnamon]
 active-display-scale=1.5
 alttab-switcher-delay=100
+desklet-snap-interval=25
+desktop-effects-close-effect='traditional'
+desktop-effects-close-time=120
+desktop-effects-close-transition='easeOutQuad'
+desktop-effects-map-effect='traditional'
+desktop-effects-map-time=100
+desktop-effects-map-transition='easeOutQuad'
+desktop-effects-maximize-effect='none'
+desktop-effects-maximize-time=100
+desktop-effects-maximize-transition='easeInExpo'
+desktop-effects-minimize-effect='traditional'
+desktop-effects-minimize-time=160
+desktop-effects-minimize-transition='easeInQuad'
+desktop-effects-tile-effect='none'
+desktop-effects-tile-time=100
+desktop-effects-tile-transition='easeInQuad'
+desktop-effects-unmaximize-effect='none'
+desktop-effects-unmaximize-time=100
+desktop-effects-unmaximize-transition='easeNone'
 enabled-applets=['panel1:right:0:systray@cinnamon.org:0', 'panel1:left:0:menu@cinnamon.org:1', 'panel1:left:2:grouped-window-list@cinnamon.org:3', 'panel1:right:1:keyboard@cinnamon.org:4', 'panel1:right:2:notifications@cinnamon.org:5', 'panel1:right:3:removable-drives@cinnamon.org:6', 'panel1:right:5:bluetooth@cinnamon.org:7', 'panel1:right:6:network@cinnamon.org:8', 'panel1:right:7:sound@cinnamon.org:9', 'panel1:right:8:power@cinnamon.org:10', 'panel1:right:9:calendar@cinnamon.org:11']
+enabled-desklets=@as []
 hotcorner-layout=['expo:false:0', 'scale:false:0', 'scale:false:0', 'desktop:false:0']
 next-applet-id=12
+panel-edit-mode=false
 panels-enabled=['1:0:top']
 workspace-osd-duration=400
 workspace-osd-x=50
@@ -57,6 +114,10 @@ workspace-osd-y=50
 
 [org/cinnamon/cinnamon-session]
 quit-time-delay=60
+
+[org/cinnamon/desktop/a11y/applications]
+screen-keyboard-enabled=false
+screen-reader-enabled=false
 
 [org/cinnamon/desktop/a11y/keyboard]
 bouncekeys-beep-reject=true
@@ -68,7 +129,7 @@ feature-state-change-beep=false
 mousekeys-accel-time=1200
 mousekeys-enable=false
 mousekeys-init-delay=160
-mousekeys-max-speed=750
+mousekeys-max-speed=500
 slowkeys-beep-accept=true
 slowkeys-beep-press=true
 slowkeys-beep-reject=false
@@ -79,24 +140,40 @@ stickykeys-modifier-beep=true
 stickykeys-two-key-off=true
 timeout-enable=false
 
+[org/cinnamon/desktop/a11y/mouse]
+dwell-click-enabled=false
+dwell-threshold=10
+dwell-time=1.2
+secondary-click-enabled=false
+secondary-click-time=1.2
+
 [org/cinnamon/desktop/applications/calculator]
-exec='gnome-calculator'
+exec='liri-calculator'
 
 [org/cinnamon/desktop/applications/terminal]
 exec='terminator'
 
+[org/cinnamon/desktop/background]
+picture-options='none'
+primary-color='#2e2e34343636'
+secondary-color='#000000000000'
+
+[org/cinnamon/desktop/background/slideshow]
+delay=15
+image-source='xml:///usr/share/gnome-background-properties/adwaita.xml'
+
 [org/cinnamon/desktop/interface]
 clock-show-date=true
-gtk-overlay-scrollbars=false
-toolkit-accessibility=false
 cursor-blink-time=1200
 cursor-size=24
 cursor-theme='Adwaita'
 font-name='Sans 12'
-gtk-theme='Adwaita-dark'
+gtk-overlay-scrollbars=false
+gtk-theme='Materia-dark'
 icon-theme='EvoPop'
 scaling-factor=uint32 0
 text-scaling-factor=1.0
+toolkit-accessibility=false
 
 [org/cinnamon/desktop/keybindings/media-keys]
 calculator=['XF86Calculator', '<Super>c']
@@ -115,6 +192,7 @@ remove-old=true
 recent-files-max-age=-1
 
 [org/cinnamon/desktop/screensaver]
+lock-delay=uint32 30
 screensaver-name=''
 
 [org/cinnamon/desktop/session]
@@ -126,7 +204,7 @@ volume-sound-enabled=false
 
 [org/cinnamon/desktop/wm/preferences]
 min-window-opacity=30
-theme='Adapta-Nokto'
+theme='Materia-dark'
 titlebar-font='Sans Bold 12'
 
 [org/cinnamon/muffin]
@@ -145,14 +223,11 @@ double-click=400
 drag-threshold=8
 motion-threshold=1
 
-[org/cinnamon/desktop/background]
-picture-options='none'
-primary-color='#2e2e34343636'
-
 [org/cinnamon/settings-daemon/peripherals/touchpad]
 motion-threshold=1
 natural-scroll=false
 scrolling-method=1
+touchpad-enabled=false
 
 [org/cinnamon/settings-daemon/plugins/power]
 sleep-display-ac=7200
@@ -171,7 +246,7 @@ tile-enabled=false
 unplug-enabled=false
 
 [org/cinnamon/theme]
-name='Adara-Dark'
+name='Materia-dark'
 theme-cache-updated=1559228770
 
 [org/gnome/calculator]
@@ -212,6 +287,10 @@ picture-options='zoom'
 primary-color='#000000000000'
 secondary-color='#000000000000'
 show-desktop-icons=false
+
+[org/gnome/desktop/input-sources]
+sources=[('xkb', 'us')]
+xkb-options=@as []
 
 [org/gnome/desktop/interface]
 clock-show-date=true
@@ -281,6 +360,7 @@ state=87168
 border-effect='none'
 include-border=true
 include-pointer=false
+last-save-directory='file:///home/levi/Pictures'
 
 [org/gnome/nm-applet/eap/f7cdb80e-ce42-3558-a9f2-ac757947cdbd]
 ignore-ca-cert=false
@@ -323,21 +403,22 @@ date-format='regular'
 location-mode='path-bar'
 show-hidden=false
 show-size-column=true
-sidebar-width=176
+sidebar-width=177
 sort-column='name'
 sort-directories-first=false
 sort-order='ascending'
-window-position=(1424, 537)
+window-position=(1425, 822)
 window-size=(990, 690)
 
 [org/nemo/desktop]
+desktop-layout='false::false'
 font='Sans 10'
 
 [org/nemo/preferences]
 show-hidden-files=true
 
 [org/nemo/window-state]
-geometry='1256x957+2193+405'
+geometry='1256x957+1282+577'
 maximized=false
 side-pane-view='places'
 sidebar-bookmark-breakpoint=5
