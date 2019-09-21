@@ -59,9 +59,7 @@ desktop-effects-tile-transition='easeInQuad'
 desktop-effects-unmaximize-effect='none'
 desktop-effects-unmaximize-time=100
 desktop-effects-unmaximize-transition='easeNone'
-enabled-applets=['panel1:right:0:systray@cinnamon.org:0', 'panel1:left:0:menu@cinnamon.org:1', 'panel1:left:2:grouped-window-list@cinnamon.org:3', 'panel1:right:1:keyboard@cinnamon.org:4', 'panel1:right:2:notifications@cinnamon.org:5', 'pa
-nel1:right:3:removable-drives@cinnamon.org:6', 'panel1:right:5:bluetooth@cinnamon.org:7', 'panel1:right:6:network@cinnamon.org:8', 'panel1:right:7:sound@cinnamon.org:9', 'panel1:right:8:power@cinnamon.org:10', 'panel1:right:9:calendar@cinn
-amon.org:11']
+enabled-applets=['panel1:right:0:systray@cinnamon.org:0', 'panel1:left:0:menu@cinnamon.org:1', 'panel1:left:2:grouped-window-list@cinnamon.org:3', 'panel1:right:1:keyboard@cinnamon.org:4', 'panel1:right:2:notifications@cinnamon.org:5', 'panel1:right:3:removable-drives@cinnamon.org:6', 'panel1:right:5:bluetooth@cinnamon.org:7', 'panel1:right:6:network@cinnamon.org:8', 'panel1:right:7:sound@cinnamon.org:9', 'panel1:right:8:power@cinnamon.org:10', 'panel1:right:9:calendar@cinnamon.org:11']
 enabled-desklets=@as []
 hotcorner-layout=['expo:false:0', 'scale:false:0', 'scale:false:0', 'desktop:false:0']
 next-applet-id=12
@@ -282,7 +280,7 @@ idle-delay=uint32 0
 
 [org/gnome/desktop/wm/preferences]
 action-middle-click-titlebar='lower'
-num-workspaces=${WORKSPACE_COUNT}
+num-workspaces=4
 
 [org/gnome/eog/view]
 background-color='rgb(0,0,0)'
@@ -332,8 +330,7 @@ include-pointer=false
 last-save-directory='file:///home/levi/Pictures'
 
 [org/gnome/gnome-system-monitor]
-cpu-colors=[(uint32 0, '#FF6E00'), (1, '#CB0C29'), (2, '#49A835'), (3, '#2D7DB3'), (4, '#f25915e815e8'), (5, '#f25915e815e8'), (6, '#f25915e815e8'), (7, '#f25915e815e8'), (8, '#f25915e815e8'), (9, '#f25915e815e8'), (10, '#f25915e815e8'), (
-11, '#f25915e815e8'), (12, '#f25915e815e8'), (13, '#f25915e815e8'), (14, '#f25915e815e8'), (15, '#f25915e815e8')]
+cpu-colors=[(uint32 0, '#FF6E00'), (1, '#CB0C29'), (2, '#49A835'), (3, '#2D7DB3'), (4, '#f25915e815e8'), (5, '#f25915e815e8'), (6, '#f25915e815e8'), (7, '#f25915e815e8'), (8, '#f25915e815e8'), (9, '#f25915e815e8'), (10, '#f25915e815e8'), (11, '#f25915e815e8'), (12, '#f25915e815e8'), (13, '#f25915e815e8'), (14, '#f25915e815e8'), (15, '#f25915e815e8')]
 current-tab='resources'
 maximized=false
 show-dependencies=false
