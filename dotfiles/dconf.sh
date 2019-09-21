@@ -37,60 +37,6 @@ sensor-update-interval=2
 slog-enabled=false
 slog-interval=300
 
-[com/linuxmint/updates]
-autorefresh-days=0
-autorefresh-hours=2
-autorefresh-minutes=0
-blacklisted-packages=@as []
-default-repo-is-ok=true
-dist-upgrade=true
-hide-systray=false
-hide-window-after-update=false
-kernel-updates-are-safe=true
-kernel-updates-are-visible=true
-level1-is-safe=true
-level1-is-visible=true
-level2-is-safe=true
-level2-is-visible=true
-level3-is-safe=true
-level3-is-visible=true
-level4-is-safe=true
-level4-is-visible=true
-refresh-days=0
-refresh-hours=0
-refresh-minutes=10
-security-updates-are-safe=true
-security-updates-are-visible=true
-show-level-column=false
-show-welcome-page=false
-warn-about-timeshift=true
-window-height=791
-window-pane-position=280
-window-width=790
-
-[net/jami/JamiGnome]
-download-folder='/home/levi'
-show-main-window=false
-window-height=492
-window-width=821
-
-[org/blueberry]
-obex-enabled=false
-
-[org/blueman/general]
-services-last-item=1
-window-properties=[714, 350, 1175, 279]
-
-[org/blueman/network]
-nap-enable=false
-
-[org/blueman/plugins/powermanager]
-auto-power-on=@mb true
-
-[org/blueman/plugins/recentconns]
-recent-connections=[{'adapter': '3C:F0:11:3C:87:C7', 'address': 'CC:98:8B:93:F0:BB', 'alias': 'WH-1000XM3', 'icon': 'audio-card', 'name': 'Auto connect profiles', 'uuid': '00000000-0000-0000-0000-000000000000', 'time': '1568949164.9677854'
-, 'device': '', 'mitem': ''}]
-
 [org/cinnamon]
 active-display-scale=1.5
 alttab-switcher-delay=100

@@ -21,6 +21,7 @@ yay -Rcu --noconfirm \
   qbittorrent \
   meld \
   pragha \
+  glxinfo \
   atom >/dev/null 2>&1
 
 if [ -n "${CINNAMON_DESKTOP}" ]; then
@@ -127,5 +128,5 @@ yay -Sy --noconfirm --noeditmenu --nodiffmenu \
   vulkan-icd-loader \
   lib32-vulkan-icd-loader \
   lutris \
-  steam
+  steam >/dev/null 2>&1
 
