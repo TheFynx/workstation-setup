@@ -23,8 +23,8 @@ interface-window-divider-pos=0
 interface-window-h=571
 interface-window-restore-enabled=true
 interface-window-w=1250
-interface-window-x=462
-interface-window-y=408
+interface-window-x=1458
+interface-window-y=393
 notif-script=''
 provider-atiadlsdk-enabled=true
 provider-gtop2-enabled=true
@@ -68,17 +68,28 @@ window-height=791
 window-pane-position=280
 window-width=790
 
+[net/jami/JamiGnome]
+download-folder='/home/levi'
+show-main-window=false
+window-height=492
+window-width=821
+
 [org/blueberry]
 obex-enabled=false
 
 [org/blueman/general]
-window-properties=[664, 350, 1611, 880]
+services-last-item=1
+window-properties=[714, 350, 1175, 279]
+
+[org/blueman/network]
+nap-enable=false
 
 [org/blueman/plugins/powermanager]
 auto-power-on=@mb true
 
 [org/blueman/plugins/recentconns]
-recent-connections=[{'adapter': '3C:F0:11:3C:87:C7', 'address': 'A4:15:66:5A:70:71', 'alias': 'Wireless Controller', 'icon': 'input-gaming', 'name': 'Auto connect profiles', 'uuid': '00000000-0000-0000-0000-000000000000', 'time': '1564022959.681217', 'device': '', 'mitem': ''}]
+recent-connections=[{'adapter': '3C:F0:11:3C:87:C7', 'address': 'CC:98:8B:93:F0:BB', 'alias': 'WH-1000XM3', 'icon': 'audio-card', 'name': 'Auto connect profiles', 'uuid': '00000000-0000-0000-0000-000000000000', 'time': '1568949164.9677854'
+, 'device': '', 'mitem': ''}]
 
 [org/cinnamon]
 active-display-scale=1.5
@@ -102,7 +113,9 @@ desktop-effects-tile-transition='easeInQuad'
 desktop-effects-unmaximize-effect='none'
 desktop-effects-unmaximize-time=100
 desktop-effects-unmaximize-transition='easeNone'
-enabled-applets=['panel1:right:0:systray@cinnamon.org:0', 'panel1:left:0:menu@cinnamon.org:1', 'panel1:left:2:grouped-window-list@cinnamon.org:3', 'panel1:right:1:keyboard@cinnamon.org:4', 'panel1:right:2:notifications@cinnamon.org:5', 'panel1:right:3:removable-drives@cinnamon.org:6', 'panel1:right:5:bluetooth@cinnamon.org:7', 'panel1:right:6:network@cinnamon.org:8', 'panel1:right:7:sound@cinnamon.org:9', 'panel1:right:8:power@cinnamon.org:10', 'panel1:right:9:calendar@cinnamon.org:11']
+enabled-applets=['panel1:right:0:systray@cinnamon.org:0', 'panel1:left:0:menu@cinnamon.org:1', 'panel1:left:2:grouped-window-list@cinnamon.org:3', 'panel1:right:1:keyboard@cinnamon.org:4', 'panel1:right:2:notifications@cinnamon.org:5', 'pa
+nel1:right:3:removable-drives@cinnamon.org:6', 'panel1:right:5:bluetooth@cinnamon.org:7', 'panel1:right:6:network@cinnamon.org:8', 'panel1:right:7:sound@cinnamon.org:9', 'panel1:right:8:power@cinnamon.org:10', 'panel1:right:9:calendar@cinn
+amon.org:11']
 enabled-desklets=@as []
 hotcorner-layout=['expo:false:0', 'scale:false:0', 'scale:false:0', 'desktop:false:0']
 next-applet-id=12
@@ -129,7 +142,7 @@ feature-state-change-beep=false
 mousekeys-accel-time=1200
 mousekeys-enable=false
 mousekeys-init-delay=160
-mousekeys-max-speed=500
+mousekeys-max-speed=750
 slowkeys-beep-accept=true
 slowkeys-beep-press=true
 slowkeys-beep-reject=false
@@ -219,8 +232,11 @@ numlock-state='on'
 repeat-interval=uint32 30
 
 [org/cinnamon/settings-daemon/peripherals/mouse]
+custom-acceleration=true
+custom-threshold=false
 double-click=400
 drag-threshold=8
+motion-acceleration=10.0
 motion-threshold=1
 
 [org/cinnamon/settings-daemon/peripherals/touchpad]
@@ -261,7 +277,7 @@ source-currency=''
 source-units='degree'
 target-currency=''
 target-units='radian'
-window-position=(177, 901)
+window-position=(2038, 459)
 word-size=64
 
 [org/gnome/calendar]
@@ -302,14 +318,21 @@ monospace-font-name='Hack 10'
 scaling-factor=uint32 0
 toolkit-accessibility=false
 
+[org/gnome/desktop/lockdown]
+disable-lock-screen=true
+
 [org/gnome/desktop/media-handling]
 autorun-never=true
 
 [org/gnome/desktop/screensaver]
 color-shading-type='solid'
+idle-activation-enabled=false
 picture-options='zoom'
 primary-color='#000000000000'
 secondary-color='#000000000000'
+
+[org/gnome/desktop/session]
+idle-delay=uint32 0
 
 [org/gnome/desktop/wm/preferences]
 action-middle-click-titlebar='lower'
@@ -328,7 +351,7 @@ skip-newer=false
 
 [org/gnome/file-roller/listing]
 list-mode='as-folder'
-name-column-width=358
+name-column-width=415
 show-path=false
 sort-method='name'
 sort-type='ascending'
@@ -339,7 +362,7 @@ window-height=480
 window-width=600
 
 [org/gnome/gedit/plugins]
-active-plugins=['filebrowser', 'spell', 'modelines', 'docinfo', 'time']
+active-plugins=['spell', 'modelines', 'filebrowser', 'time', 'docinfo']
 
 [org/gnome/gedit/plugins/filebrowser]
 root='file:///'
@@ -353,7 +376,7 @@ show-tabs-mode='auto'
 bottom-panel-size=140
 side-panel-active-page='GeditWindowDocumentsPanel'
 side-panel-size=200
-size=(1720, 1363)
+size=(1920, 2072)
 state=87168
 
 [org/gnome/gnome-screenshot]
@@ -361,6 +384,31 @@ border-effect='none'
 include-border=true
 include-pointer=false
 last-save-directory='file:///home/levi/Pictures'
+
+[org/gnome/gnome-system-monitor]
+cpu-colors=[(uint32 0, '#FF6E00'), (1, '#CB0C29'), (2, '#49A835'), (3, '#2D7DB3'), (4, '#f25915e815e8'), (5, '#f25915e815e8'), (6, '#f25915e815e8'), (7, '#f25915e815e8'), (8, '#f25915e815e8'), (9, '#f25915e815e8'), (10, '#f25915e815e8'), (
+11, '#f25915e815e8'), (12, '#f25915e815e8'), (13, '#f25915e815e8'), (14, '#f25915e815e8'), (15, '#f25915e815e8')]
+current-tab='resources'
+maximized=false
+show-dependencies=false
+show-whose-processes='user'
+window-state=(700, 500, 376, 220)
+
+[org/gnome/gnome-system-monitor/disktreenew]
+col-6-visible=true
+col-6-width=0
+
+[org/gnome/gnome-system-monitor/proctree]
+columns-order=[0, 1, 2, 3, 4, 6, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]
+sort-col=8
+sort-order=0
+
+[org/gnome/nm-applet]
+disable-connected-notifications=true
+
+[org/gnome/nm-applet/eap/b06164ed-4e26-43f0-ad2b-b3a8dcc2bf6f]
+ignore-ca-cert=false
+ignore-phase2-ca-cert=false
 
 [org/gnome/nm-applet/eap/f7cdb80e-ce42-3558-a9f2-ac757947cdbd]
 ignore-ca-cert=false
@@ -406,7 +454,7 @@ show-size-column=true
 sidebar-width=177
 sort-column='name'
 sort-directories-first=false
-sort-order='ascending'
+sort-order='descending'
 window-position=(1425, 822)
 window-size=(990, 690)
 
@@ -416,12 +464,14 @@ font='Sans 10'
 
 [org/nemo/preferences]
 show-hidden-files=true
+show-location-entry=true
 
 [org/nemo/window-state]
-geometry='1256x957+1282+577'
+geometry='1170x1043+1325+534'
 maximized=false
-side-pane-view='places'
+side-pane-view='tree'
 sidebar-bookmark-breakpoint=5
+sidebar-width=269
 start-with-sidebar=true
 
 [org/onboard]
@@ -449,6 +499,9 @@ virtual-root='file:///home/levi/Documents'
 
 [org/x/editor/preferences/ui]
 statusbar-visible=true
+
+[org/x/reader/default]
+window-ratio=(6.2712418300653594, 2.6351010101010099)
 EOF
 
 if [ -f "${HOME}/.custom/dconf" ]; then

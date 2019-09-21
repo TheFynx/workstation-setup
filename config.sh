@@ -123,41 +123,37 @@ export -f debug
 export -f query
 export -f _workstation_log
 
-export USER='levi'
-export GROUP='levi'
-export PACKER_VERSION='1.4.2'
-export TERRAFORM_VERSION='0.11.14'
-# export CONSUL_VERSION='1.2.2'
-# export CONSUL_TEMPLATE_VERSION='0.19.5'
-export WORKSPACE_COUNT='4'
-# export GO_VERSION="1.11.4"
-export RB_VERSION="2.6.3"
-export NODE_VERSION="8.16.0"
-export PY_VERSION="3.7.4"
+: ${USER:='levi'}
+: ${GROUP:='levi'}
+: ${PACKER_VERSION:='1.4.3'}
+: ${TERRAFORM_VERSION:='0.12.9'}
+: ${WORKSPACE_COUNT:='4'}
+: ${RB_VERSION:="2.6.4"}
+: ${NODE_VERSION:="8.16.0"}
+: ${PY_VERSION:="3.7.4"}
+: ${CINNAMON_DESKTOP:=""}
 
 print_help() {
   echo ">>> Usage:"
-  echo "-u | Pass Customer User - install.sh -u USER - Default: ${USER}"
-  echo "-g | Pass Customer Group - install.sh -g GROUP - Default: ${GROUP}"
-  echo "-p | Pass Packer Version to Install - install.sh -p 1.2.2 - Default: ${PACKER_VERSION}"
-  echo "-t | Pass Terraform Version to Install - install.sh -t 0.11.6 - Default: ${TERRAFORM_VERSION}"
-  # echo "-c | Pass Consul Version to Install - install.sh -c 1.1.0 - Default: ${CONSUL_VERSION}"
-  # echo "-e | Pass Consul Template Version to Install - install.sh -e 0.19.4 - Default: ${CONSUL_VERSION}"
-  echo "-w | Pass Number of Workspaces to create by default - install.sh -w 5 - Default: ${WORKSPACE_COUNT}"
+  echo "-u | Pass Customer User - config.sh -u USER - Default: ${USER}"
+  echo "-g | Pass Customer Group - config.sh -g GROUP - Default: ${GROUP}"
+  echo "-p | Pass Packer Version to Install - config.sh -p 1.2.2 - Default: ${PACKER_VERSION}"
+  echo "-t | Pass Terraform Version to Install - config.sh -t 0.11.6 - Default: ${TERRAFORM_VERSION}"
+  echo "-w | Pass Number of Workspaces to create by default - config.sh -w 5 - Default: ${WORKSPACE_COUNT}"
+  echo "-c | Enable the installation/setup of the Cinnamon Desktop Environment (True/False) - config.sh -c - Default: null"
   echo "-s | Skip a specific section of setup/install - config.sh -s dconf"
   echo "-h | List this help menu"
 }
 
-while getopts u:g:p:t:c:e:w:s:dh option; do
+while getopts u:g:p:t:c:e:w:s:c:dh option; do
   case "${option}" in
 
   u) export USER=${OPTARG} ;;
   g) export GROUP=${OPTARG} ;;
   p) export PACKER_VERSION=${OPTARG} ;;
   t) export TERRAFORM_VERSION=${OPTARG} ;;
-  # t) export CONSUL_VERSION=${OPTARG} ;;
-  # e) export CONSUL_TEMPLATE_VERSION=${OPTARG} ;;
   w) export WORKSPACE_COUNT=${OPTARG} ;;
+  c) export CINNAMON_DESKTOP=${OPTARG} ;;
   s) export SKIP=${OPTARG} ;;
   d) export LOG_LEVEL="7" ;;
   h)

@@ -12,6 +12,38 @@ else
   info ">>> YAY Already installed"
 fi
 
+info ">>> Removing uneeded packages"
+yay -Rcu --noconfirm \
+  plank \
+  variety \
+  vivaldi \
+  sublime-text-dev \
+  qbittorrent \
+  meld \
+  pragha \
+  atom >/dev/null 2>&1
+
+if [ -n "${CINNAMON_DESKTOP}" ]; then
+  info ">>> Setting up Cinnamon Desktop"
+  yay -Sy --noconfirm --noeditmenu --nodiffmenu \
+    gdm \
+    cinnamon \
+    nemo-fileroller \
+    nemo-preview \
+    gnome-screenshot \
+    gedit \
+    gnome-terminal \
+    gnome-control-center \
+    gnome-system-monitor \
+    gnome-schedule \
+    gnome-power-manager \
+    mintlocale >/dev/null 2>&1
+  sudo cp -fv /etc/X11/xinit/xinitrc ${USER_HOME}/.xinitrc >/dev/null 2>&1
+  chown -R ${USER}:users ${USER_HOME}/.xinitrc >/dev/null 2>&1
+  echo -e "exec cinnamon-session" >> ${USER_HOME}/.xinitrc >/dev/null 2>&1
+  systemctl enable gdm >/dev/null 2>&1
+fi
+
 info ">>> Installing base packages"
 yay -Sy --noconfirm --noeditmenu --nodiffmenu \
   simplenote-electron-bin \
@@ -44,8 +76,6 @@ yay -Sy --noconfirm --noeditmenu --nodiffmenu \
   docker-compose \
   rsync \
   zsh \
-  materia-gtk-theme \
-  arc-gtk-theme \
   diffutils \
   chromium \
   vlc \
@@ -61,9 +91,41 @@ yay -Sy --noconfirm --noeditmenu --nodiffmenu \
   saw \
   cups \
   jq \
+  tree \
+  parallel \
   lastpass-cli \
   drawio-desktop \
   influxdb-cli \
   evopop-gtk-theme \
   evopop-icon-theme \
+  materia-gtk-theme \
+  psensor \
+  bind-tools \
+  jetbrains-toolbox \
+  vmware-workstation14 \
   adobe-source-code-pro-fonts >/dev/null 2>&1
+
+info ">>> Installing packages for Game Support"
+yay -Sy --noconfirm --noeditmenu --nodiffmenu \
+  ttf-ms-fonts \
+  lib32-gnutls \
+  lib32-libldap \
+  lib32-libgpg-error \
+  lib32-sqlite \
+  lib32-libpulse \
+  lib32-libxml2 \
+  lib32-alsa-plugins \
+  lib32-sdl2 \
+  lib32-freetype2 \
+  lib32-dbus \
+  lib32-libgcrypt \
+  libgcrypt \
+  mono \
+  wine-mono \
+  eog \
+  pywinery \
+  vulkan-icd-loader \
+  lib32-vulkan-icd-loader \
+  lutris \
+  steam
+
