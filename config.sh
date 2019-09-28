@@ -231,15 +231,6 @@ info ">>> Installing ${PKG} packages"
 debug ">>> Running ${OS} OS"
 ${PACKAGE_SCRIPT}
 
-info ">>> Installing Python Packages"
-${INIT_HOME}/workstation-setup/packages/python.sh
-
-info ">>> Installing Ruby Packages"
-${INIT_HOME}/workstation-setup/packages/ruby.sh
-
-info ">>> Installing NodeJS Packages"
-${INIT_HOME}/workstation-setup/packages/node.sh
-
 ###############################################################################
 # Setup SSH Keys
 ###############################################################################
@@ -342,6 +333,21 @@ for dot in *.sh; do
   info ">>> Running ${dot}"
   bash $dot || warning "${dot} failed to run"
 done
+
+###############################################################################
+# Install Languages and Specific Packages
+###############################################################################
+
+source ~/.path
+
+info ">>> Installing Python Packages"
+${INIT_HOME}/workstation-setup/packages/python.sh
+
+info ">>> Installing Ruby Packages"
+${INIT_HOME}/workstation-setup/packages/ruby.sh
+
+info ">>> Installing NodeJS Packages"
+${INIT_HOME}/workstation-setup/packages/node.sh
 
 ###############################################################################
 # Cleanup
