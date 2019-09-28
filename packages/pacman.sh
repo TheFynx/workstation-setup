@@ -74,7 +74,6 @@ yay -Sy --noconfirm --noeditmenu --nodiffmenu \
   neovim \
   terminator \
   docker \
-  docker-compose \
   rsync \
   zsh \
   diffutils \
