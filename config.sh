@@ -338,8 +338,6 @@ done
 # Install Languages and Specific Packages
 ###############################################################################
 
-source ~/.path
-
 info ">>> Installing Python Packages"
 ${INIT_HOME}/workstation-setup/packages/python.sh
 

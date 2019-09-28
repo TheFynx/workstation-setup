@@ -128,5 +128,5 @@ yay -Sy --noconfirm --noeditmenu --nodiffmenu \
   vulkan-icd-loader \
   lib32-vulkan-icd-loader \
   lutris \
-  steam >/dev/null 2>&1
-
+  steam
+  #>/dev/null 2>&1
