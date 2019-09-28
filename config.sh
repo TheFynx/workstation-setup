@@ -127,7 +127,6 @@ export -f _workstation_log
 : ${GROUP:='levi'}
 : ${PACKER_VERSION:='1.4.3'}
 : ${TERRAFORM_VERSION:='0.12.9'}
-: ${WORKSPACE_COUNT:='4'}
 : ${RB_VERSION:="2.6.4"}
 : ${NODE_VERSION:="8.16.0"}
 : ${PY_VERSION:="3.7.4"}
@@ -139,20 +138,18 @@ print_help() {
   echo "-g | Pass Customer Group - config.sh -g GROUP - Default: ${GROUP}"
   echo "-p | Pass Packer Version to Install - config.sh -p 1.2.2 - Default: ${PACKER_VERSION}"
   echo "-t | Pass Terraform Version to Install - config.sh -t 0.11.6 - Default: ${TERRAFORM_VERSION}"
-  echo "-w | Pass Number of Workspaces to create by default - config.sh -w 5 - Default: ${WORKSPACE_COUNT}"
   echo "-c | Enable the installation/setup of the Cinnamon Desktop Environment (True/False) - config.sh -c - Default: null"
   echo "-s | Skip a specific section of setup/install - config.sh -s dconf"
   echo "-h | List this help menu"
 }
 
-while getopts u:g:p:t:c:e:w:s:c:dh option; do
+while getopts u:g:p:t:c:e:s:c:dh option; do
   case "${option}" in
 
   u) export USER=${OPTARG} ;;
   g) export GROUP=${OPTARG} ;;
   p) export PACKER_VERSION=${OPTARG} ;;
   t) export TERRAFORM_VERSION=${OPTARG} ;;
-  w) export WORKSPACE_COUNT=${OPTARG} ;;
   c) export CINNAMON_DESKTOP=${OPTARG} ;;
   s) export SKIP=${OPTARG} ;;
   d) export LOG_LEVEL="7" ;;
