@@ -1,5 +1,5 @@
 info ">>> Upgrading System"
-sudo pacman -Syyu --noconfirm >/dev/null 2>&1
+sudo pacman -Syyu --noconfirm --needed >/dev/null 2>&1
 
 info ">>> Prepping Package Install"
 if [ -z "$(command -v yay)" ]; then
@@ -26,7 +26,7 @@ yay -Rcu --noconfirm \
 
 if [ -n "${CINNAMON_DESKTOP}" ]; then
   info ">>> Setting up Cinnamon Desktop"
-  yay -Sy --noconfirm --noeditmenu --nodiffmenu \
+  yay -Sy --noconfirm --noeditmenu --nodiffmenu --needed \
     gdm \
     cinnamon \
     nemo-fileroller \
@@ -45,41 +45,107 @@ if [ -n "${CINNAMON_DESKTOP}" ]; then
   systemctl enable gdm >/dev/null 2>&1
 fi
 
-info ">>> Installing base packages"
-yay -Sy --noconfirm --noeditmenu --nodiffmenu \
-  simplenote-electron-bin \
-  slack-desktop \
-  etcher-bin \
+info ">>> Installing Packages"
+yay -Sy --noconfirm --noeditmenu --nodiffmenu --needed \
+  ########################
+  # Common
+  ########################
+  jq \
+  tree \
+  curl \
+  wget \
+  unzip \
+  zip \
+  unrar \
+  gzip \
+  git \
+  parallel \
+  xclip \
+  rsync \
+  zsh \
+  ########################
+  # Codecs
+  ########################
+  gst-plugins-bad \
+  gst-plugins-base \
+  gst-plugins-good \
+  gst-plugins-ugly \
+  x264 \
+  gstreamer-vaapi \
+  libcdio \
+  libdvdread \
+  libdvdcss \
+  libdvdnav \
+  gst-libav \
+  flashplugin \
+  pulseaudio-modules-bt-git \
+  libldac \
+  ########################
+  # DE Tools
+  ########################
+  gnome-calculator \
+  gnome-disk-utility \
+  blueberry \
+  lightdm-gtk-greeter \
+  lightdm-gtk-greeter-settings \
+  pavucontrol \
+  ffmpegthumbnailer \
+  ffmpegthumbs \
+  gparted \
+  ########################
+  # Printer Support
+  ########################
+  cups \
+  cups-pk-helper \
+  gsfonts \
+  splix \
+  system-config-printer \
+  gtk3-print-backends \
+  cups-pdf \
+  python-pyqt5 \
+  hplip \
+  gutenprint \
+  foomatic-db \
+  foomatic-db-gutenprint-ppds \
+  foomatic-db-nonfree \
+  foomatic-db-nonfree-ppds \
+  foomatic-db-ppds \
+  ########################
+  # Programming
+  ########################
+  ruby \
+  python \
+  python-pip \
+  go \
   insomnia \
   pyenv \
   rbenv-git \
   ruby-build \
   nodenv \
   nodenv-node-build-git \
+  visual-studio-code-bin \
+  ########################
+  # Tools
+  ########################
   debtap \
-  google-talkplugin \
-  ttf-ancient-fonts \
-  curl \
-  wget \
-  unzip \
-  git \
-  ruby \
-  python \
-  python-pip \
-  go \
-  xclip \
+  simplenote-electron-bin \
+  etcher-bin \
   clipit \
   pandoc \
   lynx \
   neovim \
   terminator \
   docker \
-  rsync \
-  zsh \
-  diffutils \
-  chromium \
   vlc \
-  visual-studio-code-bin \
+  diffutils \
+  lastpass-cli \
+  drawio-desktop \
+  influxdb-cli \
+  psensor \
+  bind-tools \
+  saw \
+  jetbrains-toolbox \
+  vmware-workstation14 \
   vagrant \
   clamtk \
   libu2f-host \
@@ -87,26 +153,45 @@ yay -Sy --noconfirm --noeditmenu --nodiffmenu \
   bzip2 \
   shfmt \
   zbar \
+  p7zip \
+  terraform \
+  packer \
+  ########################
+  # Communication
+  ########################
+  slack-desktop \
+  google-talkplugin \
+  ########################
+  # Communication
+  ########################
+  ttf-ancient-fonts \
+  adobe-source-code-pro-fonts
   ttf-hack \
-  saw \
-  cups \
-  jq \
-  tree \
-  parallel \
-  lastpass-cli \
-  drawio-desktop \
-  influxdb-cli \
+  ttf-dejavu \
+  ttf-liberation \
+  ttf-linux-libertine \
+  ttf-bitstream-vera \
+  ttf-droid \
+  ttf-ubuntu-font-family \
+  gnu-free-fonts \
+  ########################
+  # Browsers
+  ########################
+  firefox \
+  chromium \
+  google-chrome \
+  ########################
+  # Themes
+  ########################
   evopop-gtk-theme \
   evopop-icon-theme \
   materia-gtk-theme \
-  psensor \
-  bind-tools \
-  jetbrains-toolbox \
-  vmware-workstation14 \
-  adobe-source-code-pro-fonts >/dev/null 2>&1
+  adwaita-icon-theme \
+  papirus-icon-theme \
+ >/dev/null 2>&1
 
 info ">>> Installing packages for Game Support"
-yay -Sy --noconfirm --noeditmenu --nodiffmenu \
+yay -Sy --noconfirm --noeditmenu --nodiffmenu --needed \
   ttf-ms-fonts \
   lib32-gnutls \
   lib32-libldap \

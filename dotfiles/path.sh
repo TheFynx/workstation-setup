@@ -60,6 +60,16 @@ if [ -n "$(command -v nodenv)" ]; then
   eval "$(nodenv init -)"
 fi
 
+# Set goenv
+if [ -d "${HOME}/.goenv" ]; then
+  export GOENV_ROOT="${HOME}/.goenv"
+  export PATH="${GOENV_ROOT}/bin:${PATH}"
+fi
+# Add shim/goenv to path
+if [ -n "$(command -v goenv)" ]; then
+  eval "$(goenv init -)"
+fi
+
 # set GOPATH if it exists
 if [ -d "${HOME}/.go" ]; then
   export GOPATH="${HOME}/.go"
@@ -74,6 +84,9 @@ fi
 if [ -d "${GOPATH}/bin" ]; then
   export PATH="${PATH}:${GOPATH}/bin"
 fi
+
+# For Travis CLI
+[ -f "${HOME}/.travis/travis.sh" ] && source ${HOME}/.travis/travis.sh
 
 EOF
 

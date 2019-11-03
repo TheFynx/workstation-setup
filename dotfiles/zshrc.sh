@@ -59,42 +59,44 @@ HIST_STAMPS="dd.mm.yyyy"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(
-  git
-  docker
-  aws
-  pip
-  python
-  node
-  zsh-autosuggestions
-)
 
-BULLETTRAIN_STATUS_EXIT_SHOW=true
+if [ -d "${ZSH}" ]; then
+  plugins=(
+    git
+    docker
+    pip
+    python
+    node
+    zsh-autosuggestions
+  )
 
-BULLETTRAIN_PROMPT_ORDER=(
-  time
-  status
-  dir
-  git
-  screen
-  perl
-  ruby
-  virtualenv
-  nvm
-  aws
-  go
-  rust
-  elixir
-  hg
-  cmd_exec_time
-)
+  BULLETTRAIN_STATUS_EXIT_SHOW=true
 
-source $ZSH/oh-my-zsh.sh
+  BULLETTRAIN_PROMPT_ORDER=(
+    time
+    status
+    dir
+    git
+    screen
+    perl
+    ruby
+    virtualenv
+    nvm
+    aws
+    go
+    rust
+    elixir
+    hg
+    cmd_exec_time
+  )
 
+  source $ZSH/oh-my-zsh.sh
+fi
 # User configuration
-
-ssh-add ~/.ssh/priv_keys/id_rsa >/dev/null 2>&1
-ssh-add ~/.ssh/priv_keys/git >/dev/null 2>&1
+if [ -d "~/.ssh/priv_keys" ]; then
+  ssh-add ~/.ssh/priv_keys/id_rsa >/dev/null 2>&1
+  ssh-add ~/.ssh/priv_keys/git >/dev/null 2>&1
+fi
 
 # Load the shell dotfiles, and then some:
 # * ~/.path can be used to extend `$PATH`.

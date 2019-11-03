@@ -130,6 +130,7 @@ export -f _workstation_log
 : ${RB_VERSION:="2.6.4"}
 : ${NODE_VERSION:="8.16.0"}
 : ${PY_VERSION:="3.7.4"}
+: ${GO_VERSION:="1.12"}
 : ${CINNAMON_DESKTOP:=""}
 
 print_help() {
@@ -286,7 +287,12 @@ fi
 ###############################################################################
 
 info ">>> Installing Hashicorp Tools"
-${INIT_HOME}/workstation-setup/packages/hashi.sh || warning "Hashi install failed to run"
+if [ "${PKG}" != "pacman" ]; then
+  ${INIT_HOME}/workstation-setup/packages/hashi.sh || warning "Hashi install failed to run"
+else
+  info ">>> Hashi installed via Pacman"
+fi
+
 
 ###############################################################################
 # Install Fonts
