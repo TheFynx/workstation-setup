@@ -140,7 +140,8 @@ print_help() {
   echo "-p | Pass Packer Version to Install - config.sh -p 1.2.2 - Default: ${PACKER_VERSION}"
   echo "-t | Pass Terraform Version to Install - config.sh -t 0.11.6 - Default: ${TERRAFORM_VERSION}"
   echo "-c | Enable the installation/setup of the Cinnamon Desktop Environment (True/False) - config.sh -c - Default: null"
-  echo "-s | Skip a specific section of setup/install - config.sh -s dconf"
+  #echo "-s | Skip a specific section of setup/install - config.sh -s dconf"
+  echo "-d | Enable Debug"
   echo "-h | List this help menu"
 }
 
@@ -214,10 +215,12 @@ fi
 mkdir -p ${INIT_HOME}
 
 if [ -d "${INIT_HOME}/workstation-setup" ]; then
+  debug ">>> Updating existing setup files"
   cd ${INIT_HOME}/workstation-setup
   git pull >/dev/null 2>&1
   info ">>> Workstation Setup Files Updated"
 else
+  debug ">>> Pulling new setup files"
   cd ${INIT_HOME}
   git clone ${setup_git} >/dev/null 2>&1
   info ">>> Workstation Setup Files Cloned"
@@ -248,6 +251,7 @@ info ">>> Workstation Setup: Adding SSH Config for Git SSH Key"
 touch ${USER_HOME}/.ssh/config
 
 if [ -z "$(grep 'github' ~/.ssh/config)" ]; then
+  debug "Creating ssh config"
   cat >"${USER_HOME}/.ssh/config" <<EOF
 Host github.com
   User git
@@ -361,9 +365,9 @@ info ">>> Perfoming Cleanup"
 if [ "${PKG}" == 'eopkg' ]; then
   sudo eopkg rmo -y >/dev/null 2>&1
 elif [ "${PKG}" == 'apt' ]; then
-  sudo apt-get clean -y
+  sudo apt-get clean -y >/dev/null 2>&1
 elif [ "${PKG}" == 'pacman' ]; then
-  sudo pacman -Sc --noconfirm
+  sudo pacman -Sc --noconfirm >/dev/null 2>&1
 fi
 
 info ">>> Setup Complete"

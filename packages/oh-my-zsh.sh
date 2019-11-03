@@ -7,7 +7,8 @@ if [ ! -d "${USER_HOME}/.oh-my-zsh" ]; then
   chsh -s $(which zsh)
 else
   info ">>> Oh My ZSH Already Installed, Upgrading instead"
-  upgrade_oh_my_zsh
+  cd ${USER_HOME}/.oh-my-zsh
+  git pull >/dev/null 2>&1
 fi
 
 if [ -d "${USER_HOME}/.oh-my-zsh" ]; then

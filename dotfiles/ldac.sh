@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+
+info ">>> Setting up LDAC Support"
 # Set -E on bluetooth
 cat <<'EOF' | sudo tee /usr/lib/systemd/system/bluetooth.service
 [Unit]
@@ -22,7 +24,7 @@ ProtectSystem=full
 [Install]
 WantedBy=bluetooth.target
 Alias=dbus-org.bluez.service
-EOF
+EOF >/dev/null 2>&1
 
 # Enabled LDAC HiDef in Pulse
 if [ -z "$(grep "ldac_eqmid=hq ldac_fmt=f32" /etc/pulse/default.pa)" ]; then
@@ -30,4 +32,4 @@ if [ -z "$(grep "ldac_eqmid=hq ldac_fmt=f32" /etc/pulse/default.pa)" ]; then
 fi
 
 # Sometimes it needs to be reinstalled
-yay -Sy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed libldac
+yay -Sy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed libldac >/dev/null 2>&1
