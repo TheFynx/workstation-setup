@@ -187,8 +187,7 @@ yay -Sy --noconfirm --noeditmenu --nodiffmenu --needed \
   evopop-icon-theme \
   materia-gtk-theme \
   adwaita-icon-theme \
-  papirus-icon-theme \
- >/dev/null 2>&1
+  papirus-icon-theme >/dev/null 2>&1
 
 info ">>> Installing packages for Game Support"
 yay -Sy --noconfirm --noeditmenu --nodiffmenu --needed \
@@ -212,5 +211,4 @@ yay -Sy --noconfirm --noeditmenu --nodiffmenu --needed \
   vulkan-icd-loader \
   lib32-vulkan-icd-loader \
   lutris \
-  steam
-  #>/dev/null 2>&1
+  steam >/dev/null 2>&1
