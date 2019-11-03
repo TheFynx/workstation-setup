@@ -141,7 +141,7 @@ yay -Sy --noconfirm --noeditmenu --nodiffmenu --needed \
   slack-desktop \
   google-talkplugin \
   ttf-ancient-fonts \
-  adobe-source-code-pro-fonts
+  adobe-source-code-pro-fonts \
   ttf-hack \
   ttf-dejavu \
   ttf-liberation \
