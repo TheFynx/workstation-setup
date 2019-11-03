@@ -25,7 +25,9 @@ Alias=dbus-org.bluez.service
 EOF
 
 # Enabled LDAC HiDef in Pulse
-sudo sed -i 's/load-module module-bluetooth-discover/load-module module-bluetooth-discover a2dp_config="ldac_eqmid=hq ldac_fmt=f32"/' /etc/pulse/default.pa
+if [ -z "$(grep "ldac_eqmid=hq ldac_fmt=f32" /etc/pulse/default.pa)" ]; then
+  sudo sed -i 's/load-module module-bluetooth-discover/load-module module-bluetooth-discover a2dp_config="ldac_eqmid=hq ldac_fmt=f32"/' /etc/pulse/default.pa
+fi
 
 # Sometimes it needs to be reinstalled
-yay -Sy --noconfirm --noeditmenu --nodiffmenu libldac
+yay -Sy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed libldac

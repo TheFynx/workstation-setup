@@ -46,7 +46,7 @@ if [ -n "${CINNAMON_DESKTOP}" ]; then
 fi
 
 info ">>> Installing Packages"
-yay -Sy --noconfirm --noeditmenu --nodiffmenu --needed \
+yay -Sy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
   jq \
   tree \
   curl \
@@ -157,10 +157,10 @@ yay -Sy --noconfirm --noeditmenu --nodiffmenu --needed \
   evopop-icon-theme \
   materia-gtk-theme \
   adwaita-icon-theme \
-  papirus-icon-theme >/dev/null 2>&1
+  papirus-icon-theme-git >/dev/null 2>&1
 
 info ">>> Installing packages for Game Support"
-yay -Sy --noconfirm --noeditmenu --nodiffmenu --needed \
+yay -Sy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
   ttf-ms-fonts \
   lib32-gnutls \
   lib32-libldap \
