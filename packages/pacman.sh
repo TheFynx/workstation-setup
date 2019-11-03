@@ -47,9 +47,6 @@ fi
 
 info ">>> Installing Packages"
 yay -Sy --noconfirm --noeditmenu --nodiffmenu --needed \
-  ########################
-  # Common
-  ########################
   jq \
   tree \
   curl \
@@ -63,9 +60,6 @@ yay -Sy --noconfirm --noeditmenu --nodiffmenu --needed \
   xclip \
   rsync \
   zsh \
-  ########################
-  # Codecs
-  ########################
   gst-plugins-bad \
   gst-plugins-base \
   gst-plugins-good \
@@ -80,9 +74,6 @@ yay -Sy --noconfirm --noeditmenu --nodiffmenu --needed \
   flashplugin \
   pulseaudio-modules-bt-git \
   libldac \
-  ########################
-  # DE Tools
-  ########################
   gnome-calculator \
   gnome-disk-utility \
   blueberry \
@@ -92,9 +83,6 @@ yay -Sy --noconfirm --noeditmenu --nodiffmenu --needed \
   ffmpegthumbnailer \
   ffmpegthumbs \
   gparted \
-  ########################
-  # Printer Support
-  ########################
   cups \
   cups-pk-helper \
   gsfonts \
@@ -110,9 +98,6 @@ yay -Sy --noconfirm --noeditmenu --nodiffmenu --needed \
   foomatic-db-nonfree \
   foomatic-db-nonfree-ppds \
   foomatic-db-ppds \
-  ########################
-  # Programming
-  ########################
   ruby \
   python \
   python-pip \
@@ -124,9 +109,6 @@ yay -Sy --noconfirm --noeditmenu --nodiffmenu --needed \
   nodenv \
   nodenv-node-build-git \
   visual-studio-code-bin \
-  ########################
-  # Tools
-  ########################
   debtap \
   simplenote-electron-bin \
   etcher-bin \
@@ -156,14 +138,8 @@ yay -Sy --noconfirm --noeditmenu --nodiffmenu --needed \
   p7zip \
   terraform \
   packer \
-  ########################
-  # Communication
-  ########################
   slack-desktop \
   google-talkplugin \
-  ########################
-  # Communication
-  ########################
   ttf-ancient-fonts \
   adobe-source-code-pro-fonts
   ttf-hack \
@@ -174,15 +150,9 @@ yay -Sy --noconfirm --noeditmenu --nodiffmenu --needed \
   ttf-droid \
   ttf-ubuntu-font-family \
   gnu-free-fonts \
-  ########################
-  # Browsers
-  ########################
   firefox \
   chromium \
   google-chrome \
-  ########################
-  # Themes
-  ########################
   evopop-gtk-theme \
   evopop-icon-theme \
   materia-gtk-theme \
