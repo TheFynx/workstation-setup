@@ -20,7 +20,7 @@ done
 
 if [ -n "${CINNAMON_DESKTOP}" ]; then
   info ">>> Setting up Cinnamon Desktop"
-  yay -Sy --noconfirm --noeditmenu --nodiffmenu --needed \
+  yay -Sycc --noconfirm --noeditmenu --nodiffmenu --needed \
     gdm \
     cinnamon \
     nemo-fileroller \
@@ -57,6 +57,7 @@ yay -Sy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
   rsync \
   fd \
   exa \
+  jre10-openjdk \
   gst-plugins-bad \
   gst-plugins-base \
   gst-plugins-good \
@@ -130,7 +131,7 @@ yay -Sy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
 
 ## AUR Specific Packages
 info ">>> Installing AUR Packages"
-yay -Sy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
+yay -Sycc --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
   pulseaudio-modules-bt-git \
   libldac \
   insomnia \
@@ -143,7 +144,7 @@ yay -Sy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
   simplenote-electron-bin \
   etcher-bin \
   clipit \
-  influxdb-cli \
+  #influxdb-cli \
   saw \
   jetbrains-toolbox \
   vmware-workstation14 \
@@ -182,7 +183,7 @@ yay -Sy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
 
 ## AUR Specific Packages
 info ">>> Installing AUR Game Support Packages"
-yay -Sy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
+yay -Sycc --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
   pywinery \
   protontricks-git \
   ttf-ms-fonts >/dev/null 2>&1
