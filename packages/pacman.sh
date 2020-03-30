@@ -13,7 +13,7 @@ else
 fi
 
 info ">>> Removing uneeded packages"
-PACKAGES_TO_REMOVE="variety sublime-text-dev meld thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman"
+PACKAGES_TO_REMOVE="variety sublime-text-dev meld thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman pulseaudio-bluetooth"
 for package in $PACKAGES_TO_REMOVE; do
   yay -Rcu --noconfirm $package >/dev/null 2>&1
 done
@@ -147,7 +147,6 @@ yay -Sy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
   saw \
   jetbrains-toolbox \
   vmware-workstation14 \
-  u2f-hidraw-policy \
   slack-desktop \
   google-talkplugin \
   ttf-ancient-fonts \
