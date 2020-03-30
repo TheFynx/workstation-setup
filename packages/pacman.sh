@@ -57,6 +57,7 @@ yay -Syy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
   rsync \
   fd \
   exa \
+  libreoffice-fresh \
   jre10-openjdk \
   gst-plugins-bad \
   gst-plugins-base \
