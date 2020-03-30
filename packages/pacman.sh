@@ -144,7 +144,6 @@ yay -Syy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
   simplenote-electron-bin \
   etcher-bin \
   clipit \
-  #influxdb-cli \
   saw \
   jetbrains-toolbox \
   vmware-workstation14 \
