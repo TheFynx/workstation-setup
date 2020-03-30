@@ -13,7 +13,7 @@ else
 fi
 
 info ">>> Removing uneeded packages"
-PACKAGES_TO_REMOVE="variety sublime-text-dev meld thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman pulseaudio-bluetooth"
+PACKAGES_TO_REMOVE="variety sublime-text-dev meld thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman pulseaudio-bluetooth firefox chromium termite xfce-terminal"
 for package in $PACKAGES_TO_REMOVE; do
   yay -Rcu --noconfirm $package >/dev/null 2>&1
 done
@@ -144,6 +144,7 @@ yay -Syy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
   simplenote-electron-bin \
   etcher-bin \
   clipit \
+  spotify \
   saw \
   jetbrains-toolbox \
   vmware-workstation14 \
@@ -151,9 +152,9 @@ yay -Syy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
   google-talkplugin \
   ttf-ancient-fonts \
   brave-bin \
+  google-chrome \
   hstr \
   powerline-go-bin \
-  google-chrome \
   evopop-gtk-theme \
   evopop-icon-theme \
   papirus-icon-theme-git >/dev/null 2>&1
