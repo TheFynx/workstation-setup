@@ -125,12 +125,12 @@ export -f _workstation_log
 
 : ${USER:='levi'}
 : ${GROUP:='levi'}
-: ${PACKER_VERSION:='1.4.3'}
-: ${TERRAFORM_VERSION:='0.12.9'}
+: ${PACKER_VERSION:='1.5.5'}
+: ${TERRAFORM_VERSION:='0.12.19'}
 : ${RB_VERSION:="2.6.4"}
-: ${NODE_VERSION:="8.16.0"}
+: ${NODE_VERSION:="12.15.0"}
 : ${PY_VERSION:="3.7.4"}
-: ${GO_VERSION:="1.12"}
+: ${GO_VERSION:="1.14"}
 : ${CINNAMON_DESKTOP:=""}
 
 print_help() {
@@ -140,7 +140,7 @@ print_help() {
   echo "-p | Pass Packer Version to Install - config.sh -p 1.2.2 - Default: ${PACKER_VERSION}"
   echo "-t | Pass Terraform Version to Install - config.sh -t 0.11.6 - Default: ${TERRAFORM_VERSION}"
   echo "-c | Enable the installation/setup of the Cinnamon Desktop Environment (True/False) - config.sh -c - Default: null"
-  #echo "-s | Skip a specific section of setup/install - config.sh -s dconf"
+  echo "-s | Skip a specific section of setup/install - config.sh -s dconf"
   echo "-d | Enable Debug"
   echo "-h | List this help menu"
 }
@@ -271,8 +271,8 @@ if [ "${secretAnswer}" == 'y' ]; then
   if [ -z "$(curl -i -s -H "Authorization: token ${GH_TOKEN}" https://api.github.com/user/keys | grep "${HOSTNAME}")" ]; then
     info ">>> No github key found, uploading public key"
     debug ">>> Posting the following body to github: ${BODY}"
-    debug ">>> Using the following curl command: curl -i -H "Authorization: token ${GH_TOKEN}" --data "{"title": "${HOSTNAME}", "key": "$(cat ~/.ssh/pub_keys/git.pub)"}" https://api.github.com/user/keys"
-    curl -i -H "Authorization: token ${GH_TOKEN}" --data "{"title": "${HOSTNAME}", "key": "$(cat ~/.ssh/pub_keys/git.pub)"}" https://api.github.com/user/keys >/dev/null 2>&1
+    debug ">>> Using the following curl command: curl -i -H "Authorization: token ${GH_TOKEN}" --data "{\"title\": \"${HOSTNAME}\", \"key\": \"$(cat ~/.ssh/pub_keys/git.pub)\"}" https://api.github.com/user/keys"
+    curl -i -H "Authorization: token ${GH_TOKEN}" --data "{\"title\": \"${HOSTNAME}\", \"key\": \"$(cat ~/.ssh/pub_keys/git.pub)\"}" https://api.github.com/user/keys >/dev/null 2>&1
   else
     info ">>> Workstation Setup: Git Key Already Exists"
   fi
@@ -296,7 +296,6 @@ if [ "${PKG}" != "pacman" ]; then
 else
   info ">>> Hashi installed via Pacman"
 fi
-
 
 ###############################################################################
 # Install Fonts
@@ -340,8 +339,12 @@ info ">>> Configuring dotFiles"
 cd ${INIT_HOME}/workstation-setup/dotfiles
 
 for dot in *.sh; do
-  info ">>> Running ${dot}"
-  bash $dot || warning "${dot} failed to run"
+  if [[ "${SKIP}" =~ "${dot}" ]]; then
+    info ">>> Skipping ${dot}"
+  else
+    info ">>> Running ${dot}"
+    bash $dot || warning "${dot} failed to run"
+  fi
 done
 
 ###############################################################################

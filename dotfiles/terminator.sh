@@ -75,7 +75,7 @@ cat >"${HOME}/.config/terminator/config.2" <<'EOF'
     copy_on_selection = True
     cursor_color = "#16afca"
     cursor_shape = ibeam
-    font = Source Code Pro for Powerline Medium 10
+    font = Droid Sans Mono for Powerline 11
     foreground_color = "#e5e5e5"
     icon_bell = False
     palette = "#212121:#b7141f:#457b24:#e98e17:#134eb2:#560088:#0e717c:#efefef:#424242:#e83b3f:#7aba3a:#ffea2e:#54a4f3:#aa4dbc:#26bbd1:#d9d9d9"

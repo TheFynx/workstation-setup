@@ -7,11 +7,31 @@ cat >"${HOME}/.bashrc.2" <<'EOF'
 # For Travis CLI
 [ -f "${HOME}/.travis/travis.sh" ] && source ${HOME}/.travis/travis.sh
 
-bind TAB:menu-complete
-
 # Source global definitions
 if [ -f "/etc/bashrc" ]; then
   . /etc/bashrc
+fi
+
+# User configuration
+if [ -d "~/.ssh/priv_keys" ]; then
+  ssh-add ~/.ssh/priv_keys/id_rsa >/dev/null 2>&1
+  ssh-add ~/.ssh/priv_keys/git >/dev/null 2>&1
+fi
+
+# Load the shell dotfiles, and then some:
+# * ~/.path can be used to extend `$PATH`.
+# * ~/.extra can be used for other settings you don’t want to commit.
+for file in ~/.{aliases,functions,path,extra,exports}; do
+        [[ -r "$file" ]] && [[ -f "$file" ]] && source "$file"
+done
+unset file
+
+function _update_ps1() {
+    eval "$(powerline-go -error $? -shell bash -eval -cwd-max-depth 4 -numeric-exit-codes -modules time,cwd,exit -modules-right git)"
+}
+
+if [ "$TERM" != "linux" ] && [ -n "$(command -v powerline-go)" ]; then
+  PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
 fi
 
 EOF

@@ -13,16 +13,10 @@ else
 fi
 
 info ">>> Removing uneeded packages"
-yay -Rcu --noconfirm \
-  plank \
-  variety \
-  vivaldi \
-  sublime-text-dev \
-  qbittorrent \
-  meld \
-  pragha \
-  glxinfo \
-  atom >/dev/null 2>&1
+PACKAGES_TO_REMOVE="variety sublime-text-dev meld thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman"
+for package in $PACKAGES_TO_REMOVE; do
+  yay -Rcu --noconfirm $package >/dev/null 2>&1
+done
 
 if [ -n "${CINNAMON_DESKTOP}" ]; then
   info ">>> Setting up Cinnamon Desktop"
@@ -33,6 +27,8 @@ if [ -n "${CINNAMON_DESKTOP}" ]; then
     nemo-preview \
     gnome-screenshot \
     gedit \
+    lightdm-gtk-greeter \
+    lightdm-gtk-greeter-settings \
     gnome-terminal \
     gnome-control-center \
     gnome-system-monitor \
@@ -41,7 +37,7 @@ if [ -n "${CINNAMON_DESKTOP}" ]; then
     mintlocale >/dev/null 2>&1
   sudo cp -fv /etc/X11/xinit/xinitrc ${USER_HOME}/.xinitrc >/dev/null 2>&1
   chown -R ${USER}:users ${USER_HOME}/.xinitrc >/dev/null 2>&1
-  echo -e "exec cinnamon-session" >> ${USER_HOME}/.xinitrc >/dev/null 2>&1
+  echo -e "exec cinnamon-session" >>${USER_HOME}/.xinitrc >/dev/null 2>&1
   systemctl enable gdm >/dev/null 2>&1
 fi
 
@@ -59,7 +55,6 @@ yay -Sy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
   parallel \
   xclip \
   rsync \
-  zsh \
   gst-plugins-bad \
   gst-plugins-base \
   gst-plugins-good \
@@ -72,13 +67,9 @@ yay -Sy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
   libdvdnav \
   gst-libav \
   flashplugin \
-  pulseaudio-modules-bt-git \
-  libldac \
   gnome-calculator \
   gnome-disk-utility \
   blueberry \
-  lightdm-gtk-greeter \
-  lightdm-gtk-greeter-settings \
   pavucontrol \
   ffmpegthumbnailer \
   ffmpegthumbs \
@@ -102,17 +93,7 @@ yay -Sy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
   python \
   python-pip \
   go \
-  insomnia \
   pyenv \
-  rbenv-git \
-  ruby-build \
-  nodenv \
-  nodenv-node-build-git \
-  visual-studio-code-bin \
-  debtap \
-  simplenote-electron-bin \
-  etcher-bin \
-  clipit \
   pandoc \
   lynx \
   neovim \
@@ -121,26 +102,17 @@ yay -Sy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
   vlc \
   diffutils \
   lastpass-cli \
-  drawio-desktop \
-  influxdb-cli \
   psensor \
   bind-tools \
-  saw \
-  jetbrains-toolbox \
-  vmware-workstation14 \
   vagrant \
   clamtk \
   libu2f-host \
+  libfido2 \
   keybase-gui \
   bzip2 \
   shfmt \
   zbar \
   p7zip \
-  terraform \
-  packer \
-  slack-desktop \
-  google-talkplugin \
-  ttf-ancient-fonts \
   adobe-source-code-pro-fonts \
   ttf-hack \
   ttf-dejavu \
@@ -150,18 +122,42 @@ yay -Sy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
   ttf-droid \
   ttf-ubuntu-font-family \
   gnu-free-fonts \
-  firefox \
-  chromium \
+  powerline-fonts \
+  materia-gtk-theme \
+  adwaita-icon-theme >/dev/null 2>&1
+
+## AUR Specific Packages
+info ">>> Installing AUR Packages"
+yay -Sy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
+  pulseaudio-modules-bt-git \
+  libldac \
+  insomnia \
+  rbenv-git \
+  ruby-build \
+  nodenv \
+  nodenv-node-build-git \
+  visual-studio-code-bin \
+  debtap \
+  simplenote-electron-bin \
+  etcher-bin \
+  clipit \
+  influxdb-cli \
+  saw \
+  jetbrains-toolbox \
+  vmware-workstation14 \
+  u2f-hidraw-policy \
+  slack-desktop \
+  google-talkplugin \
+  ttf-ancient-fonts \
+  brave-bin \
+  powerline-go-bin \
   google-chrome \
   evopop-gtk-theme \
   evopop-icon-theme \
-  materia-gtk-theme \
-  adwaita-icon-theme \
   papirus-icon-theme-git >/dev/null 2>&1
 
 info ">>> Installing packages for Game Support"
 yay -Sy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
-  ttf-ms-fonts \
   lib32-gnutls \
   lib32-libldap \
   lib32-libgpg-error \
@@ -177,8 +173,14 @@ yay -Sy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
   mono \
   wine-mono \
   eog \
-  pywinery \
   vulkan-icd-loader \
   lib32-vulkan-icd-loader \
   lutris \
   steam >/dev/null 2>&1
+
+## AUR Specific Packages
+info ">>> Installing AUR Game Support Packages"
+yay -Sy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
+  pywinery \
+  protontricks-git \
+  ttf-ms-fonts >/dev/null 2>&1

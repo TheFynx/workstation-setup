@@ -11,7 +11,10 @@ if [ -n "$(command -v rbenv)" ]; then
     info ">>> Installing Ruby to RBENV"
     rbenv install ${RB_VERSION} >/dev/null 2>&1
   fi
-fi
 
-info ">>> Installing Gems"
-gem install travis --no-document >/dev/null 2>&1
+  info ">>> Setting Ruby Version to ${RB_VERSION}"
+  rbenv global ${RB_VERSION} >/dev/null 2>&1
+
+  info ">>> Installing Gems"
+  gem install travis --no-document >/dev/null 2>&1
+fi

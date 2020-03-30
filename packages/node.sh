@@ -10,6 +10,8 @@ if [ -n "$(command -v nodenv)" ]; then
   eval "$(nodenv init -)"
   if [ -z "$(nodenv versions | grep "${NODE_VERSION}")" ]; then
     nodenv install ${NODE_VERSION}
-    nodenv global ${NODE_VERSION}
   fi
+
+  info ">>> Setting Node Version to ${NODE_VERSION}"
+  nodenv global ${NODE_VERSION}
 fi
