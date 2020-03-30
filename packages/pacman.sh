@@ -20,7 +20,7 @@ done
 
 if [ -n "${CINNAMON_DESKTOP}" ]; then
   info ">>> Setting up Cinnamon Desktop"
-  yay -Sycc --noconfirm --noeditmenu --nodiffmenu --needed \
+  yay -Syy --noconfirm --noeditmenu --nodiffmenu --needed \
     gdm \
     cinnamon \
     nemo-fileroller \
@@ -42,7 +42,7 @@ if [ -n "${CINNAMON_DESKTOP}" ]; then
 fi
 
 info ">>> Installing Packages"
-yay -Sy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
+yay -Syy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
   jq \
   tree \
   curl \
@@ -131,7 +131,7 @@ yay -Sy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
 
 ## AUR Specific Packages
 info ">>> Installing AUR Packages"
-yay -Sycc --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
+yay -Syy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
   pulseaudio-modules-bt-git \
   libldac \
   insomnia \
@@ -160,7 +160,7 @@ yay -Sycc --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
   papirus-icon-theme-git >/dev/null 2>&1
 
 info ">>> Installing packages for Game Support"
-yay -Sy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
+yay -Syy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
   lib32-gnutls \
   lib32-libldap \
   lib32-libgpg-error \
@@ -183,7 +183,7 @@ yay -Sy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
 
 ## AUR Specific Packages
 info ">>> Installing AUR Game Support Packages"
-yay -Sycc --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
+yay -Syy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
   pywinery \
   protontricks-git \
   ttf-ms-fonts >/dev/null 2>&1
