@@ -132,6 +132,7 @@ export -f _workstation_log
 : ${PY_VERSION:="3.7.4"}
 : ${GO_VERSION:="1.14"}
 : ${CINNAMON_DESKTOP:=""}
+: ${SKIP:=""}
 
 print_help() {
   echo ">>> Usage:"
@@ -291,11 +292,7 @@ fi
 ###############################################################################
 
 info ">>> Installing Hashicorp Tools"
-if [ "${PKG}" != "pacman" ]; then
-  ${INIT_HOME}/workstation-setup/packages/hashi.sh || warning "Hashi install failed to run"
-else
-  info ">>> Hashi installed via Pacman"
-fi
+${INIT_HOME}/workstation-setup/packages/hashi.sh || warning "Hashi install failed to run"
 
 ###############################################################################
 # Install Fonts
@@ -314,13 +311,6 @@ if [ "${PKG}" != "pacman" ]; then
 else
   info ">>> Zoom installed via Pacman"
 fi
-
-###############################################################################
-# Install Oh-My-ZSH
-###############################################################################
-
-info ">>> Installing Oh-My-ZSH"
-${INIT_HOME}/workstation-setup/packages/oh-my-zsh.sh || warning "Oh My ZSH install failed to run"
 
 ###############################################################################
 # Copy Wallpapers

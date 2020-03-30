@@ -101,6 +101,10 @@ alias hosts='sudo vim /etc/hosts'
 # untar
 alias untar='tar -xvf'
 
+# Get Weather
+forecast='curl "http://wttr.in/Christian County, MO"'
+local_forecast='curl http://wttr.in/'
+
 EOF
 
 if [ -f "${HOME}/.aliases" ]; then
