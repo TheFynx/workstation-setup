@@ -55,6 +55,8 @@ yay -Sy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
   parallel \
   xclip \
   rsync \
+  fd \
+  exa \
   gst-plugins-bad \
   gst-plugins-base \
   gst-plugins-good \
@@ -150,6 +152,7 @@ yay -Sy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
   google-talkplugin \
   ttf-ancient-fonts \
   brave-bin \
+  hstr \
   powerline-go-bin \
   google-chrome \
   evopop-gtk-theme \

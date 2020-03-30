@@ -12,6 +12,14 @@ if [ -f "/etc/bashrc" ]; then
   . /etc/bashrc
 fi
 
+# Load the shell dotfiles, and then some:
+# * ~/.path can be used to extend `$PATH`.
+# * ~/.extra can be used for other settings you don’t want to commit.
+for file in ~/.{bash_prompt,aliases,functions,path,extra,exports}; do
+        [[ -r "$file" ]] && [[ -f "$file" ]] && source "$file"
+done
+unset file
+
 # User configuration
 if [ -d "~/.ssh/priv_keys" ]; then
   ssh-add ~/.ssh/priv_keys/id_rsa >/dev/null 2>&1

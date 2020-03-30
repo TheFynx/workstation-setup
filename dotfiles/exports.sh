@@ -3,10 +3,32 @@ cat >"${HOME}/.exports.2" <<'EOF'
 export EDITOR=$(which nvim)
 export TERM="xterm-256color"
 
-# Larger bash history (allow 32³ entries; default is 500)
-export HISTSIZE=50000000
-export HISTFILESIZE=$HISTSIZE
-export HISTCONTROL=ignoredups
+# Case-insensitive globbing (used in pathname expansion)
+shopt -s nocaseglob
+
+# Autocorrect typos in path names when using `cd`
+shopt -s cdspell
+
+# Enable some Bash 4 features when possible:
+# * `autocd`, e.g. `**/qux` will enter `./foo/bar/baz/qux`
+# * Recursive globbing, e.g. `echo **/*.txt`
+for option in autocd globstar; do
+        shopt -s "$option" 2> /dev/null
+done
+
+# Append to the Bash history file, rather than overwriting it
+alias hh=hstr                    # hh to be alias for hstr
+export HSTR_CONFIG=hicolor       # get more colors
+shopt -s histappend              # append new history items to .bash_history
+export HISTCONTROL=ignoreboth   # leading space hides commands from history
+export HISTFILESIZE=50000000     # increase history file size (default is 500)
+export HISTSIZE=${HISTFILESIZE}  # increase history size (default is 500)
+# ensure synchronization between bash memory and history file
+export PROMPT_COMMAND="history -a; history -n; ${PROMPT_COMMAND}"
+# if this is interactive shell, then bind hstr to Ctrl-r (for Vi mode check doc)
+if [[ $- =~ .*i.* ]]; then bind '"\C-r": "\C-a hstr -- \C-j"'; fi
+# if this is interactive shell, then bind 'kill last command' to Ctrl-x k
+if [[ $- =~ .*i.* ]]; then bind '"\C-xk": "\C-a hstr -k \C-j"'; fi
 
 # Prefer US English and use UTF-8
 export LANG="en_US.UTF-8"
