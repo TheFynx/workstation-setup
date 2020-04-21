@@ -101,6 +101,15 @@ alias hosts='sudo vim /etc/hosts'
 # untar
 alias untar='tar -xvf'
 
+#use all cores
+alias uac="sh ~/.bin/main/000*"
+
+#Cleanup orphaned packages
+alias cleanup='sudo pacman -Rns $(pacman -Qtdq)'
+
+#continue download
+alias wget="wget -c"
+
 # Get Weather
 forecast='curl "http://wttr.in/Christian County, MO"'
 local_forecast='curl http://wttr.in/'

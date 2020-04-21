@@ -17,12 +17,12 @@ for option in autocd globstar; do
 done
 
 # Append to the Bash history file, rather than overwriting it
-alias hh=hstr                    # hh to be alias for hstr
-export HSTR_CONFIG=hicolor       # get more colors
-shopt -s histappend              # append new history items to .bash_history
-export HISTCONTROL=ignoreboth   # leading space hides commands from history
-export HISTFILESIZE=50000000     # increase history file size (default is 500)
-export HISTSIZE=${HISTFILESIZE}  # increase history size (default is 500)
+alias hh=hstr                             # hh to be alias for hstr
+export HSTR_CONFIG=hicolor                # get more colors
+shopt -s histappend                       # append new history items to .bash_history
+export HISTCONTROL=ignoreboth:erasedups   # leading space hides commands from history
+export HISTFILESIZE=50000000              # increase history file size (default is 500)
+export HISTSIZE=${HISTFILESIZE}           # increase history size (default is 500)
 # ensure synchronization between bash memory and history file
 export PROMPT_COMMAND="history -a; history -n; ${PROMPT_COMMAND}"
 # if this is interactive shell, then bind hstr to Ctrl-r (for Vi mode check doc)

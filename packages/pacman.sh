@@ -13,9 +13,10 @@ else
 fi
 
 info ">>> Removing uneeded packages"
-PACKAGES_TO_REMOVE="variety sublime-text-dev meld thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman pulseaudio-bluetooth firefox chromium termite xfce-terminal"
+PACKAGES_TO_REMOVE="variety arcolinux-variety-git sublime-text-dev meld thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman pulseaudio-bluetooth firefox chromium termite xfce-terminal"
 for package in $PACKAGES_TO_REMOVE; do
-  yay -Rcu --noconfirm $package >/dev/null 2>&1
+  info ">>> Removing ${package}"
+  yay -Rcu --noconfirm $package || error ">>> ${package} not found"
 done
 
 if [ -n "${CINNAMON_DESKTOP}" ]; then
@@ -73,7 +74,6 @@ yay -Syy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
   flashplugin \
   gnome-calculator \
   gnome-disk-utility \
-  blueberry \
   pavucontrol \
   ffmpegthumbnailer \
   ffmpegthumbs \
@@ -157,8 +157,7 @@ yay -Syy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
   hstr \
   powerline-go-bin \
   evopop-gtk-theme \
-  evopop-icon-theme \
-  papirus-icon-theme-git >/dev/null 2>&1
+  evopop-icon-theme >/dev/null 2>&1
 
 info ">>> Installing packages for Game Support"
 yay -Syy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
@@ -180,7 +179,8 @@ yay -Syy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
   vulkan-icd-loader \
   lib32-vulkan-icd-loader \
   lutris \
-  steam >/dev/null 2>&1
+  steam-native-runtime \
+  arcolinux-meta-steam >/dev/null 2>&1
 
 ## AUR Specific Packages
 info ">>> Installing AUR Game Support Packages"
@@ -188,3 +188,11 @@ yay -Syy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
   pywinery \
   protontricks-git \
   ttf-ms-fonts >/dev/null 2>&1
+
+read -p "$(query ">>> Workstation Setup: Does this system have a NVIDIA Card? y/n (default n)")" cardAnswer
+
+if [ "${cardAnswer}" == 'y' ]; then
+  info ">>> Installing NVIDIA Packages"
+  yay -Syy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
+    lib32-nvidia-utils
+fi
