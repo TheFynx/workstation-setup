@@ -147,16 +147,15 @@ yay -Syy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
   clipit \
   spotify \
   saw \
-  jetbrains-toolbox \
   vmware-workstation14 \
   slack-desktop \
   google-talkplugin \
   ttf-ancient-fonts \
   brave-bin \
   google-chrome \
-  hstr \
-  powerline-go-bin \
+  starship \
   evopop-gtk-theme \
+  pulumi-bin \
   evopop-icon-theme >/dev/null 2>&1
 
 info ">>> Installing packages for Game Support"

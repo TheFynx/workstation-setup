@@ -123,6 +123,7 @@ export -f debug
 export -f query
 export -f _workstation_log
 
+: ${RUN_CONFIG:='no'}
 : ${USER:='levi'}
 : ${GROUP:='levi'}
 : ${PACKER_VERSION:='1.5.5'}
@@ -136,24 +137,26 @@ export -f _workstation_log
 
 print_help() {
   echo ">>> Usage:"
+  echo "-c | Run Dot File Config - config.sh -c - Default: ${RUN_CONFIG}"
   echo "-u | Pass Customer User - config.sh -u USER - Default: ${USER}"
   echo "-g | Pass Customer Group - config.sh -g GROUP - Default: ${GROUP}"
   echo "-p | Pass Packer Version to Install - config.sh -p 1.2.2 - Default: ${PACKER_VERSION}"
   echo "-t | Pass Terraform Version to Install - config.sh -t 0.11.6 - Default: ${TERRAFORM_VERSION}"
-  echo "-c | Enable the installation/setup of the Cinnamon Desktop Environment (True/False) - config.sh -c - Default: null"
+  echo "-z | Enable the installation/setup of the Cinnamon Desktop Environment (True/False) - config.sh -c - Default: null"
   echo "-s | Skip a specific section of setup/install - config.sh -s dconf"
   echo "-d | Enable Debug"
   echo "-h | List this help menu"
 }
 
-while getopts u:g:p:t:c:e:s:c:dh option; do
+while getopts c:u:g:p:t:z:s:dh option; do
   case "${option}" in
 
+  c) export RUN_CONFIG="yes" ;;
   u) export USER=${OPTARG} ;;
   g) export GROUP=${OPTARG} ;;
   p) export PACKER_VERSION=${OPTARG} ;;
   t) export TERRAFORM_VERSION=${OPTARG} ;;
-  c) export CINNAMON_DESKTOP=${OPTARG} ;;
+  z) export CINNAMON_DESKTOP=${OPTARG} ;;
   s) export SKIP=${OPTARG} ;;
   d) export LOG_LEVEL="7" ;;
   h)
@@ -262,22 +265,22 @@ Host github.com
 EOF
 fi
 
-read -p "$(query ">>> Workstation Setup: Do you have a secrets file? y/n (default n)")" secretAnswer
+# read -p "$(query ">>> Workstation Setup: Do you have a secrets file? y/n (default n)")" secretAnswer
 
-if [ "${secretAnswer}" == 'y' ]; then
-  read -p "$(query ">>> Workstation Setup: Please enter path to secret file to source (i.e. /path/to/creds.sh)")" secretPath
-  . ${secretPath}
+# if [ "${secretAnswer}" == 'y' ]; then
+#   read -p "$(query ">>> Workstation Setup: Please enter path to secret file to source (i.e. /path/to/creds.sh)")" secretPath
+#   . ${secretPath}
 
-  info ">>> Workstation Setup: Uploading Git SSH Keys"
-  if [ -z "$(curl -i -s -H "Authorization: token ${GH_TOKEN}" https://api.github.com/user/keys | grep "${HOSTNAME}")" ]; then
-    info ">>> No github key found, uploading public key"
-    debug ">>> Posting the following body to github: ${BODY}"
-    debug ">>> Using the following curl command: curl -i -H "Authorization: token ${GH_TOKEN}" --data "{\"title\": \"${HOSTNAME}\", \"key\": \"$(cat ~/.ssh/pub_keys/git.pub)\"}" https://api.github.com/user/keys"
-    curl -i -H "Authorization: token ${GH_TOKEN}" --data "{\"title\": \"${HOSTNAME}\", \"key\": \"$(cat ~/.ssh/pub_keys/git.pub)\"}" https://api.github.com/user/keys >/dev/null 2>&1
-  else
-    info ">>> Workstation Setup: Git Key Already Exists"
-  fi
-fi
+#   info ">>> Workstation Setup: Uploading Git SSH Keys"
+#   if [ -z "$(curl -i -s -H "Authorization: token ${GH_TOKEN}" https://api.github.com/user/keys | grep "${HOSTNAME}")" ]; then
+#     info ">>> No github key found, uploading public key"
+#     debug ">>> Posting the following body to github: ${BODY}"
+#     debug ">>> Using the following curl command: curl -i -H "Authorization: token ${GH_TOKEN}" --data "{\"title\": \"${HOSTNAME}\", \"key\": \"$(cat ~/.ssh/pub_keys/git.pub)\"}" https://api.github.com/user/keys"
+#     curl -i -H "Authorization: token ${GH_TOKEN}" --data "{\"title\": \"${HOSTNAME}\", \"key\": \"$(cat ~/.ssh/pub_keys/git.pub)\"}" https://api.github.com/user/keys >/dev/null 2>&1
+#   else
+#     info ">>> Workstation Setup: Git Key Already Exists"
+#   fi
+# fi
 
 if [ ! -f "${USER_HOME}/.ssh/priv_keys/id_rsa" ]; then
   info ">>> Generating SSH Keys"
@@ -324,18 +327,20 @@ mkdir -p ${USER_HOME}/Wallpapers
 # Install dotfiles
 ###############################################################################
 
-info ">>> Configuring dotFiles"
+if [ "${RUN_CONFIG}" == "yes" ]; then
+  info ">>> Configuring dotFiles"
 
-cd ${INIT_HOME}/workstation-setup/dotfiles
+  cd ${INIT_HOME}/workstation-setup/dotfiles
 
-for dot in *.sh; do
-  if [[ "${SKIP}" =~ "${dot}" ]]; then
-    info ">>> Skipping ${dot}"
-  else
-    info ">>> Running ${dot}"
-    bash $dot || warning "${dot} failed to run"
-  fi
-done
+  for dot in *.sh; do
+    if [[ "${SKIP}" =~ "${dot}" ]]; then
+      info ">>> Skipping ${dot}"
+    else
+      info ">>> Running ${dot}"
+      bash $dot || warning "${dot} failed to run"
+    fi
+  done
+fi
 
 ###############################################################################
 # Install Languages and Specific Packages

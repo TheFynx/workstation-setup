@@ -34,14 +34,13 @@ for file in ~/.{aliases,functions,path,extra,exports}; do
 done
 unset file
 
-function _update_ps1() {
-    eval "$(powerline-go -error $? -shell bash -eval -cwd-max-depth 4 -numeric-exit-codes -modules time,cwd,exit -modules-right git)"
-}
+# add Pulumi to the PATH
+export PATH=$PATH:$HOME/.pulumi/bin
 
-if [ "$TERM" != "linux" ] && [ -n "$(command -v powerline-go)" ]; then
-  PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
-fi
+# added by travis gem
+[ ! -s /home/levi/.travis/travis.sh ] || source /home/levi/.travis/travis.sh
 
+eval "$(starship init bash)"
 EOF
 
 if [ -f "${HOME}/.bashrc" ]; then
