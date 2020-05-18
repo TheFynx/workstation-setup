@@ -148,10 +148,10 @@ print_help() {
   echo "-h | List this help menu"
 }
 
-while getopts c:u:g:p:t:z:s:dh option; do
+while getopts u:g:p:t:z:s:cdh option; do
   case "${option}" in
 
-  c) export RUN_CONFIG="yes" ;;
+  c) export RUN_CONFIG='yes' ;;
   u) export USER=${OPTARG} ;;
   g) export GROUP=${OPTARG} ;;
   p) export PACKER_VERSION=${OPTARG} ;;
