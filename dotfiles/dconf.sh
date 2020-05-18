@@ -151,7 +151,6 @@ motion-threshold=1
 motion-threshold=1
 natural-scroll=false
 scrolling-method=1
-touchpad-enabled=false
 
 [org/cinnamon/settings-daemon/plugins/power]
 sleep-display-ac=3600

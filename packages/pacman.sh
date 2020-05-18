@@ -78,21 +78,7 @@ yay -Syy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
   ffmpegthumbnailer \
   ffmpegthumbs \
   gparted \
-  cups \
-  cups-pk-helper \
-  gsfonts \
-  splix \
-  system-config-printer \
-  gtk3-print-backends \
-  cups-pdf \
   python-pyqt5 \
-  hplip \
-  gutenprint \
-  foomatic-db \
-  foomatic-db-gutenprint-ppds \
-  foomatic-db-nonfree \
-  foomatic-db-nonfree-ppds \
-  foomatic-db-ppds \
   ruby \
   python \
   python-pip \
@@ -127,8 +113,8 @@ yay -Syy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
   ttf-ubuntu-font-family \
   gnu-free-fonts \
   powerline-fonts \
-  materia-gtk-theme \
-  adwaita-icon-theme >/dev/null 2>&1
+  breeze \
+  materia-gtk-theme >/dev/null 2>&1
 
 ## AUR Specific Packages
 info ">>> Installing AUR Packages"
@@ -147,16 +133,13 @@ yay -Syy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
   clipit \
   spotify \
   saw \
-  vmware-workstation14 \
   slack-desktop \
   google-talkplugin \
   ttf-ancient-fonts \
   brave-bin \
   google-chrome \
   starship \
-  evopop-gtk-theme \
-  pulumi-bin \
-  evopop-icon-theme >/dev/null 2>&1
+  pulumi-bin >/dev/null 2>&1
 
 info ">>> Installing packages for Game Support"
 yay -Syy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
@@ -178,8 +161,7 @@ yay -Syy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
   vulkan-icd-loader \
   lib32-vulkan-icd-loader \
   lutris \
-  steam-native-runtime \
-  arcolinux-meta-steam >/dev/null 2>&1
+  steam >/dev/null 2>&1
 
 ## AUR Specific Packages
 info ">>> Installing AUR Game Support Packages"

@@ -157,6 +157,8 @@ if [ -n "${LOCATION}" ]; then
   "java.home": "/usr/sbin/java",
   "[yamlCloudFormation]": {},
   "workbench.iconTheme": "material-icon-theme",
+  "window.menuBarVisibility": "toggle",
+  "workbench.statusBar.visible": true,
 }
 EOF
 else
