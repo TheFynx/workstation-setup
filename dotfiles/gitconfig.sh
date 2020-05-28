@@ -2,6 +2,7 @@ cat >"${HOME}/.gitconfig.2" <<'EOF'
 [user]
     name = Levi Smith
     email = levi@fynx.me
+    signingkey = 9C9A099512CE70F14DCAC9DA4B45931850933D0E
 [core]
     editor = nvim
     autocrlf = input
@@ -52,6 +53,9 @@ cat >"${HOME}/.gitconfig.2" <<'EOF'
     amend = commit --amend -C HEAD
     l = log --graph --pretty=format:'%Cgreen%h%Cblue%d %C(white)%s %Cblue%an %C(white)[%ar]'
     la = log --all --graph --pretty=format:'%Cgreen%h%Cblue%d %C(white)%s %Cblue%an %C(white)[%ar]'
+
+[commit]
+   gpgsign = true
 
 EOF
 

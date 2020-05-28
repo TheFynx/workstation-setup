@@ -16,7 +16,7 @@ info ">>> Removing uneeded packages"
 PACKAGES_TO_REMOVE="variety arcolinux-variety-git sublime-text-dev meld thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman pulseaudio-bluetooth firefox chromium termite xfce-terminal"
 for package in $PACKAGES_TO_REMOVE; do
   info ">>> Removing ${package}"
-  yay -Rcu --noconfirm $package || error ">>> ${package} not found"
+  yay -Rcu --noconfirm $package >/dev/null 2>&1 || info ">>> ${package} not found"
 done
 
 if [ -n "${CINNAMON_DESKTOP}" ]; then
@@ -114,6 +114,7 @@ yay -Syy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
   gnu-free-fonts \
   powerline-fonts \
   breeze \
+  yarn \
   materia-gtk-theme >/dev/null 2>&1
 
 ## AUR Specific Packages
@@ -139,6 +140,10 @@ yay -Syy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
   brave-bin \
   google-chrome \
   starship \
+  ruby-travis \
+  saml2aws \
+  hstr \
+  nerd-fonts-source-code-pro \
   pulumi-bin >/dev/null 2>&1
 
 info ">>> Installing packages for Game Support"

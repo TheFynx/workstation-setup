@@ -234,11 +234,13 @@ fi
 # Package Install
 ###############################################################################
 
-info ">>> Installing ${PKG} packages"
-
 debug ">>> Running ${OS} OS"
-${PACKAGE_SCRIPT}
-
+if [[ "${SKIP,,}" =~ "package" ]]; then
+  info ">>> Skipping Package Installs"
+else
+  info ">>> Installing ${PKG} packages"
+  ${PACKAGE_SCRIPT}
+fi
 ###############################################################################
 # Setup SSH Keys
 ###############################################################################
@@ -333,7 +335,7 @@ if [ "${RUN_CONFIG}" == "yes" ]; then
   cd ${INIT_HOME}/workstation-setup/dotfiles
 
   for dot in *.sh; do
-    if [[ "${SKIP}" =~ "${dot}" ]]; then
+    if [[ "${SKIP,,}" =~ "${dot}" ]]; then
       info ">>> Skipping ${dot}"
     else
       info ">>> Running ${dot}"

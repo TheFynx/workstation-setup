@@ -47,6 +47,11 @@ export QT_DEVICE_PIXEL_RATIO=2
 # Set docker to allow untrusted images
 export DOCKER_CONTENT_TRUST=0
 
+# Pulumi/Infra Work Exports
+export AWS_SDK_LOAD_CONFIG=1
+export AWS_DEFAULT_PROFILE=saml
+export PULUMI_SKIP_UPDATE_CHECK=1
+
 EOF
 
 if [ -f "${HOME}/.exports" ]; then

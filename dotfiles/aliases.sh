@@ -111,8 +111,8 @@ alias cleanup='sudo pacman -Rns $(pacman -Qtdq)'
 alias wget="wget -c"
 
 # Get Weather
-forecast='curl "http://wttr.in/Christian County, MO"'
-local_forecast='curl http://wttr.in/'
+alias forecast='curl "http://wttr.in/Christian County, MO"'
+alias local_forecast='curl http://wttr.in/'
 
 EOF
 

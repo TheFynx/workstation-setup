@@ -34,12 +34,6 @@ for file in ~/.{aliases,functions,path,extra,exports}; do
 done
 unset file
 
-# add Pulumi to the PATH
-export PATH=$PATH:$HOME/.pulumi/bin
-
-# added by travis gem
-[ ! -s /home/levi/.travis/travis.sh ] || source /home/levi/.travis/travis.sh
-
 eval "$(starship init bash)"
 EOF
 

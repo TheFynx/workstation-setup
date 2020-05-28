@@ -88,6 +88,8 @@ fi
 # For Travis CLI
 [ -f "${HOME}/.travis/travis.sh" ] && source ${HOME}/.travis/travis.sh
 
+export PATH=$PATH:$HOME/.pulumi/bin
+
 EOF
 
 if [ -f "${HOME}/.path" ]; then
