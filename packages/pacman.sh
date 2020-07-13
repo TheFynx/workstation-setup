@@ -13,7 +13,7 @@ else
 fi
 
 info ">>> Removing uneeded packages"
-PACKAGES_TO_REMOVE="variety arcolinux-variety-git sublime-text-dev meld thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman pulseaudio-bluetooth firefox chromium termite xfce-terminal"
+PACKAGES_TO_REMOVE="variety arcolinux-variety-git sublime-text-dev meld thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman firefox chromium termite xfce-terminal"
 for package in $PACKAGES_TO_REMOVE; do
   info ">>> Removing ${package}"
   yay -Rcu --noconfirm $package >/dev/null 2>&1 || info ">>> ${package} not found"
@@ -113,15 +113,16 @@ yay -Syy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
   ttf-ubuntu-font-family \
   gnu-free-fonts \
   powerline-fonts \
+  flameshot \
+  ts-node \
   breeze \
   yarn \
+  gnome-keyring \
   materia-gtk-theme >/dev/null 2>&1
 
 ## AUR Specific Packages
 info ">>> Installing AUR Packages"
 yay -Syy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
-  pulseaudio-modules-bt-git \
-  libldac \
   insomnia \
   rbenv-git \
   ruby-build \
@@ -143,6 +144,10 @@ yay -Syy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
   ruby-travis \
   saml2aws \
   hstr \
+  synergy2-bin \
+  brasero2 \
+  corectrl \
+  saml2aws \
   nerd-fonts-source-code-pro \
   pulumi-bin >/dev/null 2>&1
 
@@ -181,4 +186,27 @@ if [ "${cardAnswer}" == 'y' ]; then
   info ">>> Installing NVIDIA Packages"
   yay -Syy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
     lib32-nvidia-utils
+fi
+
+read -p "$(query ">>> Workstation Setup: Will this system use KVM? y/n (default n)")" virtualAnswer
+
+if [ "${virtualAnswer}" == 'y' ]; then
+  info ">>> Installing NVIDIA Packages"
+  yay -Syy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
+    virtio-win \
+    ovmf \
+    qemu-kvm \
+    libvirt-clients \
+    libvirt-daemon-system \
+    bridge-utils \
+    virt-manager \
+    ebtables \
+    iptables \
+    dnsmasq \
+    qemu \
+    libvirt \
+    edk2-ovmf
+
+  sudo systemctl enable libvirtd.service
+  sudo systemctl enable virtlogd.socket
 fi
