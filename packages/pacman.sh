@@ -136,8 +136,6 @@ yay -Syy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
   spotify \
   saw \
   slack-desktop \
-  google-talkplugin \
-  ttf-ancient-fonts \
   brave-bin \
   google-chrome \
   starship \
@@ -148,6 +146,7 @@ yay -Syy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
   brasero2 \
   corectrl \
   saml2aws \
+  ttf-ancient-fonts \
   nerd-fonts-source-code-pro \
   pulumi-bin >/dev/null 2>&1
 
@@ -191,13 +190,10 @@ fi
 read -p "$(query ">>> Workstation Setup: Will this system use KVM? y/n (default n)")" virtualAnswer
 
 if [ "${virtualAnswer}" == 'y' ]; then
-  info ">>> Installing NVIDIA Packages"
+  info ">>> Installing KVM/QEMU Packages"
   yay -Syy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
     virtio-win \
     ovmf \
-    qemu-kvm \
-    libvirt-clients \
-    libvirt-daemon-system \
     bridge-utils \
     virt-manager \
     ebtables \
@@ -205,7 +201,7 @@ if [ "${virtualAnswer}" == 'y' ]; then
     dnsmasq \
     qemu \
     libvirt \
-    edk2-ovmf
+    edk2-ovmf >/dev/null 2>&1
 
   sudo systemctl enable libvirtd.service
   sudo systemctl enable virtlogd.socket

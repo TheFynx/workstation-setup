@@ -5,7 +5,7 @@
 1. Get PCI ID's to Passthrough
    1. Devices: `dmesg | grep -i -e DMAR -e IOMMU`
    2. Groups: `find /sys/kernel/iommu_groups/ -type l`
-   3. Each ID: `lspci -nnk -d`
+   3. List ID: `lspci -nnk`
 2. Add VFIO Modules to mkinit
    1. `sudo vim /etc/mkinitcpio.conf`
    2. `MODULES=(vfio_pci vfio vfio_iommu_type1 vfio_virqfd)`

@@ -124,6 +124,7 @@ export -f query
 export -f _workstation_log
 
 : ${RUN_CONFIG:='no'}
+: ${NO_PACKAGES:='no'}
 : ${USER:='levi'}
 : ${GROUP:='levi'}
 : ${PACKER_VERSION:='1.5.5'}
@@ -148,10 +149,11 @@ print_help() {
   echo "-h | List this help menu"
 }
 
-while getopts u:g:p:t:z:s:cdh option; do
+while getopts u:g:p:t:z:s:cndh option; do
   case "${option}" in
 
   c) export RUN_CONFIG='yes' ;;
+  n) export NO_PACKAGES='yes' ;;
   u) export USER=${OPTARG} ;;
   g) export GROUP=${OPTARG} ;;
   p) export PACKER_VERSION=${OPTARG} ;;
@@ -234,13 +236,18 @@ fi
 # Package Install
 ###############################################################################
 
-debug ">>> Running ${OS} OS"
-if [[ "${SKIP,,}" =~ "package" ]]; then
-  info ">>> Skipping Package Installs"
+if [ "${NO_PACKAGES}" == "no" ]; then
+  debug ">>> Running ${OS} OS"
+  if [[ "${SKIP,,}" =~ "package" ]]; then
+    info ">>> Skipping Package Installs"
+  else
+    info ">>> Installing ${PKG} packages"
+    ${PACKAGE_SCRIPT}
+  fi
 else
-  info ">>> Installing ${PKG} packages"
-  ${PACKAGE_SCRIPT}
+  info ">>> Skipping Package Installs"
 fi
+
 ###############################################################################
 # Setup SSH Keys
 ###############################################################################
@@ -296,27 +303,31 @@ fi
 # Install Hashi Tools
 ###############################################################################
 
-info ">>> Installing Hashicorp Tools"
-${INIT_HOME}/workstation-setup/packages/hashi.sh || warning "Hashi install failed to run"
+if [ "${NO_PACKAGES}" == "no" ]; then
+  info ">>> Installing Hashicorp Tools"
+  ${INIT_HOME}/workstation-setup/packages/hashi.sh || warning "Hashi install failed to run"
+fi
 
 ###############################################################################
 # Install Fonts
 ###############################################################################
 
-info ">>> Installing Custom Fonts"
-${INIT_HOME}/workstation-setup/packages/fonts.sh || warning "Fonts install failed to run"
+if [ "${NO_PACKAGES}" == "no" ]; then
+  info ">>> Installing Custom Fonts"
+  ${INIT_HOME}/workstation-setup/packages/fonts.sh || warning "Fonts install failed to run"
+fi
 
 ###############################################################################
 # Install Zoom
 ###############################################################################
-
-info ">>> Installing Zoom"
-if [ "${PKG}" != "pacman" ]; then
-  ${INIT_HOME}/workstation-setup/packages/zoom.sh || warning "Zoom install failed to run"
-else
-  info ">>> Zoom installed via Pacman"
+if [ "${NO_PACKAGES}" == "no" ]; then
+  info ">>> Installing Zoom"
+  if [ "${PKG}" != "pacman" ]; then
+    ${INIT_HOME}/workstation-setup/packages/zoom.sh || warning "Zoom install failed to run"
+  else
+    info ">>> Zoom installed via Pacman"
+  fi
 fi
-
 ###############################################################################
 # Copy Wallpapers
 ###############################################################################
@@ -324,6 +335,20 @@ fi
 info ">>> Copying Wallpapers"
 mkdir -p ${USER_HOME}/Wallpapers
 /bin/cp -r ${INIT_HOME}/workstation-setup/files/wallpapers/* ${USER_HOME}/Wallpapers/
+
+###############################################################################
+# Install Languages and Specific Packages
+###############################################################################
+if [ "${NO_PACKAGES}" == "no" ]; then
+  info ">>> Installing Python Packages"
+  ${INIT_HOME}/workstation-setup/packages/python.sh
+
+  info ">>> Installing Ruby Packages"
+  ${INIT_HOME}/workstation-setup/packages/ruby.sh
+
+  info ">>> Installing NodeJS Packages"
+  ${INIT_HOME}/workstation-setup/packages/node.sh
+fi
 
 ###############################################################################
 # Install dotfiles
@@ -343,19 +368,6 @@ if [ "${RUN_CONFIG}" == "yes" ]; then
     fi
   done
 fi
-
-###############################################################################
-# Install Languages and Specific Packages
-###############################################################################
-
-info ">>> Installing Python Packages"
-${INIT_HOME}/workstation-setup/packages/python.sh
-
-info ">>> Installing Ruby Packages"
-${INIT_HOME}/workstation-setup/packages/ruby.sh
-
-info ">>> Installing NodeJS Packages"
-${INIT_HOME}/workstation-setup/packages/node.sh
 
 ###############################################################################
 # Cleanup

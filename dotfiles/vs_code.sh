@@ -32,6 +32,10 @@ if [ -n "$(command -v code)" ]; then
     weijunyu.vscode-json-path \
     wwm.better-align \
     yzhang.markdown-all-in-one \
+    golang.go \
+    hashicorp.terraform \
+    justin-grote.better-powershell-syntax-highlighting \
+    ms-vscode.powershell \
     zhuangtongfa.material-theme"
   for ext in ${EXTENSIONS}; do
     code --install-extension ${ext} >/dev/null 2>&1
