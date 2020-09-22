@@ -127,8 +127,8 @@ export -f _workstation_log
 : ${NO_PACKAGES:='no'}
 : ${USER:='levi'}
 : ${GROUP:='levi'}
-: ${PACKER_VERSION:='1.5.5'}
-: ${TERRAFORM_VERSION:='0.12.19'}
+: ${PACKER_VERSION:='1.6.2'}
+: ${TERRAFORM_VERSION:='0.12.23'}
 : ${RB_VERSION:="2.6.4"}
 : ${NODE_VERSION:="12.15.0"}
 : ${PY_VERSION:="3.7.4"}

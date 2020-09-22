@@ -13,7 +13,7 @@ else
 fi
 
 info ">>> Removing uneeded packages"
-PACKAGES_TO_REMOVE="variety arcolinux-variety-git sublime-text-dev meld thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman firefox chromium termite xfce-terminal"
+PACKAGES_TO_REMOVE="variety arcolinux-variety-git sublime-text-dev meld thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman chromium termite xfce-terminal"
 for package in $PACKAGES_TO_REMOVE; do
   info ">>> Removing ${package}"
   yay -Rcu --noconfirm $package >/dev/null 2>&1 || info ">>> ${package} not found"
@@ -120,6 +120,16 @@ yay -Syy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
   gnome-keyring \
   materia-gtk-theme >/dev/null 2>&1
 
+## Blueberry Specific Packages
+info ">>> Installing Bluetooth Packages"
+yay -Syy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
+  bluez \
+  bluez-utils \
+  blueberry >/dev/null 2>&1
+
+sudo systemctl enable bluetooth >/dev/null 2>&1
+sudo systemctl start bluetooth >/dev/null 2>&1
+
 ## AUR Specific Packages
 info ">>> Installing AUR Packages"
 yay -Syy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
@@ -138,7 +148,7 @@ yay -Syy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
   slack-desktop \
   brave-bin \
   google-chrome \
-  starship \
+  starship-bin \
   ruby-travis \
   saml2aws \
   hstr \
@@ -193,14 +203,14 @@ if [ "${virtualAnswer}" == 'y' ]; then
   info ">>> Installing KVM/QEMU Packages"
   yay -Syy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
     virtio-win \
-    ovmf \
+    ovmf-git \
     bridge-utils \
-    virt-manager \
+    virt-manager-git \
     ebtables \
     iptables \
     dnsmasq \
-    qemu \
-    libvirt \
+    qemu-git \
+    libvirt-git \
     edk2-ovmf >/dev/null 2>&1
 
   sudo systemctl enable libvirtd.service
