@@ -143,10 +143,8 @@ yay -Syy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
   simplenote-electron-bin \
   etcher-bin \
   clipit \
-  spotify \
   saw \
   slack-desktop \
-  brave-bin \
   google-chrome \
   starship-bin \
   ruby-travis \
