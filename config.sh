@@ -274,23 +274,6 @@ Host github.com
 EOF
 fi
 
-# read -p "$(query ">>> Workstation Setup: Do you have a secrets file? y/n (default n)")" secretAnswer
-
-# if [ "${secretAnswer}" == 'y' ]; then
-#   read -p "$(query ">>> Workstation Setup: Please enter path to secret file to source (i.e. /path/to/creds.sh)")" secretPath
-#   . ${secretPath}
-
-#   info ">>> Workstation Setup: Uploading Git SSH Keys"
-#   if [ -z "$(curl -i -s -H "Authorization: token ${GH_TOKEN}" https://api.github.com/user/keys | grep "${HOSTNAME}")" ]; then
-#     info ">>> No github key found, uploading public key"
-#     debug ">>> Posting the following body to github: ${BODY}"
-#     debug ">>> Using the following curl command: curl -i -H "Authorization: token ${GH_TOKEN}" --data "{\"title\": \"${HOSTNAME}\", \"key\": \"$(cat ~/.ssh/pub_keys/git.pub)\"}" https://api.github.com/user/keys"
-#     curl -i -H "Authorization: token ${GH_TOKEN}" --data "{\"title\": \"${HOSTNAME}\", \"key\": \"$(cat ~/.ssh/pub_keys/git.pub)\"}" https://api.github.com/user/keys >/dev/null 2>&1
-#   else
-#     info ">>> Workstation Setup: Git Key Already Exists"
-#   fi
-# fi
-
 if [ ! -f "${USER_HOME}/.ssh/priv_keys/id_rsa" ]; then
   info ">>> Generating SSH Keys"
   mkdir -p ${USER_HOME}/.ssh/priv_keys ${USER_HOME}/.ssh/pub_keys

@@ -16,7 +16,7 @@ install_terraform() {
     sudo chmod +x /usr/bin/terraform
 }
 
-if [ -z "$(command -v packer)" ]; then
+if [ -n "$(command -v packer)" ]; then
   info ">>> Installing Packer"
   install_packer >/dev/null 2>&1
 elif [ "$(packer -version)" != "${PACKER_VERSION}" ]; then
@@ -27,7 +27,7 @@ else
   info ">>> Packer Already Installed and at wanted version"
 fi
 
-if [ -z "$(command -v terraform)" ]; then
+if [ -n "$(command -v terraform)" ]; then
   info ">>> Installing Terraform"
   install_terraform >/dev/null 2>&1
 elif [ "$(terraform -version)" != "Terraform v${TERRAFORM_VERSION}" ]; then

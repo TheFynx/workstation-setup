@@ -146,13 +146,10 @@ yay -Syy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
   saw \
   slack-desktop \
   google-chrome \
-  starship-bin \
   ruby-travis \
   saml2aws \
   hstr \
   synergy2-bin \
-  brasero2 \
-  corectrl \
   saml2aws \
   ttf-ancient-fonts \
   nerd-fonts-source-code-pro \
@@ -201,13 +198,12 @@ if [ "${virtualAnswer}" == 'y' ]; then
   info ">>> Installing KVM/QEMU Packages"
   yay -Syy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
     virtio-win \
-    ovmf-git \
     bridge-utils \
-    virt-manager-git \
+    virt-manager \
     ebtables \
     iptables \
     dnsmasq \
-    qemu-git \
+    qemu \
     libvirt-git \
     edk2-ovmf >/dev/null 2>&1
 
