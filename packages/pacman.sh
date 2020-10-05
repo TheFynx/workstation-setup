@@ -210,3 +210,5 @@ if [ "${virtualAnswer}" == 'y' ]; then
   sudo systemctl enable libvirtd.service
   sudo systemctl enable virtlogd.socket
 fi
+
+sudo systemctl enable cronie
