@@ -212,3 +212,4 @@ if [ "${virtualAnswer}" == 'y' ]; then
 fi
 
 sudo systemctl enable cronie
+sudo systemctl enable clamav-freshclam.service
