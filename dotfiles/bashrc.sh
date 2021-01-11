@@ -23,7 +23,6 @@ if [ -d ~/.ssh/priv_keys ]; then
   ssh-add ~/.ssh/priv_keys/git >/dev/null 2>&1
 fi
 
-eval "$(starship init bash)"
 EOF
 
 if [ -f "${HOME}/.bashrc" ]; then
