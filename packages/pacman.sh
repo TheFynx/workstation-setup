@@ -19,28 +19,28 @@ for package in $PACKAGES_TO_REMOVE; do
   yay -Rcu --noconfirm $package >/dev/null 2>&1 || info ">>> ${package} not found"
 done
 
-if [ -n "${CINNAMON_DESKTOP}" ]; then
-  info ">>> Setting up Cinnamon Desktop"
-  yay -Syy --noconfirm --noeditmenu --nodiffmenu --needed \
-    gdm \
-    cinnamon \
-    nemo-fileroller \
-    nemo-preview \
-    gnome-screenshot \
-    gedit \
-    lightdm-gtk-greeter \
-    lightdm-gtk-greeter-settings \
-    gnome-terminal \
-    gnome-control-center \
-    gnome-system-monitor \
-    gnome-schedule \
-    gnome-power-manager \
-    mintlocale >/dev/null 2>&1
-  sudo cp -fv /etc/X11/xinit/xinitrc ${USER_HOME}/.xinitrc >/dev/null 2>&1
-  chown -R ${USER}:users ${USER_HOME}/.xinitrc >/dev/null 2>&1
-  echo -e "exec cinnamon-session" >>${USER_HOME}/.xinitrc >/dev/null 2>&1
-  systemctl enable gdm >/dev/null 2>&1
-fi
+# if [ -n "${CINNAMON_DESKTOP}" ]; then
+#   info ">>> Setting up Cinnamon Desktop"
+#   yay -Syy --noconfirm --noeditmenu --nodiffmenu --needed \
+#     gdm \
+#     cinnamon \
+#     nemo-fileroller \
+#     nemo-preview \
+#     gnome-screenshot \
+#     gedit \
+#     lightdm-gtk-greeter \
+#     lightdm-gtk-greeter-settings \
+#     gnome-terminal \
+#     gnome-control-center \
+#     gnome-system-monitor \
+#     gnome-schedule \
+#     gnome-power-manager \
+#     mintlocale >/dev/null 2>&1
+#   sudo cp -fv /etc/X11/xinit/xinitrc ${USER_HOME}/.xinitrc >/dev/null 2>&1
+#   chown -R ${USER}:users ${USER_HOME}/.xinitrc >/dev/null 2>&1
+#   echo -e "exec cinnamon-session" >>${USER_HOME}/.xinitrc >/dev/null 2>&1
+#   systemctl enable gdm >/dev/null 2>&1
+# fi
 
 info ">>> Installing Packages"
 yay -Syy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
@@ -60,25 +60,10 @@ yay -Syy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
   exa \
   libreoffice-fresh \
   jre10-openjdk \
-  gst-plugins-bad \
-  gst-plugins-base \
-  gst-plugins-good \
-  gst-plugins-ugly \
-  x264 \
-  gstreamer-vaapi \
-  libcdio \
-  libdvdread \
-  libdvdcss \
-  libdvdnav \
-  gst-libav \
-  flashplugin \
   gnome-calculator \
   gnome-disk-utility \
   pavucontrol \
-  ffmpegthumbnailer \
-  ffmpegthumbs \
   gparted \
-  python-pyqt5 \
   ruby \
   python \
   python-pip \
@@ -87,7 +72,6 @@ yay -Syy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
   pandoc \
   lynx \
   neovim \
-  terminator \
   docker \
   vlc \
   diffutils \
@@ -101,21 +85,13 @@ yay -Syy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
   keybase-gui \
   bzip2 \
   shfmt \
-  zbar \
   p7zip \
   adobe-source-code-pro-fonts \
   ttf-hack \
-  ttf-dejavu \
-  ttf-liberation \
-  ttf-linux-libertine \
-  ttf-bitstream-vera \
   ttf-droid \
-  ttf-ubuntu-font-family \
-  gnu-free-fonts \
   powerline-fonts \
   flameshot \
   ts-node \
-  breeze \
   yarn \
   gnome-keyring \
   materia-gtk-theme >/dev/null 2>&1
@@ -139,20 +115,17 @@ yay -Syy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
   nodenv \
   nodenv-node-build-git \
   visual-studio-code-bin \
-  debtap \
-  simplenote-electron-bin \
   etcher-bin \
   clipit \
   saw \
-  slack-desktop \
   google-chrome \
   ruby-travis \
   saml2aws \
   hstr \
-  synergy2-bin \
   saml2aws \
   ttf-ancient-fonts \
   nerd-fonts-source-code-pro \
+  corectrl \
   pulumi-bin >/dev/null 2>&1
 
 info ">>> Installing packages for Game Support"
@@ -213,3 +186,4 @@ fi
 
 sudo systemctl enable cronie
 sudo systemctl enable clamav-freshclam.service
+sudo systemctl enable clamav-daemon
