@@ -93,6 +93,8 @@ yay -Syy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
   flameshot \
   ts-node \
   yarn \
+  filezilla \
+  discord \
   gnome-keyring \
   materia-gtk-theme >/dev/null 2>&1
 
@@ -126,6 +128,10 @@ yay -Syy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
   ttf-ancient-fonts \
   nerd-fonts-source-code-pro \
   corectrl \
+  brave-bin \
+  dell-e514dw \
+  polychromatic \
+  openrazaer-meta \
   pulumi-bin >/dev/null 2>&1
 
 info ">>> Installing packages for Game Support"
@@ -148,6 +154,9 @@ yay -Syy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
   vulkan-icd-loader \
   lib32-vulkan-icd-loader \
   lutris \
+  scanmem \
+  gameconqueror \
+  xow-git \
   steam >/dev/null 2>&1
 
 ## AUR Specific Packages
