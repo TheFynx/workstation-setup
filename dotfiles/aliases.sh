@@ -2,12 +2,6 @@ cat >"${HOME}/.aliases.2" <<'EOF'
 # Easier navigation
 alias ..="cd .."
 alias ...="cd ../.."
-alias ..2="cd ../.."
-alias ..3="cd ../../.."
-alias ..4="cd ../../../.."
-alias ..5="cd ../../../../.."
-alias ..6="cd ../../../../../.."
-alias ..7="cd ../../../../../../.."
 
 # Shortcuts
 alias gc="git commit -v "

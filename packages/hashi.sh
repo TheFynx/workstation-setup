@@ -5,15 +5,15 @@ set -o nounset
 cd /tmp
 
 install_packer() {
-  curl https://releases.hashicorp.com/packer/${PACKER_VERSION}/packer_${PACKER_VERSION}_linux_amd64.zip -o packer.zip &&
-    sudo unzip -o packer.zip -d /usr/bin/ &&
-    sudo chmod +x /usr/bin/packer
+  curl https://releases.hashicorp.com/packer/${PACKER_VERSION}/packer_${PACKER_VERSION}_linux_amd64.zip -o packer.zip
+  sudo unzip -o packer.zip -d /usr/bin/
+  sudo chmod +x /usr/bin/packer
 }
 
 install_terraform() {
-  curl https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip -o terraform.zip &&
-    sudo unzip -o terraform.zip -d /usr/bin/ &&
-    sudo chmod +x /usr/bin/terraform
+  curl https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip -o terraform.zip
+  sudo unzip -o terraform.zip -d /usr/bin/
+  sudo chmod +x /usr/bin/terraform
 }
 
 if [ -n "$(command -v packer)" ]; then

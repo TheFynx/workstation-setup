@@ -3,12 +3,19 @@ info ">>> Generating DCONF File"
 mkdir -p ${HOME}/.custom/
 
 cat >"${HOME}/.custom/dconf.2" <<EOF
+[apps/seahorse/listing]
+keyrings-selected=['secret-service:///org/freedesktop/secrets/collection/login']
+
+[apps/seahorse/windows/key-manager]
+height=476
+width=600
+
 [org/cinnamon]
 active-display-scale=1.5
 alttab-switcher-delay=100
 alttab-switcher-style='icons'
-applet-cache-updated=1569871789
-command-history=['gwe', 'r', 'zart', 'flameshot', 'flameshot gui', 'reboot']
+applet-cache-updated=1617330063
+command-history=['gwe', 'zart', 'flameshot', 'flameshot gui', 'reboot', 'JACK_NO_AUDIO_RESERVATION=1 sonic-pi', 'JACK_NO_AUDIO_RESERVATION=1 sonic-pi', 'export JACK_NO_AUDIO_RESERVATION=1 sonic-pi', 'export JACK_NO_AUDIO_RESERVATION=1; sonic-pi', 'sonic-pi', 'r']
 desklet-snap-interval=25
 desktop-effects-close-effect='traditional'
 desktop-effects-close-time=120
@@ -29,16 +36,19 @@ desktop-effects-tile-transition='easeInQuad'
 desktop-effects-unmaximize-effect='none'
 desktop-effects-unmaximize-time=100
 desktop-effects-unmaximize-transition='easeNone'
-enabled-applets=['panel1:right:1:systray@cinnamon.org:0', 'panel1:left:0:menu@cinnamon.org:1', 'panel1:left:2:grouped-window-list@cinnamon.org:3', 'panel1:right:2:keyboard@cinnamon.org:4', 'panel1:right:3:notifications@cinnamon.org:5', 'panel1:right:4:removable-drives@cinnamon.org:6', 'panel1:right:6:bluetooth@cinnamon.org:7', 'panel1:right:7:network@cinnamon.org:8', 'panel1:right:8:sound@cinnamon.org:9', 'panel1:right:9:power@cinnamon.org:10', 'panel1:right:10:calendar@cinnamon.org:11']
+device-aliases=['/org/freedesktop/UPower/devices/mouse_hidpp_battery_0:= MX Ergo Multi-Device Trackball']
+enabled-applets=['panel1:right:3:systray@cinnamon.org:0', 'panel1:left:0:menu@cinnamon.org:1', 'panel1:left:2:grouped-window-list@cinnamon.org:3', 'panel1:right:4:keyboard@cinnamon.org:4', 'panel1:right:5:notifications@cinnamon.org:5', 'panel1:right:6:removable-drives@cinnamon.org:6', 'panel1:right:8:bluetooth@cinnamon.org:7', 'panel1:right:9:network@cinnamon.org:8', 'panel1:right:10:sound@cinnamon.org:9', 'panel1:right:12:calendar@cinnamon.org:11', 'panel1:right:1:power@cinnamon.org:13', 'panel1:right:0:weather@mockturtl:14']
 enabled-desklets=@as []
 extension-cache-updated=1594146592
 hotcorner-layout=['expo:false:0', 'scale:false:0', 'scale:false:0', 'desktop:false:0']
-next-applet-id=13
+next-applet-id=15
 panel-edit-mode=false
 panel-zone-symbolic-icon-sizes='[{"panelId": 1, "left": 28, "center": 28, "right": 16}]'
 panels-enabled=['1:0:top']
 panels-height=['1:32']
 prevent-focus-stealing=true
+show-tile-hud=true
+startup-animation=false
 workspace-osd-duration=400
 workspace-osd-visible=true
 workspace-osd-x=50
@@ -82,38 +92,30 @@ secondary-click-time=1.2
 exec='gnome-calculator'
 
 [org/cinnamon/desktop/applications/terminal]
-exec='terminator'
+exec='alacritty'
 
 [org/cinnamon/desktop/background]
 picture-options='centered'
 picture-uri='file:///home/levi/Pictures/simple-subtle-abstract-dark-minimalism-4k-u9.jpg'
-primary-color='#07ae07ae07ae'
+primary-color='#000000000000'
 secondary-color='#000000000000'
 
 [org/cinnamon/desktop/background/slideshow]
 delay=15
-image-source='directory:///home/levi/Pictures'
+image-source='directory:///home/levi/Wallpapers'
 
 [org/cinnamon/desktop/interface]
 clock-show-date=true
 cursor-blink-time=1200
 cursor-size=24
-cursor-theme='Adwaita'
+cursor-theme='Paper'
 font-name='Noto Sans 12'
 gtk-overlay-scrollbars=false
-gtk-theme='Materia-dark'
-icon-theme='breeze-dark'
+gtk-theme='Adwaita-dark'
+icon-theme='Paper'
 scaling-factor=uint32 1
 text-scaling-factor=1.0
 toolkit-accessibility=false
-
-[org/cinnamon/desktop/keybindings]
-custom-list=['custom0']
-
-[org/cinnamon/desktop/keybindings/custom-keybindings/custom0]
-binding=['Print']
-command='"/usr/sbin/flameshot gui"'
-name='Screenshot'
 
 [org/cinnamon/desktop/keybindings/media-keys]
 calculator=['XF86Calculator', '<Super>c']
@@ -140,13 +142,14 @@ idle-delay=uint32 2700
 
 [org/cinnamon/desktop/sound]
 event-sounds=false
+maximum-volume=150
 volume-sound-enabled=false
 
 [org/cinnamon/desktop/wm/preferences]
 focus-mode='click'
 min-window-opacity=30
 num-workspaces=4
-theme='Materia-dark'
+theme='Adapta-Nokto'
 titlebar-font='Noto Sans 12'
 workspace-names=@as []
 
@@ -167,7 +170,7 @@ repeat-interval=uint32 30
 [org/cinnamon/settings-daemon/peripherals/mouse]
 custom-acceleration=true
 custom-threshold=false
-double-click=400
+double-click=472
 drag-threshold=8
 motion-acceleration=10.0
 motion-threshold=1
@@ -176,6 +179,9 @@ motion-threshold=1
 motion-threshold=1
 natural-scroll=false
 scrolling-method=1
+
+[org/cinnamon/settings-daemon/peripherals/touchscreen]
+orientation-lock=false
 
 [org/cinnamon/settings-daemon/plugins/power]
 sleep-display-ac=3600
@@ -191,7 +197,22 @@ unplug-enabled=false
 [org/cinnamon/theme]
 name='Materia-dark'
 symbolic-relative-size=0.67000000000000004
-theme-cache-updated=1559228770
+theme-cache-updated=1617323978
+
+[org/gnome/calculator]
+accuracy=9
+angle-units='degrees'
+base=10
+button-mode='basic'
+number-format='automatic'
+show-thousands=false
+show-zeroes=false
+source-currency=''
+source-units='degree'
+target-currency=''
+target-units='radian'
+window-position=(1185, 539)
+word-size=64
 
 [org/gnome/desktop/a11y/applications]
 screen-keyboard-enabled=false
@@ -243,10 +264,10 @@ skip-newer=false
 
 [org/gnome/file-roller/listing]
 list-mode='as-folder'
-name-column-width=378
+name-column-width=654
 show-path=false
 sort-method='name'
-sort-type='descending'
+sort-type='ascending'
 
 [org/gnome/file-roller/ui]
 sidebar-width=200
@@ -273,33 +294,39 @@ include-border=true
 include-pointer=false
 last-save-directory='file:///home/levi/Pictures'
 
-[org/gnome/nm-applet]
-disable-connected-notifications=true
-
-[org/gnome/nm-applet/eap/87635ad5-ea33-4533-853e-71ab40d8d0c5]
-ignore-ca-cert=false
-ignore-phase2-ca-cert=false
-
-[org/gnome/nm-applet/eap/88ecff4a-11fd-45f4-8851-9aa69b83b772]
-ignore-ca-cert=false
-ignore-phase2-ca-cert=false
-
-[org/gnome/nm-applet/eap/98088241-1f5b-4a8a-b87b-1509595b8dc8]
-ignore-ca-cert=false
-ignore-phase2-ca-cert=false
-
-[org/gnome/nm-applet/eap/a3c3858c-b046-4a86-8ec2-e7d1741f47b4]
-ignore-ca-cert=false
-ignore-phase2-ca-cert=false
-
 [org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0]
 binding='<Super>t'
 command='terminator'
 name='terminal'
 
-[org/gtk/settings/color-chooser]
-custom-colors=[(0.030000000000000002, 0.030000000000000002, 0.030000000000000002, 1.0)]
-selected-color=(true, 0.030000000000000002, 0.030000000000000002, 0.030000000000000002, 1.0)
+[org/gtk/settings/file-chooser]
+date-format='regular'
+location-mode='path-bar'
+show-hidden=false
+show-size-column=true
+show-type-column=true
+sidebar-width=175
+sort-column='name'
+sort-directories-first=false
+sort-order='ascending'
+type-format='category'
+window-position=(305, 299)
+window-size=(1310, 765)
+
+[org/nemo/desktop]
+desktop-layout='false::false'
+show-orphaned-desktop-icons=false
+
+[org/nemo/preferences]
+show-full-path-titles=true
+show-hidden-files=true
+show-location-entry=true
+
+[org/nemo/window-state]
+geometry='1919x1534+951+32'
+maximized=false
+sidebar-bookmark-breakpoint=5
+start-with-sidebar=true
 EOF
 
 if [ -f "${HOME}/.custom/dconf" ]; then
