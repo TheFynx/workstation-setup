@@ -19,9 +19,6 @@ if [ -n "$(command -v pyenv)" ]; then
   info ">>> Upgrading Pip"
   sudo pip install --upgrade pip >/dev/null 2>&1
 
-  info ">>> Installing AWS CLI"
-  sudo pip install awscli >/dev/null 2>&1
-
   info ">>> Installing Additional Pip Packages"
   sudo pip install pylint >/dev/null 2>&1
 fi

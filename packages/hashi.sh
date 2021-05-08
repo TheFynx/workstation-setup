@@ -2,6 +2,9 @@
 
 set -o nounset
 
+: ${PACKER_VERSION:=$1}
+: ${TERRAFORM_VERSION:=$2}
+
 cd /tmp
 
 install_packer() {

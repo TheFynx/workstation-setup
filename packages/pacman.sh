@@ -96,6 +96,7 @@ yay -Syy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
   filezilla \
   discord \
   gnome-keyring \
+  alacritty \
   materia-gtk-theme >/dev/null 2>&1
 
 ## Blueberry Specific Packages
@@ -119,19 +120,18 @@ yay -Syy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
   visual-studio-code-bin \
   etcher-bin \
   clipit \
-  saw \
   google-chrome \
   ruby-travis \
-  saml2aws \
+  saml2aws-bin \
+  aws-cli-v2-bin \
   hstr \
-  saml2aws \
   ttf-ancient-fonts \
   nerd-fonts-source-code-pro \
   corectrl \
   brave-bin \
   dell-e514dw \
   polychromatic \
-  openrazaer-meta \
+  openrazer-meta \
   pulumi-bin >/dev/null 2>&1
 
 info ">>> Installing packages for Game Support"
@@ -166,12 +166,26 @@ yay -Syy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
   protontricks-git \
   ttf-ms-fonts >/dev/null 2>&1
 
-read -p "$(query ">>> Workstation Setup: Does this system have a NVIDIA Card? y/n (default n)")" cardAnswer
+read -p "$(query ">>> Workstation Setup: Does this system have a NVIDIA Card? y/n (default n)")" nvidiaAnswer
 
-if [ "${cardAnswer}" == 'y' ]; then
+if [ "${nvidiaAnswer}" == 'y' ]; then
   info ">>> Installing NVIDIA Packages"
   yay -Syy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
     lib32-nvidia-utils
+fi
+
+read -p "$(query ">>> Workstation Setup: Does this system have a Radeon Card? y/n (default n)")" radeonAnswer
+
+if [ "${radeonAnswer}" == 'y' ]; then
+  info ">>> Installing NVIDIA Packages"
+  yay -Syy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
+    lib32-mesa \
+    vulkan-radeon \
+    lib32-vulkan-radeon \
+    libva-mesa-driver \
+    lib32-libva-mesa-driver \
+    mesa-vdpau \
+    lib32-mesa-vdpau >/dev/null 2>&1
 fi
 
 read -p "$(query ">>> Workstation Setup: Will this system use KVM? y/n (default n)")" virtualAnswer

@@ -1,42 +1,42 @@
 if [ -n "$(command -v code)" ]; then
   info ">>> Installing VS Code Extensions"
-  EXTENSIONS="aws-scripting-guy.cform \
-    bungcip.better-toml \
-    CoenraadS.bracket-pair-colorizer \
-    dbaeumer.vscode-eslint \
-    DSKWRK.vscode-generate-getter-setter \
-    eamodio.gitlens \
-    eg2.vscode-npm-script \
-    Equinusocio.vsc-community-material-theme \
-    Equinusocio.vsc-material-theme \
-    equinusocio.vsc-material-theme-icons \
-    eriklynd.json-tools \
-    esbenp.prettier-vscode \
-    foxundermoon.shell-format \
-    kddejong.vscode-cfn-lint \
-    keyboardDrummer.vscode-cloudformation \
-    liviuschera.noctis \
-    mauve.terraform \
-    maximus136.change-string-case \
-    miramac.vscode-exec-node \
-    ms-azuretools.vscode-docker \
-    ms-python.python \
-    ms-vscode.Go \
-    ms-vscode.Theme-1337 \
-    ms-vscode.vscode-typescript-tslint-plugin \
-    ms-vsliveshare.vsliveshare \
-    PKief.material-icon-theme \
-    rbbit.typescript-hero \
-    redhat.vscode-yaml \
-    shardulm94.trailing-spaces \
-    weijunyu.vscode-json-path \
-    wwm.better-align \
-    yzhang.markdown-all-in-one \
-    golang.go \
-    hashicorp.terraform \
-    justin-grote.better-powershell-syntax-highlighting \
-    ms-vscode.powershell \
-    zhuangtongfa.material-theme"
+  EXTENSIONS="4ops.terraform \
+aws-scripting-guy.cform \
+bungcip.better-toml \
+CoenraadS.bracket-pair-colorizer \
+dbaeumer.vscode-eslint \
+DSKWRK.vscode-generate-getter-setter \
+eamodio.gitlens \
+eg2.vscode-npm-script \
+Equinusocio.vsc-community-material-theme \
+Equinusocio.vsc-material-theme \
+equinusocio.vsc-material-theme-icons \
+eriklynd.json-tools \
+esbenp.prettier-vscode \
+foxundermoon.shell-format \
+golang.go \
+hashicorp.terraform \
+kddejong.vscode-cfn-lint \
+keyboardDrummer.vscode-cloudformation \
+liviuschera.noctis \
+maximus136.change-string-case \
+miramac.vscode-exec-node \
+ms-azuretools.vscode-docker \
+ms-python.python \
+ms-toolsai.jupyter \
+ms-vscode-remote.remote-containers \
+ms-vscode.powershell \
+ms-vscode.vscode-typescript-tslint-plugin \
+ms-vsliveshare.vsliveshare \
+nhoizey.gremlins \
+PKief.material-icon-theme \
+rbbit.typescript-hero \
+redhat.vscode-yaml \
+shardulm94.trailing-spaces \
+weijunyu.vscode-json-path \
+wwm.better-align \
+yzhang.markdown-all-in-one \
+zhuangtongfa.material-theme"
   for ext in ${EXTENSIONS}; do
     code --install-extension ${ext} >/dev/null 2>&1
   done

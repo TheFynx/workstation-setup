@@ -128,13 +128,13 @@ export -f _workstation_log
 : ${USER:='levi'}
 : ${GROUP:='levi'}
 : ${PACKER_VERSION:='1.6.2'}
-: ${TERRAFORM_VERSION:='0.12.23'}
-: ${RB_VERSION:="2.6.4"}
-: ${NODE_VERSION:="12.15.0"}
-: ${PY_VERSION:="3.7.4"}
-: ${GO_VERSION:="1.14"}
-: ${CINNAMON_DESKTOP:=""}
-: ${SKIP:=""}
+: ${TERRAFORM_VERSION:='0.13.7'}
+: ${RB_VERSION:='2.6.4'}
+: ${NODE_VERSION:='14.16.1'}
+: ${PY_VERSION:='3.7.4'}
+: ${GO_VERSION:='1.14'}
+: ${CINNAMON_DESKTOP:=''}
+: ${SKIP:=''}
 
 print_help() {
   echo ">>> Usage:"
@@ -288,7 +288,7 @@ fi
 
 if [ "${NO_PACKAGES}" == "no" ]; then
   info ">>> Installing Hashicorp Tools"
-  ${INIT_HOME}/workstation-setup/packages/hashi.sh || warning "Hashi install failed to run"
+  ${INIT_HOME}/workstation-setup/packages/hashi.sh ${PACKER_VERSION} ${TERRAFORM_VERSION} || warning "Hashi install failed to run"
 fi
 
 ###############################################################################
