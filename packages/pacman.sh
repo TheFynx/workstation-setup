@@ -59,7 +59,7 @@ yay -Syy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
   fd \
   exa \
   libreoffice-fresh \
-  jre10-openjdk \
+  jre11-openjdk \
   gnome-calculator \
   gnome-disk-utility \
   pavucontrol \
@@ -80,7 +80,7 @@ yay -Syy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
   bind-tools \
   vagrant \
   clamtk \
-  libu2f-host \
+  libu2f-host-git \
   libfido2 \
   keybase-gui \
   bzip2 \
@@ -177,7 +177,7 @@ fi
 read -p "$(query ">>> Workstation Setup: Does this system have a Radeon Card? y/n (default n)")" radeonAnswer
 
 if [ "${radeonAnswer}" == 'y' ]; then
-  info ">>> Installing NVIDIA Packages"
+  info ">>> Installing Radeon Packages"
   yay -Syy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
     lib32-mesa \
     vulkan-radeon \

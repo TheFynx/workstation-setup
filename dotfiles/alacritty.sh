@@ -4,44 +4,55 @@ cat >"${HOME}/.config/alacritty/alacritty.yml.2" <<'EOF'
 # Configuration for Alacritty, the GPU enhanced terminal emulator.
 window:
   padding:
-   x: 0
-   y: 10
+   x: 5
+   y: 5
   decorations: none
-  startup_mode: Maximized
+  startup_mode: Windowed
 scrolling:
   history: 100000
 font:
   normal:
-    family: "Source Code Pro for Powerline"
-  size: 11.0
+    family: "SauceCodePro Nerd Font Mono"
+  bold:
+    family: "SauceCodePro Nerd Font Mono"
+  italic:
+    family: "SauceCodePro Nerd Font Mono"
+  bold_italic:
+    family: "SauceCodePro Nerd Font Mono"
+  size: 12
 colors:
   primary:
     background: '#000000'
     foreground: '#B4B7B4'
+  cursor:
+    text:   '0xf9e7c4'
+    cursor: '0xf9e7c4'
   normal:
-    black:   '#1D1F21'
-    red:     '#CC342B'
-    green:   '#198844'
-    yellow:  '#FBA922'
-    blue:    '#3971ED'
-    magenta: '#3971ED'
-    cyan:    '#A36AC7'
-    white:   '#C5C8C6'
+    black:   '0x282a2e'
+    blue:    '0x5f819d'
+    cyan:    '0x5e8d87'
+    green:   '0x8c9440'
+    magenta: '0x85678f'
+    orange:  '0xcc6953'
+    red:     '0xa54242'
+    white:   '0x707880'
+    yellow:  '0xde935f'
   bright:
-    black:   '#969896'
-    red:     '#CC342B'
-    green:   '#198844'
-    yellow:  '#FBA922'
-    blue:    '#3971ED'
-    magenta: '#3971ED'
-    cyan:    '#A36AC7'
-    white:   '#FFFFFF'
+    black:   '0x373b41'
+    blue:    '0x81a2be'
+    cyan:    '0x8abeb7'
+    green:   '0xb5bd68'
+    magenta: '0xb294bb'
+    red:     '0xcc6666'
+    white:   '0xc5c8c6'
+    yellow:  '0xf0c674'
 selection:
   semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
   save_to_clipboard: true
 cursor:
   style: Beam
 background_opacity: 0.85
+live_config_reload: true
 EOF
 
 if [ -f "${HOME}/.config/alacritty/alacritty.yml" ]; then

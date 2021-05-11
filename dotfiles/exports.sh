@@ -13,7 +13,7 @@ shopt -s cdspell
 # * `autocd`, e.g. `**/qux` will enter `./foo/bar/baz/qux`
 # * Recursive globbing, e.g. `echo **/*.txt`
 for option in autocd globstar; do
-        shopt -s "$option" 2> /dev/null
+  shopt -s "$option" 2> /dev/null
 done
 
 # Append to the Bash history file, rather than overwriting it
@@ -49,7 +49,6 @@ export DOCKER_CONTENT_TRUST=0
 
 # Pulumi/Infra Work Exports
 export AWS_SDK_LOAD_CONFIG=1
-export AWS_DEFAULT_PROFILE=saml
 export PULUMI_SKIP_UPDATE_CHECK=1
 
 EOF
