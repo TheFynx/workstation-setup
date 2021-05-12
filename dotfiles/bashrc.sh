@@ -10,17 +10,19 @@ if [ -f "/etc/bashrc" ]; then
 fi
 
 # Path to the bash it configuration
-#export BASH_IT="${HOME}/.bash_it"
+export BASH_IT="${HOME}/.bash_it"
 
 # Load Bash It
 if [ -f "${BASH_IT}/bash_it.sh" ]; then
   # Lock and Load a custom theme file
   # location /.bash_it/themes/
-  export BASH_IT_THEME='powerline'
+  export BASH_IT_THEME='powerline-multiline'
   export BASH_IT_COMMAND_DURATION=true
   export THEME_CLOCK_FORMAT="%H:%M:%S"
   export POWERLINE_SCM_GIT_CHAR="⎇  "
   export POWERLINE_PROMPT="clock scm python_venv ruby node terraform cwd last_status"
+  export POWERLINE_LEFT_PROMPT="clock scm python_venv ruby node terraform cwd"
+  export POWERLINE_RIGHT_PROMPT="last_status"
 
   # Don't check mail when opening terminal.
   unset MAILCHECK

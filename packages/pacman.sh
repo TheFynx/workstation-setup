@@ -132,6 +132,7 @@ yay -Syy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
   dell-e514dw \
   polychromatic \
   openrazer-meta \
+  gitstatus-bin \
   pulumi-bin >/dev/null 2>&1
 
 info ">>> Installing packages for Game Support"
