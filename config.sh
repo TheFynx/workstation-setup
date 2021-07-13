@@ -125,6 +125,7 @@ export -f _workstation_log
 
 : ${RUN_CONFIG:='no'}
 : ${NO_PACKAGES:='no'}
+: ${NO_SYSTEM:='no'}
 : ${USER:='levi'}
 : ${GROUP:='levi'}
 : ${PACKER_VERSION:='1.6.2'}
@@ -139,6 +140,8 @@ export -f _workstation_log
 print_help() {
   echo ">>> Usage:"
   echo "-c | Run Dot File Config - config.sh -c - Default: ${RUN_CONFIG}"
+  echo "-n | Don't Run Package Installs - config.sh -n - Default: ${NO_PACKAGES}"
+  echo "-i | Don't Setup System Level Files - config.sh -c - Default: ${NO_SYSTEM}"
   echo "-u | Pass Customer User - config.sh -u USER - Default: ${USER}"
   echo "-g | Pass Customer Group - config.sh -g GROUP - Default: ${GROUP}"
   echo "-p | Pass Packer Version to Install - config.sh -p 1.2.2 - Default: ${PACKER_VERSION}"
@@ -149,11 +152,12 @@ print_help() {
   echo "-h | List this help menu"
 }
 
-while getopts u:g:p:t:z:s:cndh option; do
+while getopts u:g:p:t:z:s:cndih option; do
   case "${option}" in
 
   c) export RUN_CONFIG='yes' ;;
   n) export NO_PACKAGES='yes' ;;
+  i) export NO_SYTEM='yes' ;;
   u) export USER=${OPTARG} ;;
   g) export GROUP=${OPTARG} ;;
   p) export PACKER_VERSION=${OPTARG} ;;
@@ -334,11 +338,28 @@ if [ "${NO_PACKAGES}" == "no" ]; then
 fi
 
 ###############################################################################
+# Install System Files
+###############################################################################
+if [ "${NO_SYSTEM}" == "no" ]; then
+  info ">>> Installing Pam Login Settings"
+  ${INIT_HOME}/workstation-setup/system_files/pam_login.sh
+
+  info ">>> Installing SSH Agent Service"
+  ${INIT_HOME}/workstation-setup/system_files/ssh-agent-service.sh
+fi
+
+###############################################################################
 # Terminal Bling Install
 ###############################################################################
 info ">>> Installing Bash It Framework"
-git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it
-
+if [ -d "${USER_HOME}/.bash_it" ]; then
+  info "Bash IT already installed, updating"
+  cd ~/.bash_it
+  git pull
+  cd -
+else
+  git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it
+fi
 
 ###############################################################################
 # Install dotfiles

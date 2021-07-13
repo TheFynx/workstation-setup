@@ -181,8 +181,6 @@ if [ "${radeonAnswer}" == 'y' ]; then
   info ">>> Installing Radeon Packages"
   yay -Syy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
     lib32-mesa \
-    vulkan-radeon \
-    lib32-vulkan-radeon \
     libva-mesa-driver \
     lib32-libva-mesa-driver \
     mesa-vdpau \
