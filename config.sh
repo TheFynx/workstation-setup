@@ -324,7 +324,8 @@ mkdir -p ${USER_HOME}/Wallpapers
 /bin/cp -r ${INIT_HOME}/workstation-setup/files/wallpapers/* ${USER_HOME}/Wallpapers/
 
 info ">>> Installing Custom Themes"
-/bin/cp -r ${INIT_HOME}/workstation-setup/files/themes/.* ${USER_HOME}/
+/bin/cp -r ${INIT_HOME}/workstation-setup/files/themes/.icons ${USER_HOME}/
+/bin/cp -r ${INIT_HOME}/workstation-setup/files/themes/.themes ${USER_HOME}/
 
 read -p "$(query ">>> Workstation Setup: Setup Openbox Themes? y/n (default n)")" openboxAnswer
 

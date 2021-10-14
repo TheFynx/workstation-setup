@@ -82,7 +82,7 @@ SYSTEM='jq
   dell-e514dw
   playerctl
   numlockx
-  zscroll'
+  zscroll-git'
 
 # gnome-keyring
 
@@ -137,11 +137,11 @@ VM='vagrant
   virtio-win
   bridge-utils
   virt-manager
-  ebtables
+  ebtables-git
   iptables
   dnsmasq
   qemu
-  libvirt-git
+  libvirt
   edk2-ovmf'
 
 INFRASTRUCTURE='saml2aws-bin
