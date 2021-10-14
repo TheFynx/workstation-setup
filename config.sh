@@ -316,12 +316,23 @@ if [ "${NO_PACKAGES}" == "no" ]; then
   fi
 fi
 ###############################################################################
-# Copy Wallpapers
+# Copy Theming
 ###############################################################################
 
 info ">>> Copying Wallpapers"
 mkdir -p ${USER_HOME}/Wallpapers
 /bin/cp -r ${INIT_HOME}/workstation-setup/files/wallpapers/* ${USER_HOME}/Wallpapers/
+
+info ">>> Installing Custom Themes"
+/bin/cp -r ${INIT_HOME}/workstation-setup/files/themes/.* ${USER_HOME}/
+
+read -p "$(query ">>> Workstation Setup: Setup Openbox Themes? y/n (default n)")" openboxAnswer
+
+if [ "${openboxAnswer}" == 'y' ]; then
+  info ">>> Installing Openbox Themes"
+  /bin/cp -r ${INIT_HOME}/workstation-setup/files/themes/openbox/* ${USER_HOME}/.config/openbox/
+  ${USER_HOME}/.config/openbox/scripts/Adaptive-Fynx.sh
+fi
 
 ###############################################################################
 # Install Languages and Specific Packages
@@ -341,11 +352,15 @@ fi
 # Install System Files
 ###############################################################################
 if [ "${NO_SYSTEM}" == "no" ]; then
-  info ">>> Installing Pam Login Settings"
-  ${INIT_HOME}/workstation-setup/system_files/pam_login.sh
+  # info ">>> Installing Pam Login Settings"
+  # ${INIT_HOME}/workstation-setup/system_files/pam_login.sh
 
-  info ">>> Installing SSH Agent Service"
-  ${INIT_HOME}/workstation-setup/system_files/ssh-agent-service.sh
+  read -p "$(query ">>> Workstation Setup: Setup SSH Agent Service? y/n (default n)")" sshAnswer
+
+  if [ "${sshAnswer}" == 'y' ]; then
+    info ">>> Installing SSH Agent Service"
+    ${INIT_HOME}/workstation-setup/system_files/ssh-agent-service.sh
+  fi
 fi
 
 ###############################################################################
