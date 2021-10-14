@@ -1,42 +1,60 @@
 if [ -n "$(command -v code)" ]; then
   info ">>> Installing VS Code Extensions"
-  EXTENSIONS="4ops.terraform \
-aws-scripting-guy.cform \
-bungcip.better-toml \
-CoenraadS.bracket-pair-colorizer \
-dbaeumer.vscode-eslint \
-DSKWRK.vscode-generate-getter-setter \
-eamodio.gitlens \
-eg2.vscode-npm-script \
-Equinusocio.vsc-community-material-theme \
-Equinusocio.vsc-material-theme \
-equinusocio.vsc-material-theme-icons \
-eriklynd.json-tools \
-esbenp.prettier-vscode \
-foxundermoon.shell-format \
-golang.go \
-hashicorp.terraform \
-kddejong.vscode-cfn-lint \
-keyboardDrummer.vscode-cloudformation \
-liviuschera.noctis \
-maximus136.change-string-case \
-miramac.vscode-exec-node \
-ms-azuretools.vscode-docker \
-ms-python.python \
-ms-toolsai.jupyter \
-ms-vscode-remote.remote-containers \
-ms-vscode.powershell \
-ms-vscode.vscode-typescript-tslint-plugin \
-ms-vsliveshare.vsliveshare \
-nhoizey.gremlins \
-PKief.material-icon-theme \
-rbbit.typescript-hero \
-redhat.vscode-yaml \
-shardulm94.trailing-spaces \
-weijunyu.vscode-json-path \
-wwm.better-align \
-yzhang.markdown-all-in-one \
-zhuangtongfa.material-theme"
+  EXTENSIONS='4ops.packer
+    4ops.terraform
+    aws-scripting-guy.cform
+    bungcip.better-toml
+    CoenraadS.bracket-pair-colorizer
+    dbaeumer.vscode-eslint
+    dlasagno.rasi
+    DontShaveTheYak.groovy-guru
+    DotJoshJohnson.xml
+    DSKWRK.vscode-generate-getter-setter
+    eamodio.gitlens
+    eg2.vscode-npm-script
+    Equinusocio.vsc-community-material-theme
+    Equinusocio.vsc-material-theme
+    equinusocio.vsc-material-theme-icons
+    eriklynd.json-tools
+    esbenp.prettier-vscode
+    foxundermoon.shell-format
+    fredwangwang.vscode-hcl-format
+    golang.go
+    hashicorp.terraform
+    ivory-lab.jenkinsfile-support
+    janjoerke.jenkins-pipeline-linter-connector
+    kddejong.vscode-cfn-lint
+    liviuschera.noctis
+    Maarti.jenkins-doc
+    marlon407.code-groovy
+    matklad.rust-analyzer
+    maximus136.change-string-case
+    mindaro-dev.file-downloader
+    miramac.vscode-exec-node
+    ms-azuretools.vscode-docker
+    ms-python.python
+    ms-python.vscode-pylance
+    ms-toolsai.jupyter
+    ms-toolsai.jupyter-keymap
+    ms-toolsai.jupyter-renderers
+    ms-vscode-remote.remote-containers
+    ms-vscode.powershell
+    ms-vscode.vscode-typescript-tslint-plugin
+    ms-vsliveshare.vsliveshare
+    naumovs.color-highlight
+    nhoizey.gremlins
+    NicolasVuillamy.vscode-groovy-lint
+    PKief.material-icon-theme
+    rbbit.typescript-hero
+    redhat.vscode-commons
+    redhat.vscode-yaml
+    shardulm94.trailing-spaces
+    weijunyu.vscode-json-path
+    wholroyd.HCL
+    wwm.better-align
+    yzhang.markdown-all-in-one
+    zhuangtongfa.material-theme'
+
   for ext in ${EXTENSIONS}; do
     code --install-extension ${ext} >/dev/null 2>&1
   done
