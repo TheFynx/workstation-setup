@@ -353,8 +353,8 @@ fi
 # Install System Files
 ###############################################################################
 if [ "${NO_SYSTEM}" == "no" ]; then
-  # info ">>> Installing Pam Login Settings"
-  # ${INIT_HOME}/workstation-setup/system_files/pam_login.sh
+  info ">>> Installing Pam Login Settings"
+  ${INIT_HOME}/workstation-setup/system_files/pam_login.sh
 
   read -p "$(query ">>> Workstation Setup: Setup SSH Agent Service? y/n (default n)")" sshAnswer
 

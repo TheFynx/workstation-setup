@@ -82,9 +82,8 @@ SYSTEM='jq
   dell-e514dw
   playerctl
   numlockx
-  zscroll-git'
-
-# gnome-keyring
+  zscroll-git
+  gnome-keyring'
 
 DE='pavucontrol
   gnome-calculator

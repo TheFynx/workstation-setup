@@ -980,9 +980,9 @@ if [ -f "${HOME}/.config/openbox/rc.xml" ]; then
     mv ${HOME}/.config/openbox/rc.xml.2 ${HOME}/.config/openbox/rc.xml
   else
     info ">>> RC Config: No changes detected"
-    mv {HOME}/.config/openbox/rc.xml.2 ${HOME}/.config/openbox/rc.xml
+    mv ${HOME}/.config/openbox/rc.xml.2 ${HOME}/.config/openbox/rc.xml
   fi
 else
   info ">>> RC Config: No file detected, creating new file"
-  mv {HOME}/.config/openbox/rc.xml.2 ${HOME}/.config/openbox/rc.xml
+  mv ${HOME}/.config/openbox/rc.xml.2 ${HOME}/.config/openbox/rc.xml
 fi

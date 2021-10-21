@@ -55,9 +55,9 @@ if [ -f "${HOME}/.config/openbox/autostart" ]; then
     mv ${HOME}/.config/openbox/autostart.2 ${HOME}/.config/openbox/autostart
   else
     info ">>> Openbox Config: No changes detected"
-    mv {HOME}/.config/openbox/autostart.2 ${HOME}/.config/openbox/autostart
+    mv ${HOME}/.config/openbox/autostart.2 ${HOME}/.config/openbox/autostart
   fi
 else
   info ">>> Openbox Config: No file detected, creating new file"
-  mv {HOME}/.config/openbox/autostart.2 ${HOME}/.config/openbox/autostart
+  mv ${HOME}/.config/openbox/autostart.2 ${HOME}/.config/openbox/autostart
 fi

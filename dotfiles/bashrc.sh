@@ -9,6 +9,11 @@ if [ -f "/etc/bashrc" ]; then
   . /etc/bashrc
 fi
 
+if [ -n "$DESKTOP_SESSION" ];then
+  eval $(gnome-keyring-daemon --start)
+  export SSH_AUTH_SOCK
+fi
+
 # Path to the bash it configuration
 export BASH_IT="${HOME}/.bash_it"
 
