@@ -100,7 +100,8 @@ DE='pavucontrol
   google-chrome
   brave-bin
   corectrl
-  spotify'
+  spotify
+  zoom'
 
 EDITORS='neovim
   visual-studio-code-bin'
