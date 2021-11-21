@@ -2,7 +2,7 @@ cat >"${HOME}/.config/openbox/autostart.2" <<'EOF'
 #!/usr/bin/env bash
 
 ## Kill if already running
-killall -9 xfsettingsd picom polybar mpd dunst ksuperkey xfce4-power-manager clipit
+killall -9 xfsettingsd picom polybar mpd dunst ksuperkey xfce4-power-manager clipit ntfd
 
 ## Restore Wallpaper
 nitrogen --restore
@@ -29,6 +29,9 @@ exec dunst &
 
 ## Start Music Player Daemon
 # exec mpd &
+
+## Start Notification Daemon
+ntfd &
 
 ## Launch Plank
 exec plank &

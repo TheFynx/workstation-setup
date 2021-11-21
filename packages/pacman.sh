@@ -4,6 +4,7 @@ sudo pacman -Syyu --noconfirm --needed >/dev/null 2>&1
 info ">>> Prepping Package Install"
 if [ -z "$(command -v yay)" ]; then
   info ">>> Installing YAY"
+  sudo pacman --noconfirm --needed -Sy git base-devel >/dev/null 2>&1
   cd /tmp
   git clone https://aur.archlinux.org/yay.git
   cd yay
@@ -12,7 +13,7 @@ else
   info ">>> YAY Already installed"
 fi
 
-info ">>> Removing uneeded packages"
+# info ">>> Removing uneeded packages"
 #PACKAGES_TO_REMOVE="variety arcolinux-variety-git sublime-text-dev meld thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman chromium termite xfce-terminal"
 #for package in $PACKAGES_TO_REMOVE; do
 #  info ">>> Removing ${package}"
@@ -80,9 +81,6 @@ SYSTEM='jq
   bluez-utils
   blueberry
   dell-e514dw
-  playerctl
-  numlockx
-  zscroll-git
   gnome-keyring'
 
 DE='pavucontrol
@@ -91,6 +89,8 @@ DE='pavucontrol
   libreoffice-fresh
   flameshot
   keybase-gui
+  bitwarden
+  slack-desktop
   filezilla
   psensor
   vlc
@@ -101,6 +101,7 @@ DE='pavucontrol
   brave-bin
   corectrl
   spotify
+  bluemail
   zoom'
 
 EDITORS='neovim
@@ -118,7 +119,10 @@ FONTS='powerline-fonts
   adobe-source-code-pro-fonts
   ttf-ancient-fonts
   nerd-fonts-source-code-pro
-  ttf-ms-fonts'
+  ttf-ms-fonts
+  ttf-weather-icons
+  ttf-material-design-icons
+  ttf-octicons'
 
 CODING='pyenv
   ruby
@@ -178,39 +182,55 @@ GAMES='lib32-gnutls
   pywinery
   protontricks-git'
 
-info ">>> Installing Packages"
-PACKAGES="${THEMES} ${SYSTEM} ${DE} ${EDITORS} ${TERMINAL} ${FONTS} ${CODING} ${VM} ${INFRASTRUCTURE} ${PERIPHERALS} ${GAMES}"
+OPENBOX='numlockx
+  playerctl
+  zscroll-git
+  ntfd-bin'
 
+RADEON='lib32-mesa
+  libva-mesa-drivee
+  lib32-libva-mesa-driver
+  mesa-vdpau
+  lib32-mesa-vdpau'
+
+NVIDIA='lib32-nvidia-utils'
+
+info ">>> Building Install List"
+export PACKAGES="${THEMES} ${SYSTEM} ${DE} ${EDITORS} ${TERMINAL} ${FONTS} ${CODING} ${INFRASTRUCTURE} ${PERIPHERALS} ${GAMES}"
+
+if [ "${OPENBOX_ANSWER}" == 'y' ]; then
+  export PACKAGES="${PACKAGES} ${OPENBOX}"
+fi
+
+read -p "$(query ">>> Workstation Setup: Will this setup use VMs? y/n (default n)")" vmAnswer
+
+if [ "${vmAnswer}" == 'y' ]; then
+  export PACKAGES="${PACKAGES} ${VM}"
+fi
+
+read -p "$(query ">>> Workstation Setup: Does this system have a Radeon Card? y/n (default n)")" radeonAnswer
+
+if [ "${radeonAnswer}" == 'y' ]; then
+  export PACKAGES="${PACKAGES} ${RADEON}"
+fi
+
+read -p "$(query ">>> Workstation Setup: Does this system have a NVIDIA Card? y/n (default n)")" nvidiaAnswer
+
+if [ "${nvidiaAnswer}" == 'y' ]; then
+  export PACKAGES="${PACKAGES} ${NVIDIA}"
+fi
+
+info ">>> Installing Packages"
 for package in ${PACKAGES}; do
   info ">>> Installing ${package}"
   yay -Syy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed ${package} >/dev/null 2>&1 || error ">>> Failed to Install ${package}"
 done
 
 sudo systemctl enable bluetooth >/dev/null 2>&1
-sudo systemctl start bluetooth >/dev/null 2>&1
-
-read -p "$(query ">>> Workstation Setup: Does this system have a NVIDIA Card? y/n (default n)")" nvidiaAnswer
-
-if [ "${nvidiaAnswer}" == 'y' ]; then
-  info ">>> Installing NVIDIA Packages"
-  yay -Syy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
-    lib32-nvidia-utils
-fi
-
-read -p "$(query ">>> Workstation Setup: Does this system have a Radeon Card? y/n (default n)")" radeonAnswer
-
-if [ "${radeonAnswer}" == 'y' ]; then
-  info ">>> Installing Radeon Packages"
-  yay -Syy --noconfirm --noeditmenu --nodiffmenu --noprovides --needed \
-    lib32-mesa \
-    libva-mesa-driver \
-    lib32-libva-mesa-driver \
-    mesa-vdpau \
-    lib32-mesa-vdpau >/dev/null 2>&1
-fi
-
 sudo systemctl enable libvirtd.service
 sudo systemctl enable virtlogd.socket
 sudo systemctl enable cronie
 sudo systemctl enable clamav-freshclam.service
 sudo systemctl enable clamav-daemon
+
+sudo systemctl start bluetooth >/dev/null 2>&1

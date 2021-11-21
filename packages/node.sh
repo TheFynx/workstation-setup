@@ -9,8 +9,14 @@ fi
 if [ -n "$(command -v nodenv)" ]; then
   eval "$(nodenv init -)"
   if [ -z "$(nodenv versions | grep "${NODE_VERSION}")" ]; then
-    nodenv install ${NODE_VERSION}
+    info ">>> Installing Node to NODENV"
+    nodenv install ${NODE_VERSION} >/dev/null 2>&1
   fi
+
+  info ">>> Installing Older Node Versions to NODENV"
+  nodenv install 12.22.7 >/dev/null 2>&1
+
+  nodenv install 10.24.1 >/dev/null 2>&1
 
   info ">>> Setting Node Version to ${NODE_VERSION}"
   nodenv global ${NODE_VERSION}

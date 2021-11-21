@@ -128,12 +128,12 @@ export -f _workstation_log
 : ${NO_SYSTEM:='no'}
 : ${USER:='levi'}
 : ${GROUP:='levi'}
-: ${PACKER_VERSION:='1.7.6'}
+: ${PACKER_VERSION:='1.7.8'}
 : ${TERRAFORM_VERSION:='0.13.7'}
-: ${RB_VERSION:='2.6.4'}
-: ${NODE_VERSION:='14.16.1'}
-: ${PY_VERSION:='3.7.4'}
-: ${GO_VERSION:='1.14'}
+: ${RB_VERSION:='3.0.2'}
+: ${NODE_VERSION:='14.18.1'}
+: ${PY_VERSION:='3.10.0'}
+: ${GO_VERSION:='1.17.1'}
 : ${CINNAMON_DESKTOP:=''}
 : ${SKIP:=''}
 
@@ -327,9 +327,11 @@ info ">>> Installing Custom Themes"
 /bin/cp -r ${INIT_HOME}/workstation-setup/files/themes/.icons ${USER_HOME}/
 /bin/cp -r ${INIT_HOME}/workstation-setup/files/themes/.themes ${USER_HOME}/
 
-read -p "$(query ">>> Workstation Setup: Setup Openbox Themes? y/n (default n)")" openboxAnswer
+read -p "$(query ">>> Workstation Setup: Will this setup use Openbox? y/n (default n)")" openboxAnswer
 
-if [ "${openboxAnswer}" == 'y' ]; then
+export OPENBOX_ANSWER="${openboxAnswer}"
+
+if [ "${OPENBOX_ANSWER}" == 'y' ]; then
   info ">>> Installing Openbox Themes"
   /bin/cp -r ${INIT_HOME}/workstation-setup/files/themes/openbox/* ${USER_HOME}/.config/openbox/
   ${USER_HOME}/.config/openbox/scripts/Adaptive-Fynx.sh
@@ -394,6 +396,23 @@ if [ "${RUN_CONFIG}" == "yes" ]; then
       bash $dot || warning "${dot} failed to run"
     fi
   done
+
+  cd -
+
+  if [ "${OPENBOX_ANSWER}" == 'y' ]; then
+    info ">>> Configuring Openbox dotFiles"
+
+    cd ${INIT_HOME}/workstation-setup/files/openbox
+
+    for dot in *.sh; do
+      if [[ "${SKIP,,}" =~ "${dot}" ]]; then
+        info ">>> Skipping ${dot}"
+      else
+        info ">>> Running ${dot}"
+        bash $dot || warning "${dot} failed to run"
+      fi
+    done
+  fi
 fi
 
 ###############################################################################
