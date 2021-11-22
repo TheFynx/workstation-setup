@@ -341,13 +341,16 @@ fi
 ###############################################################################
 if [ "${NO_PACKAGES}" == "no" ]; then
   info ">>> Installing Python Packages"
-  ${INIT_HOME}/workstation-setup/packages/python.sh
+  ${INIT_HOME}/workstation-setup/packages/python.sh ${PY_VERSION}
 
   info ">>> Installing Ruby Packages"
-  ${INIT_HOME}/workstation-setup/packages/ruby.sh
+  ${INIT_HOME}/workstation-setup/packages/ruby.sh ${RB_VERSION}
 
   info ">>> Installing NodeJS Packages"
-  ${INIT_HOME}/workstation-setup/packages/node.sh
+  ${INIT_HOME}/workstation-setup/packages/node.sh ${NODE_VERSION}
+
+  info ">>> Installing Golang Packages"
+  ${INIT_HOME}/workstation-setup/packages/go.sh ${GO_VERSION}
 fi
 
 ###############################################################################
