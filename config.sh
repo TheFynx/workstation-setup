@@ -236,6 +236,14 @@ else
 fi
 
 ###############################################################################
+# Setup Questions
+###############################################################################
+
+read -p "$(query ">>> Workstation Setup: Will this setup use Openbox? y/n (default n)")" openboxAnswer
+
+export OPENBOX_ANSWER="${openboxAnswer}"
+
+###############################################################################
 # Package Install
 ###############################################################################
 
@@ -325,10 +333,6 @@ mkdir -p ${USER_HOME}/Wallpapers
 info ">>> Installing Custom Themes"
 /bin/cp -r ${INIT_HOME}/workstation-setup/files/themes/.icons ${USER_HOME}/
 /bin/cp -r ${INIT_HOME}/workstation-setup/files/themes/.themes ${USER_HOME}/
-
-read -p "$(query ">>> Workstation Setup: Will this setup use Openbox? y/n (default n)")" openboxAnswer
-
-export OPENBOX_ANSWER="${openboxAnswer}"
 
 if [ "${OPENBOX_ANSWER}" == 'y' ]; then
   info ">>> Installing Openbox Themes"
