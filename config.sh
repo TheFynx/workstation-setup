@@ -205,7 +205,6 @@ info ">>> Workstation Setup: Initiating"
 setup_git="https://github.com/TheFynx/workstation-setup.git"
 
 export USER_HOME="/home/${USER}"
-export HOSTNAME=$(hostname)
 export INIT_HOME=${USER_HOME}/init
 
 ###############################################################################
