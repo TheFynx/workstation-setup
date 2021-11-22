@@ -245,7 +245,7 @@ if [ "${NO_PACKAGES}" == "no" ]; then
     info ">>> Skipping Package Installs"
   else
     info ">>> Installing ${PKG} packages"
-    ${PACKAGE_SCRIPT}
+    ${PACKAGE_SCRIPT} ${OPENBOX_ANSWER}
   fi
 else
   info ">>> Skipping Package Installs"
