@@ -26,9 +26,6 @@ set -o pipefail
 # Turn on traces, useful while debugging but commented out by default
 # set -o xtrace
 
-touch /tmp/envSourceOriginal
-printenv >/tmp/envSourceOriginal
-
 # Define the environment variables (and their defaults) that this script depends on
 export LOG_LEVEL="${LOG_LEVEL:-6}" # 7 = debug -> 0 = emergency
 export NO_COLOR="${NO_COLOR:-}"    # true = disable color. otherwise autodetected
@@ -126,45 +123,22 @@ export -f debug
 export -f query
 export -f _workstation_log
 
-: ${RUN_CONFIG:='no'}
-: ${NO_PACKAGES:='no'}
-: ${NO_SYSTEM:='no'}
-: ${USER:='levi'}
-: ${GROUP:='levi'}
-: ${PACKER_VERSION:='1.7.8'}
-: ${TERRAFORM_VERSION:='0.13.7'}
-: ${TERRAFORM11_VERSION:='0.11.15'}
-: ${TERRAFORM12_VERSION:='0.12.31'}
-: ${RB_VERSION:='3.0.2'}
-: ${NODE_VERSION:='14.18.1'}
-: ${PY_VERSION:='3.10.0'}
-: ${GO_VERSION:='1.17.1'}
-: ${SKIP:=''}
-
 print_help() {
   echo ">>> Usage:"
   echo "-c | Run Dot File Config - config.sh -c - Default: ${RUN_CONFIG}"
   echo "-n | Don't Run Package Installs - config.sh -n - Default: ${NO_PACKAGES}"
   echo "-i | Don't Setup System Level Files - config.sh -c - Default: ${NO_SYSTEM}"
-  echo "-u | Pass Customer User - config.sh -u USER - Default: ${USER}"
-  echo "-g | Pass Customer Group - config.sh -g GROUP - Default: ${GROUP}"
-  echo "-p | Pass Packer Version to Install - config.sh -p 1.2.2 - Default: ${PACKER_VERSION}"
-  echo "-t | Pass Terraform Version to Install - config.sh -t 0.11.6 - Default: ${TERRAFORM_VERSION}"
   echo "-s | Skip a specific section of setup/install - config.sh -s dconf"
   echo "-d | Enable Debug"
   echo "-h | List this help menu"
 }
 
-while getopts u:g:p:t:z:s:cndih option; do
+while getopts z:s:cndih option; do
   case "${option}" in
 
   c) export RUN_CONFIG='yes' ;;
   n) export NO_PACKAGES='yes' ;;
   i) export NO_SYTEM='yes' ;;
-  u) export USER=${OPTARG} ;;
-  g) export GROUP=${OPTARG} ;;
-  p) export PACKER_VERSION=${OPTARG} ;;
-  t) export TERRAFORM_VERSION=${OPTARG} ;;
   s) export SKIP=${OPTARG} ;;
   d) export LOG_LEVEL="7" ;;
   h)
@@ -201,13 +175,41 @@ function setos() {
 info ">>> Workstation Setup: Initiating"
 
 ###############################################################################
-# Setup Config
+# Create Environment File
 ###############################################################################
 
-setup_git="https://github.com/TheFynx/workstation-setup.git"
+read -p "$(query ">>> Workstation Setup: Will this setup use Openbox? y/n (default n)")" openboxAnswer
+read -p "$(query ">>> Workstation Setup: Will this setup use VMs? y/n (default n)")" vmAnswer
+read -p "$(query ">>> Workstation Setup: Does this system have a Radeon Card? y/n (default n)")" radeonAnswer
+read -p "$(query ">>> Workstation Setup: Does this system have a NVIDIA Card? y/n (default n)")" nvidiaAnswer
 
-export USER_HOME="/home/${USER}"
-export INIT_HOME=${USER_HOME}/init
+cat >".env" <<EOF
+#!/usr/bin/env bash
+: \${OPENBOX_ANSWER=$openboxAnswer}
+: \${VM_ANSWER=$vmAnswer}
+: \${RADEON_ANSWER=$radeonAnswer}
+: \${NVIDIA_ANSWER=$nvidiaAnswer}
+: \${RUN_CONFIG:='no'}
+: \${NO_PACKAGES:='no'}
+: \${NO_SYSTEM:='no'}
+: \${USER:='levi'}
+: \${GROUP:='levi'}
+: \${SKIP:=''}
+: \${PACKER_VERSION:='1.7.8'}
+: \${TERRAFORM_VERSION:='0.13.7'}
+: \${TERRAFORM11_VERSION:='0.11.15'}
+: \${TERRAFORM12_VERSION:='0.12.31'}
+: \${RB_VERSION:='3.0.2'}
+: \${NODE_VERSION:='14.18.1'}
+: \${PY_VERSION:='3.10.0'}
+: \${GO_VERSION:='1.17.1'}
+: \${USER_HOME:="/home/\${USER}"}
+: \${INIT_HOME:=\${USER_HOME}/init}
+: \${SCRIPT_LOCATION:=$(dirname $0)}
+: \${GIT_REPO:="https://github.com/TheFynx/workstation-setup.git"}
+EOF
+
+source .env
 
 ###############################################################################
 # Get PreReqs
@@ -233,40 +235,15 @@ if [ -d "${INIT_HOME}/workstation-setup" ]; then
 else
   debug "<<< Pulling new setup files"
   cd ${INIT_HOME}
-  git clone ${setup_git} >/dev/null 2>&1
+  git clone ${GIT_REPO} >/dev/null 2>&1
   info ">>> Workstation Setup Files Cloned"
 fi
-
-###############################################################################
-# Setup Questions
-###############################################################################
-
-read -p "$(query ">>> Workstation Setup: Will this setup use Openbox? y/n (default n)")" openboxAnswer
-read -p "$(query ">>> Workstation Setup: Will this setup use VMs? y/n (default n)")" vmAnswer
-read -p "$(query ">>> Workstation Setup: Does this system have a Radeon Card? y/n (default n)")" radeonAnswer
-read -p "$(query ">>> Workstation Setup: Does this system have a NVIDIA Card? y/n (default n)")" nvidiaAnswer
-
-export OPENBOX_ANSWER=openboxAnswer
-export VM_ANSWER=vmAnswer
-export RADEON_ANSWER=radeonAnswer
-export NVIDIA_ANSWER=nvidiaAnswer
 
 ###############################################################################
 # Shared Environment
 ###############################################################################
 
-info ">>> Creating Environment File"
-
-touch /tmp/envSourceScript
-printenv >/tmp/envSourceScript
-
-cd ${INIT_HOME}/workstation-setup
-touch ./.env
-
-grep -xvf /tmp/envSourceOriginal /tmp/envSourceScript >./.env
-
-info ">>> Following File Generated"
-debug "$(cat .env)"
+info ">>> Appending Environment File"
 
 ###############################################################################
 # Package Install
