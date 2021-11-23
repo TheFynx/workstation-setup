@@ -32,6 +32,10 @@ export NO_COLOR="${NO_COLOR:-}"    # true = disable color. otherwise autodetecte
 export RESET="\\x1b[0m"
 export RED="\\x1b[1;5;33m"
 
+: ${RUN_CONFIG:='no'}
+: ${NO_PACKAGES:='no'}
+: ${NO_SYSTEM:='no'}
+
 ##############################################################################
 # Functions
 ##############################################################################
@@ -394,9 +398,7 @@ fi
 if [ "${RUN_CONFIG}" == "yes" ]; then
   info ">>> Configuring dotFiles"
 
-  cd ${INIT_HOME}/workstation-setup/dotfiles
-
-  for dot in *.sh; do
+  for dot in ./dotfiles/*.sh; do
     if [[ "${SKIP,,}" =~ "${dot}" ]]; then
       info ">>> Skipping ${dot}"
     else
@@ -405,14 +407,10 @@ if [ "${RUN_CONFIG}" == "yes" ]; then
     fi
   done
 
-  cd -
-
   if [ "${OPENBOX_ANSWER}" == 'y' ]; then
     info ">>> Configuring Openbox dotFiles"
 
-    cd ${INIT_HOME}/workstation-setup/files/openbox
-
-    for dot in *.sh; do
+    for dot in ./files/openbox/*.sh; do
       if [[ "${SKIP,,}" =~ "${dot}" ]]; then
         info ">>> Skipping ${dot}"
       else
