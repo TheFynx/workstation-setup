@@ -11,6 +11,8 @@ set -o pipefail
 # Turn on traces, useful while debugging but commented out by default
 # set -o xtrace
 
+source .env
+
 if [ ! -d "${HOME}/.local/share/fonts" ]; then
   cd /tmp
 

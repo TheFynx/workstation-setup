@@ -11,7 +11,7 @@ set -o pipefail
 # Turn on traces, useful while debugging but commented out by default
 # set -o xtrace
 
-: ${RB_VERSION:=$1}
+source .env
 
 if [ -d "${HOME}/bin" ]; then
   info ">>> Activating RBENV"

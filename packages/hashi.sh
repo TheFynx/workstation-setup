@@ -11,12 +11,7 @@ set -o pipefail
 # Turn on traces, useful while debugging but commented out by default
 # set -o xtrace
 
-set -o nounset
-
-: ${PACKER_VERSION:=$1}
-: ${TERRAFORM_VERSION:=$2}
-: ${TERRAFORM11_VERSION:='0.11.15'}
-: ${TERRAFORM12_VERSION:='0.12.31'}
+source .env
 
 cd /tmp
 

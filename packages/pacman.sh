@@ -11,7 +11,7 @@ set -o pipefail
 # Turn on traces, useful while debugging but commented out by default
 # set -o xtrace
 
-: ${OPENBOX_ANSWER:=$1}
+source .env
 
 info ">>> Upgrading System"
 sudo pacman -Syyu --noconfirm --needed >/dev/null 2>&1

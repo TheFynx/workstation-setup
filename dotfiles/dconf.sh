@@ -11,6 +11,8 @@ set -o pipefail
 # Turn on traces, useful while debugging but commented out by default
 # set -o xtrace
 
+source .env
+
 info ">>> Generating DCONF File"
 
 mkdir -p ${HOME}/.custom/

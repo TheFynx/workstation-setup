@@ -26,6 +26,9 @@ set -o pipefail
 # Turn on traces, useful while debugging but commented out by default
 # set -o xtrace
 
+touch /tmp/envSourceOriginal
+printenv > /tmp/envSourceOriginal
+
 # Define the environment variables (and their defaults) that this script depends on
 export LOG_LEVEL="${LOG_LEVEL:-6}" # 7 = debug -> 0 = emergency
 export NO_COLOR="${NO_COLOR:-}"    # true = disable color. otherwise autodetected
@@ -130,11 +133,12 @@ export -f _workstation_log
 : ${GROUP:='levi'}
 : ${PACKER_VERSION:='1.7.8'}
 : ${TERRAFORM_VERSION:='0.13.7'}
+: ${TERRAFORM11_VERSION:='0.11.15'}
+: ${TERRAFORM12_VERSION:='0.12.31'}
 : ${RB_VERSION:='3.0.2'}
 : ${NODE_VERSION:='14.18.1'}
 : ${PY_VERSION:='3.10.0'}
 : ${GO_VERSION:='1.17.1'}
-: ${CINNAMON_DESKTOP:=''}
 : ${SKIP:=''}
 
 print_help() {
@@ -146,7 +150,6 @@ print_help() {
   echo "-g | Pass Customer Group - config.sh -g GROUP - Default: ${GROUP}"
   echo "-p | Pass Packer Version to Install - config.sh -p 1.2.2 - Default: ${PACKER_VERSION}"
   echo "-t | Pass Terraform Version to Install - config.sh -t 0.11.6 - Default: ${TERRAFORM_VERSION}"
-  echo "-z | Enable the installation/setup of the Cinnamon Desktop Environment (True/False) - config.sh -c - Default: null"
   echo "-s | Skip a specific section of setup/install - config.sh -s dconf"
   echo "-d | Enable Debug"
   echo "-h | List this help menu"
@@ -162,7 +165,6 @@ while getopts u:g:p:t:z:s:cndih option; do
   g) export GROUP=${OPTARG} ;;
   p) export PACKER_VERSION=${OPTARG} ;;
   t) export TERRAFORM_VERSION=${OPTARG} ;;
-  z) export CINNAMON_DESKTOP=${OPTARG} ;;
   s) export SKIP=${OPTARG} ;;
   d) export LOG_LEVEL="7" ;;
   h)
@@ -243,6 +245,19 @@ read -p "$(query ">>> Workstation Setup: Will this setup use Openbox? y/n (defau
 
 export OPENBOX_ANSWER="${openboxAnswer}"
 
+
+###############################################################################
+# Shared Environment
+###############################################################################
+
+touch /tmp/envSourceScript
+printenv > /tmp/envSourceScript
+
+cd ${INIT_HOME}/workstation-setup
+touch ./.env
+
+grep -xvf /tmp/envSourceOriginal /tmp/envSourceScript > ./.env
+
 ###############################################################################
 # Package Install
 ###############################################################################
@@ -253,7 +268,7 @@ if [ "${NO_PACKAGES}" == "no" ]; then
     info ">>> Skipping Package Installs"
   else
     info ">>> Installing ${PKG} packages"
-    ${PACKAGE_SCRIPT} ${OPENBOX_ANSWER}
+    ${PACKAGE_SCRIPT}
   fi
 else
   info ">>> Skipping Package Installs"
@@ -299,7 +314,7 @@ fi
 
 if [ "${NO_PACKAGES}" == "no" ]; then
   info ">>> Installing Hashicorp Tools"
-  ${INIT_HOME}/workstation-setup/packages/hashi.sh ${PACKER_VERSION} ${TERRAFORM_VERSION} || warning "Hashi install failed to run"
+  ${INIT_HOME}/workstation-setup/packages/hashi.sh || warning "Hashi install failed to run"
 fi
 
 ###############################################################################
@@ -345,16 +360,16 @@ fi
 ###############################################################################
 if [ "${NO_PACKAGES}" == "no" ]; then
   info ">>> Installing Python Packages"
-  ${INIT_HOME}/workstation-setup/packages/python.sh ${PY_VERSION}
+  ${INIT_HOME}/workstation-setup/packages/python.sh
 
   info ">>> Installing Ruby Packages"
-  ${INIT_HOME}/workstation-setup/packages/ruby.sh ${RB_VERSION}
+  ${INIT_HOME}/workstation-setup/packages/ruby.sh
 
   info ">>> Installing NodeJS Packages"
-  ${INIT_HOME}/workstation-setup/packages/node.sh ${NODE_VERSION}
+  ${INIT_HOME}/workstation-setup/packages/node.sh
 
   info ">>> Installing Golang Packages"
-  ${INIT_HOME}/workstation-setup/packages/go.sh ${GO_VERSION}
+  ${INIT_HOME}/workstation-setup/packages/go.sh
 fi
 
 ###############################################################################

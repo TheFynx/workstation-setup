@@ -11,6 +11,8 @@ set -o pipefail
 # Turn on traces, useful while debugging but commented out by default
 # set -o xtrace
 
+source .env
+
 mkdir -p ${HOME}/.config/alacritty/
 
 cat >"${HOME}/.config/alacritty/alacritty.yml.2" <<'EOF'

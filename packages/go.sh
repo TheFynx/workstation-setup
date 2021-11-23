@@ -11,7 +11,7 @@ set -o pipefail
 # Turn on traces, useful while debugging but commented out by default
 # set -o xtrace
 
-: ${GO_VERSION:=$1}
+source .env
 
 if [ ! -d "${HOME}/.goenv" ]; then
   git clone https://github.com/syndbg/goenv.git ${HOME}/.goenv >/dev/null 2>&1

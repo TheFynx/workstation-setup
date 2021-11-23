@@ -11,7 +11,7 @@ set -o pipefail
 # Turn on traces, useful while debugging but commented out by default
 # set -o xtrace
 
-: ${PY_VERSION:=$1}
+source .env
 
 # Set Pyenv
 if [ -d "${HOME}/.pyenv" ]; then

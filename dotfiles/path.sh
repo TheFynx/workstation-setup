@@ -11,6 +11,8 @@ set -o pipefail
 # Turn on traces, useful while debugging but commented out by default
 # set -o xtrace
 
+source .env
+
 cat >"${HOME}/.path.2" <<'EOF'
 # update path
 if [ -d "/usr/share/bcc/tools" ]; then

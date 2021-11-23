@@ -9,6 +9,8 @@ set -o pipefail
 # Turn on traces, useful while debugging but commented out by default
 # set -o xtrace
 
+source .env
+
 if [ -n "$(command -v code)" ]; then
   info ">>> Installing VS Code Extensions"
   EXTENSIONS='4ops.packer

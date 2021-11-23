@@ -11,6 +11,8 @@ set -o pipefail
 # Turn on traces, useful while debugging but commented out by default
 # set -o xtrace
 
+source .env
+
 mkdir -p ${HOME}/.config/nvim/modules/
 
 # ${INIT_HOME} is exported from config.sh
