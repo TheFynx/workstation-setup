@@ -10,7 +10,7 @@ set -o nounset
 set -o pipefail
 # Turn on traces, useful while debugging but commented out by default
 # set -o xtrace
-
+debug "<<< Sourcing environment"
 source .env
 
 info ">>> Upgrading System"
@@ -217,21 +217,15 @@ if [ "${OPENBOX_ANSWER}" == 'y' ]; then
   export PACKAGES="${PACKAGES} ${OPENBOX}"
 fi
 
-read -p "$(query ">>> Workstation Setup: Will this setup use VMs? y/n (default n)")" vmAnswer
-
-if [ "${vmAnswer}" == 'y' ]; then
+if [ "${VM_ANSWER}" == 'y' ]; then
   export PACKAGES="${PACKAGES} ${VM}"
 fi
 
-read -p "$(query ">>> Workstation Setup: Does this system have a Radeon Card? y/n (default n)")" radeonAnswer
-
-if [ "${radeonAnswer}" == 'y' ]; then
+if [ "${RADEON_ANSWER}" == 'y' ]; then
   export PACKAGES="${PACKAGES} ${RADEON}"
 fi
 
-read -p "$(query ">>> Workstation Setup: Does this system have a NVIDIA Card? y/n (default n)")" nvidiaAnswer
-
-if [ "${nvidiaAnswer}" == 'y' ]; then
+if [ "${NVIDIA_ANSWER}" == 'y' ]; then
   export PACKAGES="${PACKAGES} ${NVIDIA}"
 fi
 

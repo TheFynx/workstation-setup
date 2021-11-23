@@ -27,7 +27,7 @@ set -o pipefail
 # set -o xtrace
 
 touch /tmp/envSourceOriginal
-printenv > /tmp/envSourceOriginal
+printenv >/tmp/envSourceOriginal
 
 # Define the environment variables (and their defaults) that this script depends on
 export LOG_LEVEL="${LOG_LEVEL:-6}" # 7 = debug -> 0 = emergency
@@ -226,12 +226,12 @@ fi
 mkdir -p ${INIT_HOME}
 
 if [ -d "${INIT_HOME}/workstation-setup" ]; then
-  debug ">>> Updating existing setup files"
+  debug "<<< Updating existing setup files"
   cd ${INIT_HOME}/workstation-setup
   git pull >/dev/null 2>&1
   info ">>> Workstation Setup Files Updated"
 else
-  debug ">>> Pulling new setup files"
+  debug "<<< Pulling new setup files"
   cd ${INIT_HOME}
   git clone ${setup_git} >/dev/null 2>&1
   info ">>> Workstation Setup Files Cloned"
@@ -242,28 +242,38 @@ fi
 ###############################################################################
 
 read -p "$(query ">>> Workstation Setup: Will this setup use Openbox? y/n (default n)")" openboxAnswer
+read -p "$(query ">>> Workstation Setup: Will this setup use VMs? y/n (default n)")" vmAnswer
+read -p "$(query ">>> Workstation Setup: Does this system have a Radeon Card? y/n (default n)")" radeonAnswer
+read -p "$(query ">>> Workstation Setup: Does this system have a NVIDIA Card? y/n (default n)")" nvidiaAnswer
 
-export OPENBOX_ANSWER="${openboxAnswer}"
-
+export OPENBOX_ANSWER=openboxAnswer
+export VM_ANSWER=vmAnswer
+export RADEON_ANSWER=radeonAnswer
+export NVIDIA_ANSWER=nvidiaAnswer
 
 ###############################################################################
 # Shared Environment
 ###############################################################################
 
+info ">>> Creating Environment File"
+
 touch /tmp/envSourceScript
-printenv > /tmp/envSourceScript
+printenv >/tmp/envSourceScript
 
 cd ${INIT_HOME}/workstation-setup
 touch ./.env
 
-grep -xvf /tmp/envSourceOriginal /tmp/envSourceScript > ./.env
+grep -xvf /tmp/envSourceOriginal /tmp/envSourceScript >./.env
+
+info ">>> Following File Generated"
+debug "$(cat .env)"
 
 ###############################################################################
 # Package Install
 ###############################################################################
 
 if [ "${NO_PACKAGES}" == "no" ]; then
-  debug ">>> Running ${OS} OS"
+  debug "<<< Running ${OS} OS"
   if [[ "${SKIP,,}" =~ "package" ]]; then
     info ">>> Skipping Package Installs"
   else
@@ -290,7 +300,7 @@ info ">>> Workstation Setup: Adding SSH Config for Git SSH Key"
 touch ${USER_HOME}/.ssh/config
 
 if [ -z "$(grep 'github' ~/.ssh/config)" ]; then
-  debug "Creating ssh config"
+  debug "<<< Creating ssh config"
   cat >"${USER_HOME}/.ssh/config" <<EOF
 Host github.com
   User git
