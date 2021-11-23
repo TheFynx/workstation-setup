@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-# Exit on error. Append "|| true" if you expect an error.
-set -o errexit
 # Exit on error inside any functions or subshells.
 # set -o errtrace
 # Do not allow use of undefined vars. Use ${VAR:-} to use an undefined VAR
@@ -62,7 +60,6 @@ sudo apt-get install -y \
   fonts-hack-ttf \
   influxdb-client \
   bzip2 >/dev/null 2>&1
-
 
 info ">>> Installing Adobe Source Code Fonts"
 if [ ! -f "/usr/local/share/fonts/SourceCodePro-Regular.otf" ]; then
