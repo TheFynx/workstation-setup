@@ -13,7 +13,7 @@ set -o pipefail
 
 source .env
 
-cat >"${HOME}/.gitignore.2" <<'EOF'
+cat >"${USER_HOME}/.gitignore.2" <<'EOF'
 # Compiled source #
 ###################
 *.com
@@ -54,17 +54,17 @@ Thumbs.db
 
 EOF
 
-if [ -f "${HOME}/.gitignore" ]; then
+if [ -f "${USER_HOME}/.gitignore" ]; then
   info ">>> GitIgnore: File detected - Looking for changes"
-  if [ -n "$(diff -y --suppress-common-lines ${HOME}/.gitignore ${HOME}/.gitignore.2)" ]; then
+  if [ -n "$(diff -y --suppress-common-lines ${USER_HOME}/.gitignore ${USER_HOME}/.gitignore.2)" ]; then
     info ">>> GitIgnore: Changes detected, printing side by side diff"
-    diff -y --suppress-common-lines ${HOME}/.gitignore ${HOME}/.gitignore.2
-    mv ${HOME}/.gitignore.2 ${HOME}/.gitignore
+    diff -y --suppress-common-lines ${USER_HOME}/.gitignore ${USER_HOME}/.gitignore.2
+    mv ${USER_HOME}/.gitignore.2 ${USER_HOME}/.gitignore
   else
     info ">>> GitIgnore: No changes detected"
-    mv ${HOME}/.gitignore.2 ${HOME}/.gitignore
+    mv ${USER_HOME}/.gitignore.2 ${USER_HOME}/.gitignore
   fi
 else
   info ">>> GitIgnore: No file detected, creating new file"
-  mv ${HOME}/.gitignore.2 ${HOME}/.gitignore
+  mv ${USER_HOME}/.gitignore.2 ${USER_HOME}/.gitignore
 fi

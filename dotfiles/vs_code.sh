@@ -73,10 +73,10 @@ if [ -n "$(command -v code)" ]; then
   done
 fi
 
-if [ -d "${HOME}/.config/Code - OSS/User" ]; then
-  LOCATION="${HOME}/.config/Code - OSS/User"
-elif [ -d "${HOME}/.config/Code/User" ]; then
-  LOCATION="${HOME}/.config/Code/User"
+if [ -d "${USER_HOME}/.config/Code - OSS/User" ]; then
+  LOCATION="${USER_HOME}/.config/Code - OSS/User"
+elif [ -d "${USER_HOME}/.config/Code/User" ]; then
+  LOCATION="${USER_HOME}/.config/Code/User"
 else
   LOCATION=""
 fi

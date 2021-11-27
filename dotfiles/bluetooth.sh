@@ -15,9 +15,9 @@ source .env
 
 info ">>> Generating Bluetooth Config Files"
 
-mkdir -p ${HOME}/.custom/
+mkdir -p ${USER_HOME}/.custom/
 
-cat >"${HOME}/.custom/bluetooth_main.conf" <<EOF
+cat >"${USER_HOME}/.custom/bluetooth_main.conf" <<EOF
 [General]
 [GATT]
 [Policy]
@@ -26,15 +26,15 @@ EOF
 
 if [ -f "/etc/bluetooth/main.conf" ]; then
   info ">>> Bluetooth: File detected - Looking for changes"
-  if [ -n "$(diff -y --suppress-common-lines /etc/bluetooth/main.conf ${HOME}/.custom/bluetooth_main.conf)" ]; then
+  if [ -n "$(diff -y --suppress-common-lines /etc/bluetooth/main.conf ${USER_HOME}/.custom/bluetooth_main.conf)" ]; then
     info ">>> Bluetooth: Changes detected, printing side by side diff"
-    diff -y --suppress-common-lines /etc/bluetooth/main.conf ${HOME}/.custom/bluetooth_main.conf
-    sudo mv ${HOME}/.custom/bluetooth_main.conf /etc/bluetooth/main.conf
+    diff -y --suppress-common-lines /etc/bluetooth/main.conf ${USER_HOME}/.custom/bluetooth_main.conf
+    sudo mv ${USER_HOME}/.custom/bluetooth_main.conf /etc/bluetooth/main.conf
   else
     info ">>> Bluetooth: No changes detected"
-    sudo mv ${HOME}/.custom/bluetooth_main.conf /etc/bluetooth/main.conf
+    sudo mv ${USER_HOME}/.custom/bluetooth_main.conf /etc/bluetooth/main.conf
   fi
 else
   info ">>> Bluetooth: No file detected, creating new file"
-  sudo mv ${HOME}/.custom/bluetooth_main.conf /etc/bluetooth/main.conf
+  sudo mv ${USER_HOME}/.custom/bluetooth_main.conf /etc/bluetooth/main.conf
 fi

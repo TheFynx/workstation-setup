@@ -10,9 +10,9 @@ set -o pipefail
 source .env
 
 # Set Nodenv
-if [ -d "${HOME}/.nodenv" ]; then
+if [ -d "${USER_HOME}/.nodenv" ]; then
   info ">>> Activating NODENV"
-  export NODENV_ROOT="${HOME}/.nodenv"
+  export NODENV_ROOT="${USER_HOME}/.nodenv"
   export PATH="${NODENV_ROOT}/bin:${PATH}"
 fi
 
@@ -24,10 +24,10 @@ if [ -n "$(command -v nodenv)" ]; then
     nodenv install ${NODE_VERSION} >/dev/null 2>&1
   fi
 
-  info ">>> Installing Older Node Versions to NODENV"
-  nodenv install 12.22.7 >/dev/null 2>&1
+#  info ">>> Installing Older Node Versions to NODENV"
+#  nodenv install 12.22.7 >/dev/null 2>&1
 
-  nodenv install 10.24.1 >/dev/null 2>&1
+#  nodenv install 10.24.1 >/dev/null 2>&1
 
   info ">>> Setting Node Version to ${NODE_VERSION}"
   nodenv global ${NODE_VERSION}

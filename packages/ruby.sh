@@ -11,9 +11,9 @@ set -o pipefail
 
 source .env
 
-if [ -d "${HOME}/bin" ]; then
+if [ -d "${USER_HOME}/bin" ]; then
   info ">>> Activating RBENV"
-  export RBENV_ROOT="${HOME}/.rbenv"
+  export RBENV_ROOT="${USER_HOME}/.rbenv"
   export PATH="${RBENV_ROOT}/bin:${PATH}"
 fi
 

@@ -13,7 +13,7 @@ set -o pipefail
 
 source .env
 
-cat >"${HOME}/.aliases.2" <<'EOF'
+cat >"${USER_HOME}/.aliases.2" <<'EOF'
 # Easier navigation
 alias ..="cd .."
 alias ...="cd ../.."
@@ -125,17 +125,17 @@ alias local_forecast='curl http://wttr.in/'
 
 EOF
 
-if [ -f "${HOME}/.aliases" ]; then
+if [ -f "${USER_HOME}/.aliases" ]; then
   info ">>> Aliases: File detected - Looking for changes"
-  if [ -n "$(diff -y --suppress-common-lines ${HOME}/.aliases ${HOME}/.aliases.2)" ]; then
+  if [ -n "$(diff -y --suppress-common-lines ${USER_HOME}/.aliases ${USER_HOME}/.aliases.2)" ]; then
     info ">>> Aliases: Changes detected, printing side by side diff"
-    diff -y --suppress-common-lines ${HOME}/.aliases ${HOME}/.aliases.2
-    mv ${HOME}/.aliases.2 ${HOME}/.aliases
+    diff -y --suppress-common-lines ${USER_HOME}/.aliases ${USER_HOME}/.aliases.2
+    mv ${USER_HOME}/.aliases.2 ${USER_HOME}/.aliases
   else
     info ">>> Aliases: No changes detected"
-    mv ${HOME}/.aliases.2 ${HOME}/.aliases
+    mv ${USER_HOME}/.aliases.2 ${USER_HOME}/.aliases
   fi
 else
   info ">>> Aliases: No file detected, creating new file"
-  mv ${HOME}/.aliases.2 ${HOME}/.aliases
+  mv ${USER_HOME}/.aliases.2 ${USER_HOME}/.aliases
 fi

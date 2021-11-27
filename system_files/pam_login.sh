@@ -1,21 +1,10 @@
 #!/usr/bin/env bash
 
-# Exit on error. Append "|| true" if you expect an error.
-set -o errexit
-# Exit on error inside any functions or subshells.
-# set -o errtrace
-# Do not allow use of undefined vars. Use ${VAR:-} to use an undefined VAR
-set -o nounset
-# Catch the error in case mysqldump fails (but gzip succeeds) in `mysqldump |gzip`
-set -o pipefail
-# Turn on traces, useful while debugging but commented out by default
-# set -o xtrace
-
 source .env
 
-mkdir -p ${HOME}/.custom
+mkdir -p ${USER_HOME}/.custom
 
-cat >"${HOME}/.custom/pam_login" <<'EOF'
+cat >"${USER_HOME}/.custom/pam_login" <<'EOF'
 #%PAM-1.0
 
 auth       required     pam_securetty.so
@@ -30,15 +19,15 @@ EOF
 
 if [ -f "/etc/pam.d/login" ]; then
   info ">>> Pam.d Login: File detected - Looking for changes"
-  if [ -n "$(diff -y --suppress-common-lines /etc/pam.d/login ${HOME}/.custom/pam_login)" ]; then
+  if [ -n "$(diff -y --suppress-common-lines /etc/pam.d/login ${USER_HOME}/.custom/pam_login)" ]; then
     info ">>> Pam.d Login: Changes detected, printing side by side diff"
-    diff -y --suppress-common-lines /etc/pam.d/login ${HOME}/.custom/pam_login
-    sudo mv ${HOME}/.custom/pam_login /etc/pam.d/login
+    diff -y --suppress-common-lines /etc/pam.d/login ${USER_HOME}/.custom/pam_login
+    sudo mv ${USER_HOME}/.custom/pam_login /etc/pam.d/login
   else
     info ">>> Pam.d Login: No changes detected"
-    sudo mv ${HOME}/.custom/pam_login /etc/pam.d/login
+    sudo mv ${USER_HOME}/.custom/pam_login /etc/pam.d/login
   fi
 else
   info ">>> Pam.d Login: No file detected, creating new file"
-  sudo mv ${HOME}/.custom/pam_login /etc/pam.d/login
+  sudo mv ${USER_HOME}/.custom/pam_login /etc/pam.d/login
 fi

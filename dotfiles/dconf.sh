@@ -15,9 +15,9 @@ source .env
 
 info ">>> Generating DCONF File"
 
-mkdir -p ${HOME}/.custom/
+mkdir -p ${USER_HOME}/.custom/
 
-cat >"${HOME}/.custom/dconf.2" <<EOF
+cat >"${USER_HOME}/.custom/dconf.2" <<EOF
 [apps/seahorse/listing]
 keyrings-selected=['secret-service:///org/freedesktop/secrets/collection/login']
 
@@ -344,19 +344,19 @@ sidebar-bookmark-breakpoint=5
 start-with-sidebar=true
 EOF
 
-if [ -f "${HOME}/.custom/dconf" ]; then
+if [ -f "${USER_HOME}/.custom/dconf" ]; then
   info ">>> DCONF: File detected - Looking for changes"
-  if [ -n "$(diff -y --suppress-common-lines ${HOME}/.custom/dconf ${HOME}/.custom/dconf.2)" ]; then
+  if [ -n "$(diff -y --suppress-common-lines ${USER_HOME}/.custom/dconf ${USER_HOME}/.custom/dconf.2)" ]; then
     info ">>> DCONF: Changes detected, printing side by side diff"
-    diff -y --suppress-common-lines ${HOME}/.custom/dconf ${HOME}/.custom/dconf.2
-    mv ${HOME}/.custom/dconf.2 ${HOME}/.custom/dconf
-    dconf load / <${HOME}/.custom/dconf
+    diff -y --suppress-common-lines ${USER_HOME}/.custom/dconf ${USER_HOME}/.custom/dconf.2
+    mv ${USER_HOME}/.custom/dconf.2 ${USER_HOME}/.custom/dconf
+    dconf load / <${USER_HOME}/.custom/dconf
   else
     info ">>> DCONF: No changes detected"
-    mv ${HOME}/.custom/dconf.2 ${HOME}/.custom/dconf
+    mv ${USER_HOME}/.custom/dconf.2 ${USER_HOME}/.custom/dconf
   fi
 else
   info ">>> DCONF: No file detected, creating new file"
-  mv ${HOME}/.custom/dconf.2 ${HOME}/.custom/dconf
-  dconf load / <${HOME}/.custom/dconf
+  mv ${USER_HOME}/.custom/dconf.2 ${USER_HOME}/.custom/dconf
+  dconf load / <${USER_HOME}/.custom/dconf
 fi

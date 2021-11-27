@@ -11,7 +11,7 @@ set -o pipefail
 
 source .env
 
-if [ ! -d "${HOME}/.local/share/fonts" ]; then
+if [ ! -d "${USER_HOME}/.local/share/fonts" ]; then
   cd /tmp
 
   git clone https://github.com/powerline/fonts.git --depth=1 >/dev/null 2>&1 &&

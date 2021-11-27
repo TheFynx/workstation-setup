@@ -12,9 +12,9 @@ set -o pipefail
 source .env
 
 # Set Pyenv
-if [ -d "${HOME}/.pyenv" ]; then
+if [ -d "${USER_HOME}/.pyenv" ]; then
   info ">>> Activating PYENV"
-  export PYENV_ROOT="${HOME}/.pyenv"
+  export PYENV_ROOT="${USER_HOME}/.pyenv"
   export PATH="${PYENV_ROOT}/bin:${PATH}"
 fi
 

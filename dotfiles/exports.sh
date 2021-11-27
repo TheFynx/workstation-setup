@@ -13,7 +13,7 @@ set -o pipefail
 
 source .env
 
-cat >"${HOME}/.exports.2" <<'EOF'
+cat >"${USER_HOME}/.exports.2" <<'EOF'
 # Make vim the default editor
 export EDITOR=$(which nvim)
 export TERM="xterm-256color"
@@ -68,17 +68,17 @@ export PULUMI_SKIP_UPDATE_CHECK=1
 
 EOF
 
-if [ -f "${HOME}/.exports" ]; then
+if [ -f "${USER_HOME}/.exports" ]; then
   info ">>> Exports: File detected - Looking for changes"
-  if [ -n "$(diff -y --suppress-common-lines ${HOME}/.exports ${HOME}/.exports.2)" ]; then
+  if [ -n "$(diff -y --suppress-common-lines ${USER_HOME}/.exports ${USER_HOME}/.exports.2)" ]; then
     info ">>> Exports: Changes detected, printing side by side diff"
-    diff -y --suppress-common-lines ${HOME}/.exports ${HOME}/.exports.2
-    mv ${HOME}/.exports.2 ${HOME}/.exports
+    diff -y --suppress-common-lines ${USER_HOME}/.exports ${USER_HOME}/.exports.2
+    mv ${USER_HOME}/.exports.2 ${USER_HOME}/.exports
   else
     info ">>> Exports: No changes detected"
-    mv ${HOME}/.exports.2 ${HOME}/.exports
+    mv ${USER_HOME}/.exports.2 ${USER_HOME}/.exports
   fi
 else
   info ">>> Exports: No file detected, creating new file"
-  mv ${HOME}/.exports.2 ${HOME}/.exports
+  mv ${USER_HOME}/.exports.2 ${USER_HOME}/.exports
 fi

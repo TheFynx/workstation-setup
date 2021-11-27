@@ -142,7 +142,7 @@ while getopts z:s:cndih option; do
 
   c) export RUN_CONFIG='yes' ;;
   n) export NO_PACKAGES='yes' ;;
-  i) export NO_SYTEM='yes' ;;
+  i) export NO_SYSTEM='yes' ;;
   s) export SKIP=${OPTARG} ;;
   d) export LOG_LEVEL="7" ;;
   h)
@@ -193,9 +193,9 @@ cat >".env" <<EOF
 : \${VM_ANSWER=$vmAnswer}
 : \${RADEON_ANSWER=$radeonAnswer}
 : \${NVIDIA_ANSWER=$nvidiaAnswer}
-: \${RUN_CONFIG:='no'}
-: \${NO_PACKAGES:='no'}
-: \${NO_SYSTEM:='no'}
+: \${RUN_CONFIG:=${RUN_CONFIG}}
+: \${NO_PACKAGES:=${NO_PACKAGES}}
+: \${NO_SYSTEM:=${NO_SYSTEM}}
 : \${USER:='levi'}
 : \${GROUP:='levi'}
 : \${SKIP:=''}
@@ -213,8 +213,11 @@ cat >".env" <<EOF
 : \${GIT_REPO:="https://github.com/TheFynx/workstation-setup.git"}
 EOF
 
+debug "<<< Sourcing Environment"
 source .env
 
+debug "<<< Current Environment is"
+debug "$(printenv)"
 ###############################################################################
 # Get PreReqs
 ###############################################################################
@@ -327,6 +330,8 @@ if [ "${NO_PACKAGES}" == "no" ]; then
   else
     info ">>> Zoom installed via Pacman"
   fi
+else
+  debug "<<< No Packages Returned ${NO_PACKAGES}"
 fi
 ###############################################################################
 # Copy Theming
@@ -419,6 +424,8 @@ if [ "${RUN_CONFIG}" == "yes" ]; then
       fi
     done
   fi
+else
+  debug "<<< Run config returned ${RUN_CONFIG}"
 fi
 
 ###############################################################################

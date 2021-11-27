@@ -13,7 +13,7 @@ set -o pipefail
 
 source .env
 
-cat >"${HOME}/.bashrc.2" <<'EOF'
+cat >"${USER_HOME}/.bashrc.2" <<'EOF'
 # .bashrc
 
 # If not running interactively, don't do anything
@@ -63,17 +63,17 @@ unset file
 
 EOF
 
-if [ -f "${HOME}/.bashrc" ]; then
+if [ -f "${USER_HOME}/.bashrc" ]; then
   info ">>> BASHRC: File detected - Looking for changes"
-  if [ -n "$(diff -y --suppress-common-lines ${HOME}/.bashrc ${HOME}/.bashrc.2)" ]; then
+  if [ -n "$(diff -y --suppress-common-lines ${USER_HOME}/.bashrc ${USER_HOME}/.bashrc.2)" ]; then
     info ">>> BASHRC: Changes detected, printing side by side diff"
-    diff -y --suppress-common-lines ${HOME}/.bashrc ${HOME}/.bashrc.2
-    mv ${HOME}/.bashrc.2 ${HOME}/.bashrc
+    diff -y --suppress-common-lines ${USER_HOME}/.bashrc ${USER_HOME}/.bashrc.2
+    mv ${USER_HOME}/.bashrc.2 ${USER_HOME}/.bashrc
   else
     info ">>> BASHRC: No changes detected"
-    mv ${HOME}/.bashrc.2 ${HOME}/.bashrc
+    mv ${USER_HOME}/.bashrc.2 ${USER_HOME}/.bashrc
   fi
 else
   info ">>> BASHRC: No file detected, creating new file"
-  mv ${HOME}/.bashrc.2 ${HOME}/.bashrc
+  mv ${USER_HOME}/.bashrc.2 ${USER_HOME}/.bashrc
 fi

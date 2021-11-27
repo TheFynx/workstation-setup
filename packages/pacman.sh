@@ -199,7 +199,7 @@ OPENBOX='numlockx
   ntfd-bin'
 
 RADEON='lib32-mesa
-  libva-mesa-drivee
+  libva-mesa-driver
   lib32-libva-mesa-driver
   mesa-vdpau
   lib32-mesa-vdpau'

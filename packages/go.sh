@@ -11,14 +11,14 @@ set -o pipefail
 
 source .env
 
-if [ ! -d "${HOME}/.goenv" ]; then
-  git clone https://github.com/syndbg/goenv.git ${HOME}/.goenv >/dev/null 2>&1
+if [ ! -d "${USER_HOME}/.goenv" ]; then
+  git clone https://github.com/syndbg/goenv.git ${USER_HOME}/.goenv >/dev/null 2>&1
 fi
 
 # Set goenv
-if [ -d "${HOME}/.goenv" ]; then
+if [ -d "${USER_HOME}/.goenv" ]; then
   info ">>> Activating GOENV"
-  export GOENV_ROOT="${HOME}/.goenv"
+  export GOENV_ROOT="${USER_HOME}/.goenv"
   export PATH="${GOENV_ROOT}/bin:${PATH}"
 fi
 

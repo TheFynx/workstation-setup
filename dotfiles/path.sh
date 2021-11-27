@@ -13,7 +13,7 @@ set -o pipefail
 
 source .env
 
-cat >"${HOME}/.path.2" <<'EOF'
+cat >"${USER_HOME}/.path.2" <<'EOF'
 # update path
 if [ -d "/usr/share/bcc/tools" ]; then
   export PATH=/usr/share/bcc/tools:${PATH}
@@ -107,17 +107,17 @@ export PATH=$PATH:$HOME/.pulumi/bin
 
 EOF
 
-if [ -f "${HOME}/.path" ]; then
+if [ -f "${USER_HOME}/.path" ]; then
   info ">>> Path: File detected - Looking for changes"
-  if [ -n "$(diff -y --suppress-common-lines ${HOME}/.path ${HOME}/.path.2)" ]; then
+  if [ -n "$(diff -y --suppress-common-lines ${USER_HOME}/.path ${USER_HOME}/.path.2)" ]; then
     info ">>> Path: Changes detected, printing side by side diff"
-    diff -y --suppress-common-lines ${HOME}/.path ${HOME}/.path.2
-    mv ${HOME}/.path.2 ${HOME}/.path
+    diff -y --suppress-common-lines ${USER_HOME}/.path ${USER_HOME}/.path.2
+    mv ${USER_HOME}/.path.2 ${USER_HOME}/.path
   else
     info ">>> Path: No changes detected"
-    mv ${HOME}/.path.2 ${HOME}/.path
+    mv ${USER_HOME}/.path.2 ${USER_HOME}/.path
   fi
 else
   info ">>> Path: No file detected, creating new file"
-  mv ${HOME}/.path.2 ${HOME}/.path
+  mv ${USER_HOME}/.path.2 ${USER_HOME}/.path
 fi

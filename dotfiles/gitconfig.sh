@@ -13,7 +13,7 @@ set -o pipefail
 
 source .env
 
-cat >"${HOME}/.gitconfig.2" <<'EOF'
+cat >"${USER_HOME}/.gitconfig.2" <<'EOF'
 [user]
     name = Levi Smith
     email = levi@fynx.me
@@ -74,17 +74,17 @@ cat >"${HOME}/.gitconfig.2" <<'EOF'
 
 EOF
 
-if [ -f "${HOME}/.gitconfig" ]; then
+if [ -f "${USER_HOME}/.gitconfig" ]; then
   info ">>> GitConfig: File detected - Looking for changes"
-  if [ -n "$(diff -y --suppress-common-lines ${HOME}/.gitconfig ${HOME}/.gitconfig.2)" ]; then
+  if [ -n "$(diff -y --suppress-common-lines ${USER_HOME}/.gitconfig ${USER_HOME}/.gitconfig.2)" ]; then
     info ">>> GitConfig: Changes detected, printing side by side diff"
-    diff -y --suppress-common-lines ${HOME}/.gitconfig ${HOME}/.gitconfig.2
-    mv ${HOME}/.gitconfig.2 ${HOME}/.gitconfig
+    diff -y --suppress-common-lines ${USER_HOME}/.gitconfig ${USER_HOME}/.gitconfig.2
+    mv ${USER_HOME}/.gitconfig.2 ${USER_HOME}/.gitconfig
   else
     info ">>> GitConfig: No changes detected"
-    mv ${HOME}/.gitconfig.2 ${HOME}/.gitconfig
+    mv ${USER_HOME}/.gitconfig.2 ${USER_HOME}/.gitconfig
   fi
 else
   info ">>> GitConfig: No file detected, creating new file"
-  mv ${HOME}/.gitconfig.2 ${HOME}/.gitconfig
+  mv ${USER_HOME}/.gitconfig.2 ${USER_HOME}/.gitconfig
 fi
