@@ -162,7 +162,7 @@ PERIPHERALS='libu2f-host-git
 DESKTOP='polychromatic
   openrazer-meta'
 
-LAPTOP=''
+LAPTOP='efibootmgr'
 
 GAMES='lib32-gnutls
   lib32-libldap
