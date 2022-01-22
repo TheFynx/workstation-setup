@@ -35,6 +35,8 @@ export RED="\\x1b[1;5;33m"
 : ${RUN_CONFIG:='no'}
 : ${NO_PACKAGES:='no'}
 : ${NO_SYSTEM:='no'}
+: ${USER:='levi'}
+: ${GROUP:='levi'}
 
 ##############################################################################
 # Functions
@@ -132,18 +134,22 @@ print_help() {
   echo "-c | Run Dot File Config - config.sh -c - Default: ${RUN_CONFIG}"
   echo "-n | Don't Run Package Installs - config.sh -n - Default: ${NO_PACKAGES}"
   echo "-i | Don't Setup System Level Files - config.sh -c - Default: ${NO_SYSTEM}"
+  echo "-u | Use different user than default - config.sh -u bob - Default: ${USER}"
+  echo "-g | Use different group than default - config.sh -g bob - Default: ${GROUP}"
   echo "-s | Skip a specific section of setup/install - config.sh -s dconf"
   echo "-d | Enable Debug"
   echo "-h | List this help menu"
 }
 
-while getopts z:s:cndih option; do
+while getopts z:s:u:g:cndih option; do
   case "${option}" in
 
   c) export RUN_CONFIG='yes' ;;
   n) export NO_PACKAGES='yes' ;;
   i) export NO_SYSTEM='yes' ;;
   s) export SKIP=${OPTARG} ;;
+  u) export USER=${OPTARG} ;;
+  g) export GROUP=${OPTARG} ;;
   d) export LOG_LEVEL="7" ;;
   h)
     print_help
@@ -186,31 +192,35 @@ read -p "$(query ">>> Workstation Setup: Will this setup use Openbox? y/n (defau
 read -p "$(query ">>> Workstation Setup: Will this setup use VMs? y/n (default n)")" vmAnswer
 read -p "$(query ">>> Workstation Setup: Does this system have a Radeon Card? y/n (default n)")" radeonAnswer
 read -p "$(query ">>> Workstation Setup: Does this system have a NVIDIA Card? y/n (default n)")" nvidiaAnswer
+read -p "$(query ">>> Workstation Setup: Is this a desktop setup? y/n (default n)")" desktopAnswer
+read -p "$(query ">>> Workstation Setup: Is this a laptop setup? y/n (default n)")" laptopAnswer
 
 cat >".env" <<EOF
 #!/usr/bin/env bash
-: \${OPENBOX_ANSWER=$openboxAnswer}
-: \${VM_ANSWER=$vmAnswer}
-: \${RADEON_ANSWER=$radeonAnswer}
-: \${NVIDIA_ANSWER=$nvidiaAnswer}
-: \${RUN_CONFIG:=${RUN_CONFIG}}
-: \${NO_PACKAGES:=${NO_PACKAGES}}
-: \${NO_SYSTEM:=${NO_SYSTEM}}
-: \${USER:='levi'}
-: \${GROUP:='levi'}
-: \${SKIP:=''}
-: \${PACKER_VERSION:='1.7.8'}
-: \${TERRAFORM_VERSION:='0.13.7'}
-: \${TERRAFORM11_VERSION:='0.11.15'}
-: \${TERRAFORM12_VERSION:='0.12.31'}
-: \${RB_VERSION:='3.0.2'}
-: \${NODE_VERSION:='14.18.1'}
-: \${PY_VERSION:='3.10.0'}
-: \${GO_VERSION:='1.17.1'}
-: \${USER_HOME:="/home/\${USER}"}
-: \${INIT_HOME:=\${USER_HOME}/init}
-: \${SCRIPT_LOCATION:=$(dirname $0)}
-: \${GIT_REPO:="https://github.com/TheFynx/workstation-setup.git"}
+export OPENBOX_ANSWER=$openboxAnswer
+export VM_ANSWER=$vmAnswer
+export RADEON_ANSWER=$radeonAnswer
+export NVIDIA_ANSWER=$nvidiaAnswer
+export DESKTOP_ANSWER=$desktopAnswer
+export LAPTOP_ANSWER=$laptopAnswer
+export RUN_CONFIG=${RUN_CONFIG}
+export NO_PACKAGES=${NO_PACKAGES}
+export NO_SYSTEM=${NO_SYSTEM}
+export USER='levi'
+export GROUP='levi'
+export SKIP=''
+export PACKER_VERSION='1.7.8'
+export TERRAFORM_VERSION='0.13.7'
+export TERRAFORM11_VERSION='0.11.15'
+export TERRAFORM12_VERSION='0.12.31'
+export RB_VERSION='3.0.2'
+export NODE_VERSION='14.18.1'
+export PY_VERSION='3.10.0'
+export GO_VERSION='1.17.1'
+export USER_HOME="/home/\${USER}"
+export INIT_HOME=\${USER_HOME}/init
+export SCRIPT_LOCATION=$(dirname $0)
+export GIT_REPO="https://github.com/TheFynx/workstation-setup.git"
 EOF
 
 debug "<<< Sourcing Environment"
@@ -306,10 +316,10 @@ fi
 # Install Hashi Tools
 ###############################################################################
 
-if [ "${NO_PACKAGES}" == "no" ]; then
-  info ">>> Installing Hashicorp Tools"
-  ${INIT_HOME}/workstation-setup/packages/hashi.sh || warning "Hashi install failed to run"
-fi
+# if [ "${NO_PACKAGES}" == "no" ]; then
+#   info ">>> Installing Hashicorp Tools"
+#   ${INIT_HOME}/workstation-setup/packages/hashi.sh || warning "Hashi install failed to run"
+# fi
 
 ###############################################################################
 # Install Fonts
@@ -323,16 +333,17 @@ fi
 ###############################################################################
 # Install Zoom
 ###############################################################################
-if [ "${NO_PACKAGES}" == "no" ]; then
-  info ">>> Installing Zoom"
-  if [ "${PKG}" != "pacman" ]; then
-    ${INIT_HOME}/workstation-setup/packages/zoom.sh || warning "Zoom install failed to run"
-  else
-    info ">>> Zoom installed via Pacman"
-  fi
-else
-  debug "<<< No Packages Returned ${NO_PACKAGES}"
-fi
+# if [ "${NO_PACKAGES}" == "no" ]; then
+#   info ">>> Installing Zoom"
+#   if [ "${PKG}" != "pacman" ]; then
+#     ${INIT_HOME}/workstation-setup/packages/zoom.sh || warning "Zoom install failed to run"
+#   else
+#     info ">>> Zoom installed via Pacman"
+#   fi
+# else
+#   debug "<<< No Packages Returned ${NO_PACKAGES}"
+# fi
+
 ###############################################################################
 # Copy Theming
 ###############################################################################

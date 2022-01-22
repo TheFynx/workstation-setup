@@ -72,7 +72,6 @@ SYSTEM='jq
   unrar
   gzip
   git
-  parallel
   xclip
   rsync
   fd
@@ -102,24 +101,19 @@ DE='pavucontrol
   keybase-gui
   bitwarden
   slack-desktop
-  filezilla
   psensor
   vlc
   etcher-bin
   insomnia
   clipit
-  google-chrome
   brave-bin
   corectrl
-  spotify
-  bluemail
   zoom'
 
 EDITORS='neovim
   visual-studio-code-bin'
 
 TERMINAL='lynx
-  neovim
   alacritty
   hstr
   gitstatus-bin'
@@ -159,14 +153,16 @@ VM='vagrant
   libvirt
   edk2-ovmf'
 
-INFRASTRUCTURE='saml2aws-bin
-  aws-cli-v2-bin
+INFRASTRUCTURE='aws-cli-v2-bin
   pulumi'
 
-PERIPHERALS='polychromatic
-  openrazer-meta
-  libu2f-host-git
+PERIPHERALS='libu2f-host-git
   libfido2'
+
+DESKTOP='polychromatic
+  openrazer-meta'
+
+LAPTOP=''
 
 GAMES='lib32-gnutls
   lib32-libldap
@@ -223,6 +219,14 @@ fi
 
 if [ "${NVIDIA_ANSWER}" == 'y' ]; then
   export PACKAGES="${PACKAGES} ${NVIDIA}"
+fi
+
+if [ "${DESKTOP_ANSWER}" == 'y' ]; then
+  export PACKAGES="${PACKAGES} ${DESKTOP}"
+fi
+
+if [ "${LAPTOP_ANSWER}" == 'y' ]; then
+  export PACKAGES="${PACKAGES} ${LAPTOP}"
 fi
 
 info ">>> Installing Packages"
