@@ -107,8 +107,7 @@ DE='pavucontrol
   insomnia
   clipit
   brave-bin
-  corectrl
-  zoom'
+  corectrl'
 
 EDITORS='neovim
   visual-studio-code-bin'
@@ -127,7 +126,7 @@ FONTS='powerline-fonts
   ttf-ms-fonts
   ttf-weather-icons
   ttf-material-design-icons
-  ttf-octicons'
+  ttf-all-the-icons'
 
 CODING='pyenv
   ruby

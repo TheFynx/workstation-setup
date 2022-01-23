@@ -129,7 +129,7 @@ if [ -f "${USER_HOME}/.aliases" ]; then
   info ">>> Aliases: File detected - Looking for changes"
   if [ -n "$(diff -y --suppress-common-lines ${USER_HOME}/.aliases ${USER_HOME}/.aliases.2)" ]; then
     info ">>> Aliases: Changes detected, printing side by side diff"
-    diff -y --suppress-common-lines ${USER_HOME}/.aliases ${USER_HOME}/.aliases.2
+    diff -y --suppress-common-lines ${USER_HOME}/.aliases ${USER_HOME}/.aliases.2 || true
     mv ${USER_HOME}/.aliases.2 ${USER_HOME}/.aliases
   else
     info ">>> Aliases: No changes detected"

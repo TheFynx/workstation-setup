@@ -24,7 +24,7 @@ if [ -f "${USER_HOME}/.bash_profile" ]; then
   info ">>> BASH Profile: File detected - Looking for changes"
   if [ -n "$(diff -y --suppress-common-lines ${USER_HOME}/.bash_profile ${USER_HOME}/.bash_profile.2)" ]; then
     info ">>> BASH Profile: Changes detected, printing side by side diff"
-    diff -y --suppress-common-lines ${USER_HOME}/.bash_profile ${USER_HOME}/.bash_profile.2
+    diff -y --suppress-common-lines ${USER_HOME}/.bash_profile ${USER_HOME}/.bash_profile.2 || true
     mv ${USER_HOME}/.bash_profile.2 ${USER_HOME}/.bash_profile
   else
     info ">>> BASH Profile: No changes detected"

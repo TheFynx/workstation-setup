@@ -29,6 +29,7 @@ window:
    y: 5
   decorations: none
   startup_mode: Windowed
+  opacity: 0.85
 scrolling:
   history: 100000
 selection:
@@ -36,7 +37,6 @@ selection:
   save_to_clipboard: true
 cursor:
   style: Beam
-background_opacity: 0.85
 live_config_reload: true
 EOF
 
@@ -44,7 +44,7 @@ if [ -f "${USER_HOME}/.config/alacritty/alacritty.yml" ]; then
   info ">>> Alacritty: File detected - Looking for changes"
   if [ -n "$(diff -y --suppress-common-lines ${USER_HOME}/.config/alacritty/alacritty.yml ${USER_HOME}/.config/alacritty/alacritty.yml.2)" ]; then
     info ">>> Alacritty: Changes detected, printing side by side diff"
-    diff -y --suppress-common-lines ${USER_HOME}/.config/alacritty/alacritty.yml ${USER_HOME}/.config/alacritty/alacritty.yml.2
+    diff -y --suppress-common-lines ${USER_HOME}/.config/alacritty/alacritty.yml ${USER_HOME}/.config/alacritty/alacritty.yml.2 || true
     mv ${USER_HOME}/.config/alacritty/alacritty.yml.2 ${USER_HOME}/.config/alacritty/alacritty.yml
   else
     info ">>> Alacritty: No changes detected"
@@ -85,22 +85,22 @@ colors:
     yellow:  '#f1db62'
 EOF
 
-if [ -f "${USER_HOME}/.config/alacritty/colors.yaml" ]; then
+if [ -f "${USER_HOME}/.config/alacritty/colors.yml" ]; then
   info ">>> Alacritty Colors: File detected - Looking for changes"
-  if [ -n "$(diff -y --suppress-common-lines ${USER_HOME}/.config/alacritty/colors.yaml ${USER_HOME}/.config/alacritty/colors.yaml.2)" ]; then
+  if [ -n "$(diff -y --suppress-common-lines ${USER_HOME}/.config/alacritty/colors.yml ${USER_HOME}/.config/alacritty/colors.yml.2)" ]; then
     info ">>> Alacritty Colors: Changes detected, printing side by side diff"
-    diff -y --suppress-common-lines ${USER_HOME}/.config/alacritty/colors.yaml ${USER_HOME}/.config/alacritty/colors.yaml.2
-    mv ${USER_HOME}/.config/alacritty/colors.yaml.2 ${USER_HOME}/.config/alacritty/colors.yaml
+    diff -y --suppress-common-lines ${USER_HOME}/.config/alacritty/colors.yml ${USER_HOME}/.config/alacritty/colors.yml.2
+    mv ${USER_HOME}/.config/alacritty/colors.yml.2 ${USER_HOME}/.config/alacritty/colors.yml
   else
     info ">>> Alacritty Colors: No changes detected"
-    mv ${USER_HOME}/.config/alacritty/colors.yaml.2 ${USER_HOME}/.config/alacritty/colors.yaml
+    mv ${USER_HOME}/.config/alacritty/colors.yml.2 ${USER_HOME}/.config/alacritty/colors.yml
   fi
 else
   info ">>> Alacritty Colors: No file detected, creating new file"
-  mv ${USER_HOME}/.config/alacritty/colors.yaml.2 ${USER_HOME}/.config/alacritty/colors.yaml
+  mv ${USER_HOME}/.config/alacritty/colors.yml.2 ${USER_HOME}/.config/alacritty/colors.yml
 fi
 
-cat >"${USER_HOME}/.config/alacritty/fonts.yaml.2" <<'EOF'
+cat >"${USER_HOME}/.config/alacritty/fonts.yml.2" <<'EOF'
 font:
   normal:
     family: "SauceCodePro Nerd Font Mono"
@@ -113,19 +113,19 @@ font:
   size: 12
 EOF
 
-if [ -f "${USER_HOME}/.config/alacritty/fonts.yaml" ]; then
+if [ -f "${USER_HOME}/.config/alacritty/fonts.yml" ]; then
   info ">>> Alacritty Fonts: File detected - Looking for changes"
-  if [ -n "$(diff -y --suppress-common-lines ${USER_HOME}/.config/alacritty/fonts.yaml ${USER_HOME}/.config/alacritty/fonts.yaml.2)" ]; then
+  if [ -n "$(diff -y --suppress-common-lines ${USER_HOME}/.config/alacritty/fonts.yml ${USER_HOME}/.config/alacritty/fonts.yml.2)" ]; then
     info ">>> Alacritty Fonts: Changes detected, printing side by side diff"
-    diff -y --suppress-common-lines ${USER_HOME}/.config/alacritty/fonts.yaml ${USER_HOME}/.config/alacritty/fonts.yaml.2
-    mv ${USER_HOME}/.config/alacritty/fonts.yaml.2 ${USER_HOME}/.config/alacritty/fonts.yaml
+    diff -y --suppress-common-lines ${USER_HOME}/.config/alacritty/fonts.yml ${USER_HOME}/.config/alacritty/fonts.yml.2
+    mv ${USER_HOME}/.config/alacritty/fonts.yml.2 ${USER_HOME}/.config/alacritty/fonts.yml
   else
     info ">>> Alacritty Fonts: No changes detected"
-    mv ${USER_HOME}/.config/alacritty/fonts.yaml.2 ${USER_HOME}/.config/alacritty/fonts.yaml
+    mv ${USER_HOME}/.config/alacritty/fonts.yml.2 ${USER_HOME}/.config/alacritty/fonts.yml
   fi
 else
   info ">>> Alacritty Fonts: No file detected, creating new file"
-  mv ${USER_HOME}/.config/alacritty/fonts.yaml.2 ${USER_HOME}/.config/alacritty/fonts.yaml
+  mv ${USER_HOME}/.config/alacritty/fonts.yml.2 ${USER_HOME}/.config/alacritty/fonts.yml
 fi
 
 ### Archived

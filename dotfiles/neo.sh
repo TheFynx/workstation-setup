@@ -29,7 +29,7 @@ if [ -f "${USER_HOME}/.config/nvim/init.vim" ]; then
   info ">>> NEOVIM: File detected - Looking for changes"
   if [ -n "$(diff -y --suppress-common-lines ${USER_HOME}/.config/nvim/init.vim ${USER_HOME}/.config/nvim/init.vim.2)" ]; then
     info ">>> NEOVIM: Changes detected, printing side by side diff"
-    diff -y --suppress-common-lines ${USER_HOME}/.config/nvim/init.vim ${USER_HOME}/.config/nvim/init.vim.2
+    diff -y --suppress-common-lines ${USER_HOME}/.config/nvim/init.vim ${USER_HOME}/.config/nvim/init.vim.2 || true
     mv ${USER_HOME}/.config/nvim/init.vim.2 ${USER_HOME}/.config/nvim/init.vim
   else
     info ">>> NEOVIM: No changes detected"

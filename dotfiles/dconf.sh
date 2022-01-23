@@ -348,7 +348,7 @@ if [ -f "${USER_HOME}/.custom/dconf" ]; then
   info ">>> DCONF: File detected - Looking for changes"
   if [ -n "$(diff -y --suppress-common-lines ${USER_HOME}/.custom/dconf ${USER_HOME}/.custom/dconf.2)" ]; then
     info ">>> DCONF: Changes detected, printing side by side diff"
-    diff -y --suppress-common-lines ${USER_HOME}/.custom/dconf ${USER_HOME}/.custom/dconf.2
+    diff -y --suppress-common-lines ${USER_HOME}/.custom/dconf ${USER_HOME}/.custom/dconf.2 || true
     mv ${USER_HOME}/.custom/dconf.2 ${USER_HOME}/.custom/dconf
     dconf load / <${USER_HOME}/.custom/dconf
   else

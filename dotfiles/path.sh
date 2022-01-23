@@ -111,7 +111,7 @@ if [ -f "${USER_HOME}/.path" ]; then
   info ">>> Path: File detected - Looking for changes"
   if [ -n "$(diff -y --suppress-common-lines ${USER_HOME}/.path ${USER_HOME}/.path.2)" ]; then
     info ">>> Path: Changes detected, printing side by side diff"
-    diff -y --suppress-common-lines ${USER_HOME}/.path ${USER_HOME}/.path.2
+    diff -y --suppress-common-lines ${USER_HOME}/.path ${USER_HOME}/.path.2 || true
     mv ${USER_HOME}/.path.2 ${USER_HOME}/.path
   else
     info ">>> Path: No changes detected"

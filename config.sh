@@ -194,8 +194,8 @@ info ">>> Workstation Setup: Initiating"
 # Create Environment File
 ###############################################################################
 
-read -p `query ">>> Workstation Setup: Will this setup use Openbox? y/n (default n)"` openboxAnswer
-read -p `query ">>> Workstation Setup: Will this setup use VMs? y/n (default n)"` vmAnswer
+read -p "$(query ">>> Workstation Setup: Will this setup use Openbox? y/n (default n)")" openboxAnswer
+read -p "$(query ">>> Workstation Setup: Will this setup use VMs? y/n (default n)")" vmAnswer
 read -p "$(query ">>> Workstation Setup: Does this system have a Radeon Card? y/n (default n)")" radeonAnswer
 read -p "$(query ">>> Workstation Setup: Does this system have a NVIDIA Card? y/n (default n)")" nvidiaAnswer
 read -p "$(query ">>> Workstation Setup: Is this a desktop setup? y/n (default n)")" desktopAnswer

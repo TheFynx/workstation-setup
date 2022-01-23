@@ -58,7 +58,7 @@ if [ -f "${USER_HOME}/.gitignore" ]; then
   info ">>> GitIgnore: File detected - Looking for changes"
   if [ -n "$(diff -y --suppress-common-lines ${USER_HOME}/.gitignore ${USER_HOME}/.gitignore.2)" ]; then
     info ">>> GitIgnore: Changes detected, printing side by side diff"
-    diff -y --suppress-common-lines ${USER_HOME}/.gitignore ${USER_HOME}/.gitignore.2
+    diff -y --suppress-common-lines ${USER_HOME}/.gitignore ${USER_HOME}/.gitignore.2 || true
     mv ${USER_HOME}/.gitignore.2 ${USER_HOME}/.gitignore
   else
     info ">>> GitIgnore: No changes detected"

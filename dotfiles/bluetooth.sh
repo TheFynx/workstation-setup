@@ -28,7 +28,7 @@ if [ -f "/etc/bluetooth/main.conf" ]; then
   info ">>> Bluetooth: File detected - Looking for changes"
   if [ -n "$(diff -y --suppress-common-lines /etc/bluetooth/main.conf ${USER_HOME}/.custom/bluetooth_main.conf)" ]; then
     info ">>> Bluetooth: Changes detected, printing side by side diff"
-    diff -y --suppress-common-lines /etc/bluetooth/main.conf ${USER_HOME}/.custom/bluetooth_main.conf
+    diff -y --suppress-common-lines /etc/bluetooth/main.conf ${USER_HOME}/.custom/bluetooth_main.conf || true
     sudo mv ${USER_HOME}/.custom/bluetooth_main.conf /etc/bluetooth/main.conf
   else
     info ">>> Bluetooth: No changes detected"

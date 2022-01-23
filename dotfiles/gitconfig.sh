@@ -78,7 +78,7 @@ if [ -f "${USER_HOME}/.gitconfig" ]; then
   info ">>> GitConfig: File detected - Looking for changes"
   if [ -n "$(diff -y --suppress-common-lines ${USER_HOME}/.gitconfig ${USER_HOME}/.gitconfig.2)" ]; then
     info ">>> GitConfig: Changes detected, printing side by side diff"
-    diff -y --suppress-common-lines ${USER_HOME}/.gitconfig ${USER_HOME}/.gitconfig.2
+    diff -y --suppress-common-lines ${USER_HOME}/.gitconfig ${USER_HOME}/.gitconfig.2 || true
     mv ${USER_HOME}/.gitconfig.2 ${USER_HOME}/.gitconfig
   else
     info ">>> GitConfig: No changes detected"

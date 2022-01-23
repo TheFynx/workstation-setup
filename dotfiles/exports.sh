@@ -72,7 +72,7 @@ if [ -f "${USER_HOME}/.exports" ]; then
   info ">>> Exports: File detected - Looking for changes"
   if [ -n "$(diff -y --suppress-common-lines ${USER_HOME}/.exports ${USER_HOME}/.exports.2)" ]; then
     info ">>> Exports: Changes detected, printing side by side diff"
-    diff -y --suppress-common-lines ${USER_HOME}/.exports ${USER_HOME}/.exports.2
+    diff -y --suppress-common-lines ${USER_HOME}/.exports ${USER_HOME}/.exports.2 || true
     mv ${USER_HOME}/.exports.2 ${USER_HOME}/.exports
   else
     info ">>> Exports: No changes detected"

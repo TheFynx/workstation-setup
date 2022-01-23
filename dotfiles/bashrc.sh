@@ -67,7 +67,7 @@ if [ -f "${USER_HOME}/.bashrc" ]; then
   info ">>> BASHRC: File detected - Looking for changes"
   if [ -n "$(diff -y --suppress-common-lines ${USER_HOME}/.bashrc ${USER_HOME}/.bashrc.2)" ]; then
     info ">>> BASHRC: Changes detected, printing side by side diff"
-    diff -y --suppress-common-lines ${USER_HOME}/.bashrc ${USER_HOME}/.bashrc.2
+    diff -y --suppress-common-lines ${USER_HOME}/.bashrc ${USER_HOME}/.bashrc.2 || true
     mv ${USER_HOME}/.bashrc.2 ${USER_HOME}/.bashrc
   else
     info ">>> BASHRC: No changes detected"

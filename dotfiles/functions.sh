@@ -81,7 +81,7 @@ if [ -f "${USER_HOME}/.functions" ]; then
   info ">>> Functions: File detected - Looking for changes"
   if [ -n "$(diff -y --suppress-common-lines ${USER_HOME}/.functions ${USER_HOME}/.functions.2)" ]; then
     info ">>> Functions: Changes detected, printing side by side diff"
-    diff -y --suppress-common-lines ${USER_HOME}/.functions ${USER_HOME}/.functions.2
+    diff -y --suppress-common-lines ${USER_HOME}/.functions ${USER_HOME}/.functions.2 || true
     mv ${USER_HOME}/.functions.2 ${USER_HOME}/.functions
   else
     info ">>> Functions: No changes detected"
