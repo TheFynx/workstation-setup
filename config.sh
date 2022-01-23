@@ -37,6 +37,12 @@ export RED="\\x1b[1;5;33m"
 : ${NO_SYSTEM:='no'}
 : ${USER:='levi'}
 : ${GROUP:='levi'}
+: ${openboxAnswer:=''}
+: ${vmAnswer:=''}
+: ${radeonAnswer:=''}
+: ${nvidiaAnswer:=''}
+: ${desktopAnswer:=''}
+: ${laptopAnswer:=''}
 
 ##############################################################################
 # Functions
