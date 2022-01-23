@@ -107,6 +107,9 @@ DE='pavucontrol
   insomnia
   clipit
   brave-bin
+  vivaldi
+  vivaldi-widevine
+  vivaldi-ffmpeg-codecs
   corectrl'
 
 EDITORS='neovim
@@ -146,7 +149,6 @@ VM='vagrant
   bridge-utils
   virt-manager
   ebtables-git
-  iptables
   dnsmasq
   qemu
   libvirt
